@@ -54,6 +54,6 @@ public class TestDelBuscador {
   @Test
   public void pruebaDeSeparadorDePalabras() {
     String[] _separarPalabras = this.buscador.separarPalabras("palabra1 palabra2 palabra3");
-    Assert.assertEquals(_separarPalabras, new Object[] { "palabra1", "palabra2", "palabra3" });
+    Assert.assertArrayEquals(_separarPalabras, new Object[] { "palabra1", "palabra2", "palabra3" });
   }
 }
