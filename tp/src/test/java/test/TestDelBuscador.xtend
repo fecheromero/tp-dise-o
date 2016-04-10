@@ -7,7 +7,8 @@ import org.uqbar.geodds.Point
 import org.uqbar.geodds.Polygon
 import java.util.List
 import java.util.Set
-
+import java.util.TreeSet
+import java.util.HashSet
 
 public class TestDelBuscador {
 	Buscador buscador
@@ -21,7 +22,7 @@ public class TestDelBuscador {
     CGP unCGP
     ParadaDeColectivo _114
     LibreriaEscolar unaLibreria
-    Set<PuntoDeInteres> unSorteaditoDePuntos
+    HashSet<PuntoDeInteres> unSorteaditoDePuntos
 	@Before
 	def void setUp()
 	{  string1="muebleria"
@@ -34,8 +35,10 @@ public class TestDelBuscador {
 	  unCGP=new CGP(#[new Servicio("asistencia Social")],new Direccion("calle sarmiento","2142",#["san Martin","Belgrano"],new Point(4,6),"bs as","Buenos Aires",almagro,"1881","","",""),"Centro de gestion y participacion")
 	  _114=new ParadaDeColectivo(new Direccion("Mozart","1919",#["Dellepiane","Otra calle"],new Point(1,2),"bs as","Buenos Aires",lugano,"1422","","",""),"Parada colectivo 114") 
 	  unaLibreria=new LibreriaEscolar(new Direccion("calle 848","2114",#["893","892"],new Point(6,2),"bs as","Buenos Aires",almagro,"1881","","",""),"libreria don Pepito")
-	 //unSorteaditoDePuntos.addAll(unaLibreria,_114,unCGP)
+	 unSorteaditoDePuntos=new HashSet<PuntoDeInteres>
+	 unSorteaditoDePuntos.addAll(#[unaLibreria,_114,unCGP])
 	 buscador=new Buscador()
+	 buscador.puntos=unSorteaditoDePuntos
 	}
 	@Test
 	def void comprarMuebleriaConMueble()
@@ -53,6 +56,11 @@ public class TestDelBuscador {
 	@Test
 	def void pruebaDeSeparadorDePalabras(){
 		Assert.assertArrayEquals(buscador.separarPalabras("palabra1 palabra2 palabra3"),#["palabra1","palabra2","palabra3"])
+	}
+	
+	@Test
+	def void listaDeTagsDe_114(){
+		Assert.assertEquals(" ",_114.listaDeTags())
 	}
 	@Test
 	def void pruebaDeBusquedaLibreriaDonPepitoEnUnSoreaditoDePuntos(){

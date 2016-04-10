@@ -5,8 +5,9 @@ import dominio.PuntoDeInteres;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+import org.eclipse.xtend.lib.annotations.Accessors;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
@@ -15,13 +16,14 @@ import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
 import org.eclipse.xtext.xbase.lib.Pure;
 
+@Accessors
 @SuppressWarnings("all")
 public class Buscador {
-  private Buscador yo = this;
+  private final Buscador yo = this;
   
   private final static List<String> palabrasInutiles = Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("a", "ante", "cabe", "con", "contra", "de", "desde", "en", "entre", "para", "por", "segun", "sin", "sobre", "tras", "durante", "mediante", "el", "las", "los", "la"));
   
-  private Set<PuntoDeInteres> puntos;
+  private HashSet<PuntoDeInteres> puntos;
   
   public boolean esPalabraInutil(final String str1) {
     final Function1<String, Boolean> _function = new Function1<String, Boolean>() {
@@ -238,5 +240,19 @@ public class Buscador {
   public PuntoDeInteres[] topTenDePuntos(final String str1) {
     Collection<PuntoDeInteres> _ordenarPuntosSegunSemejanzaA = this.ordenarPuntosSegunSemejanzaA(str1);
     return ((PuntoDeInteres[])Conversions.unwrapArray(IterableExtensions.<PuntoDeInteres>take(_ordenarPuntosSegunSemejanzaA, 10), PuntoDeInteres.class));
+  }
+  
+  @Pure
+  public Buscador getYo() {
+    return this.yo;
+  }
+  
+  @Pure
+  public HashSet<PuntoDeInteres> getPuntos() {
+    return this.puntos;
+  }
+  
+  public void setPuntos(final HashSet<PuntoDeInteres> puntos) {
+    this.puntos = puntos;
   }
 }

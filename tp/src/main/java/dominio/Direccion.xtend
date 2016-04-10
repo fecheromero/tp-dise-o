@@ -3,6 +3,8 @@ package dominio
 import java.util.ArrayList
 import org.uqbar.geodds.Point
 import org.eclipse.xtend.lib.annotations.Accessors
+import java.util.HashSet
+
 @Accessors
 class Direccion {
 	
@@ -34,7 +36,7 @@ class Direccion {
 	
 	def String listaDeTags(){
 		var String lista=""
-		lista.concat(this.callePrincipal).concat(this.numero).concat(this.entre.get(1)).concat(this.entre.get(2)).concat(this.localidad).concat(this.provincia).concat(this.comuna.listaDeTags()).concat(this.codigoPostal).concat(this.piso).concat(this.departamento).concat(this.unidad)
+		lista.concat(#[this.callePrincipal,this.numero,this.entre.get(1),this.entre.get(2),this.localidad,this.provincia,this.comuna.listaDeTags(),this.codigoPostal,this.piso,this.departamento,this.unidad].fold("",[palabra1,palabra2 | palabra1.concat(palabra2)]))
 	}
 	def Point getCoordenadas() {
 		

@@ -10,7 +10,7 @@ import dominio.PuntoDeInteres;
 import dominio.Servicio;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Set;
+import java.util.HashSet;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
@@ -44,7 +44,7 @@ public class TestDelBuscador {
   
   private LibreriaEscolar unaLibreria;
   
-  private Set<PuntoDeInteres> unSorteaditoDePuntos;
+  private HashSet<PuntoDeInteres> unSorteaditoDePuntos;
   
   @Before
   public void setUp() {
@@ -76,8 +76,12 @@ public class TestDelBuscador {
     Direccion _direccion_2 = new Direccion("calle 848", "2114", new String[] { "893", "892" }, _point_6, "bs as", "Buenos Aires", this.almagro, "1881", "", "", "");
     LibreriaEscolar _libreriaEscolar = new LibreriaEscolar(_direccion_2, "libreria don Pepito");
     this.unaLibreria = _libreriaEscolar;
+    HashSet<PuntoDeInteres> _hashSet = new HashSet<PuntoDeInteres>();
+    this.unSorteaditoDePuntos = _hashSet;
+    this.unSorteaditoDePuntos.addAll(Collections.<PuntoDeInteres>unmodifiableList(CollectionLiterals.<PuntoDeInteres>newArrayList(this.unaLibreria, this._114, this.unCGP)));
     Buscador _buscador = new Buscador();
     this.buscador = _buscador;
+    this.buscador.setPuntos(this.unSorteaditoDePuntos);
   }
   
   @Test
@@ -102,6 +106,12 @@ public class TestDelBuscador {
   public void pruebaDeSeparadorDePalabras() {
     String[] _separarPalabras = this.buscador.separarPalabras("palabra1 palabra2 palabra3");
     Assert.assertArrayEquals(_separarPalabras, new Object[] { "palabra1", "palabra2", "palabra3" });
+  }
+  
+  @Test
+  public void listaDeTagsDe_114() {
+    String _listaDeTags = this._114.listaDeTags();
+    Assert.assertEquals(" ", _listaDeTags);
   }
   
   @Test

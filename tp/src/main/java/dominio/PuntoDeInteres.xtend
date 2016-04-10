@@ -3,19 +3,21 @@ package dominio
 import org.uqbar.geodds.Point
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
+import java.lang.reflect.Array
+import java.util.ArrayList
+import java.util.HashSet
 
 @Accessors
 public abstract class PuntoDeInteres {
 
 	Direccion direccion
 	String nombre
-	String tipo
 	static double FACTOR_CONVERSION = 0.001
 	static double DISTANCIA_MAXIMA = 500
 
 	public def String listaDeTags() {
-		var String lista = ""
-		lista.concat(this.nombre).concat(this.direccion.listaDeTags())
+		var String lista =""
+		lista.concat(#[this.nombre,this.direccion.listaDeTags()].fold("",[palabra1,palabra2|palabra1.concat(palabra2)]))
 	}
 
 	def boolean estaCercaDe(Point coordenadasDestino) {
