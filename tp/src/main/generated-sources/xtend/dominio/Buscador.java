@@ -225,8 +225,8 @@ public class Buscador {
         int _xifexpression = (int) 0;
         int _puntajeTotalDelPunto = Buscador.this.yo.puntajeTotalDelPunto(p1, str1);
         int _puntajeTotalDelPunto_1 = Buscador.this.yo.puntajeTotalDelPunto(p2, str1);
-        boolean _lessThan = (_puntajeTotalDelPunto < _puntajeTotalDelPunto_1);
-        if (_lessThan) {
+        boolean _greaterThan = (_puntajeTotalDelPunto > _puntajeTotalDelPunto_1);
+        if (_greaterThan) {
           _xifexpression = 1;
         } else {
           _xifexpression = (-1);

@@ -17,7 +17,7 @@ public abstract class PuntoDeInteres {
 
 	public def String listaDeTags() {
 		var String lista =""
-		lista.concat(#[this.nombre,this.direccion.listaDeTags()].fold("",[palabra1,palabra2|palabra1.concat(palabra2)]))
+		lista.concat(#[this.nombre,this.direccion.listaDeTags()].fold("",[palabra1,palabra2|palabra1.concat(" ").concat(palabra2)]))
 	}
 
 	def boolean estaCercaDe(Point coordenadasDestino) {

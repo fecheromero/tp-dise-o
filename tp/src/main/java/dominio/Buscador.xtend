@@ -83,7 +83,7 @@ public class Buscador {
 	{if(this.puntajeTotalDelPunto(punto1, str1)<this.puntajeTotalDelPunto(punto2,str1)) punto1 else punto2}	
 	
 	def Collection<PuntoDeInteres> ordenarPuntosSegunSemejanzaA(String str1){
-		puntos.filter[this.separarPalabras(it.listaDeTags()).exists[this.sonParecidas(str1,it)]].sort[p1,p2|if(yo.puntajeTotalDelPunto(p1,str1)<yo.puntajeTotalDelPunto(p2,str1)) 1 else -1]
+		puntos.filter[this.separarPalabras(it.listaDeTags()).exists[this.sonParecidas(str1,it)]].sort[p1,p2|if(yo.puntajeTotalDelPunto(p1,str1)>yo.puntajeTotalDelPunto(p2,str1)) 1 else -1]
 	}
 	def PuntoDeInteres[] topTenDePuntos(String str1){
 		this.ordenarPuntosSegunSemejanzaA(str1).take(10)

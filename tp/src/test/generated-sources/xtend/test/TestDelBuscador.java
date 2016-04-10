@@ -109,15 +109,16 @@ public class TestDelBuscador {
   }
   
   @Test
-  public void listaDeTagsDe_114() {
-    String _listaDeTags = this._114.listaDeTags();
-    Assert.assertEquals(" ", _listaDeTags);
-  }
-  
-  @Test
   public void pruebaDeBusquedaLibreriaDonPepitoEnUnSoreaditoDePuntos() {
     PuntoDeInteres[] _pTenDePuntos = this.buscador.topTenDePuntos("libreria don Pepito");
     Iterable<Object> _take = IterableExtensions.<Object>take(((Iterable<Object>)Conversions.doWrapArray(_pTenDePuntos)), 1);
     Assert.assertArrayEquals(((Object[])Conversions.unwrapArray(_take, Object.class)), new Object[] { this.unaLibreria });
+  }
+  
+  @Test
+  public void pruebaDeBusquedaParadaDel114() {
+    PuntoDeInteres[] _pTenDePuntos = this.buscador.topTenDePuntos("114");
+    Iterable<Object> _take = IterableExtensions.<Object>take(((Iterable<Object>)Conversions.doWrapArray(_pTenDePuntos)), 1);
+    Assert.assertArrayEquals(((Object[])Conversions.unwrapArray(_take, Object.class)), new Object[] { this._114 });
   }
 }

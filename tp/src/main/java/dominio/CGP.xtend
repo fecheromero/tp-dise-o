@@ -16,7 +16,7 @@ public class CGP extends PuntoDeInteres {
 
 	override String listaDeTags() {
 
-		super.listaDeTags().concat(servicios.map[servicio|servicio.listaDeTags()].toString())
+		super.listaDeTags().concat(" ".concat(servicios.map[servicio|servicio.listaDeTags()].toString()))
 	}
 
 	override boolean estaCercaDe(Point coordenadasDestino) {

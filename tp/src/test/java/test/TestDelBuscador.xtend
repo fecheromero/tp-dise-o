@@ -59,11 +59,11 @@ public class TestDelBuscador {
 	}
 	
 	@Test
-	def void listaDeTagsDe_114(){
-		Assert.assertEquals(" ",_114.listaDeTags())
-	}
-	@Test
 	def void pruebaDeBusquedaLibreriaDonPepitoEnUnSoreaditoDePuntos(){
 		Assert.assertArrayEquals(buscador.topTenDePuntos("libreria don Pepito").take(1),#[unaLibreria])
+	}
+	@Test
+	def void pruebaDeBusquedaParadaDel114(){
+		Assert.assertArrayEquals(buscador.topTenDePuntos("114").take(1),#[_114])
 	}
 }

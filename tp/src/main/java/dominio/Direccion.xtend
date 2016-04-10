@@ -36,7 +36,7 @@ class Direccion {
 	
 	def String listaDeTags(){
 		var String lista=""
-		lista.concat(#[this.callePrincipal,this.numero,this.entre.get(1),this.entre.get(2),this.localidad,this.provincia,this.comuna.listaDeTags(),this.codigoPostal,this.piso,this.departamento,this.unidad].fold("",[palabra1,palabra2 | palabra1.concat(palabra2)]))
+		lista.concat(#[this.callePrincipal,this.numero,this.entre.get(0),this.entre.get(1),this.localidad,this.provincia,this.comuna.listaDeTags(),this.codigoPostal,this.piso,this.departamento,this.unidad].fold("",[palabra1,palabra2 | palabra1.concat(" ").concat(palabra2)]))
 	}
 	def Point getCoordenadas() {
 		
