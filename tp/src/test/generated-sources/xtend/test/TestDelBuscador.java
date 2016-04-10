@@ -1,6 +1,9 @@
 package test;
 
 import dominio.Buscador;
+import java.util.Collection;
+import java.util.Collections;
+import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,5 +43,17 @@ public class TestDelBuscador {
   public void laMasParecida() {
     String _seleccionarLaMasParecida = this.buscador.seleccionarLaMasParecida(this.string2, new String[] { this.string1, this.string3, this.string4, this.string5 });
     Assert.assertEquals(_seleccionarLaMasParecida, this.string1);
+  }
+  
+  @Test
+  public void pruebaDeOrdenador() {
+    Collection<Integer> _ordenador = this.buscador.ordenador(Collections.<Integer>unmodifiableList(CollectionLiterals.<Integer>newArrayList(Integer.valueOf(3), Integer.valueOf(2), Integer.valueOf(4), Integer.valueOf(1))));
+    Assert.assertEquals(_ordenador, Collections.<Integer>unmodifiableList(CollectionLiterals.<Integer>newArrayList(Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3), Integer.valueOf(4))));
+  }
+  
+  @Test
+  public void pruebaDeSeparadorDePalabras() {
+    String[] _separarPalabras = this.buscador.separarPalabras("palabra1 palabra2 palabra3");
+    Assert.assertEquals(_separarPalabras, new Object[] { "palabra1", "palabra2", "palabra3" });
   }
 }

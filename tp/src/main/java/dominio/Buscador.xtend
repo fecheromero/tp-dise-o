@@ -1,6 +1,13 @@
 package dominio
 
+import java.util.Collection
+import java.util.Comparator
+
 public class Buscador {
+	var yo=this
+	val palabrasInutiles=#["a","ante","cabe","con","contra","de","desde","en","entre","para","por","segun","sin","sobre","tras","durante","mediante","el","las","los","la"]
+	def boolean esPalabraInutil(String str1)
+	{palabrasInutiles.exists[it==str1]}
 	def String masParecido(String str1, String str2, String str3) {
 		if(this.levenshtein(str1, str3) > this.levenshtein(str2, str3)) str2 else str1
 	}
@@ -45,36 +52,71 @@ public class Buscador {
 		return levenshtein(str1.toCharArray(), str2.toCharArray());
 	}
 
-	def String[] separarPalabras(String str1) {
-		var char[] cadena = str1.toCharArray()
-		var int longitud = cadena.length
-		var String[] listaDePalabras
-
-		var char[] palabra
-		var int puntero
-		for (var int i = 0; i <= longitud; i++) {
-			if (cadena.get(i) == ' ') {
-				listaDePalabras.add(palabra.toString())
-				puntero = 0
-				i++
-			} else {
-				palabra.set(puntero, cadena.get(i))
-				i++
-				puntero++
-			}
-		}
-		if(puntero != 0) listaDePalabras.add(palabra.toString())
-		return listaDePalabras
-	}
+	def String[] separarPalabras(String s){
+        var int ind = 0
+        var char[] palabra
+        var intP=0
+        var String[] partes
+        for (var int i = 0; i <= s.length(); i++) {
+            if (s.charAt(i) == ' ') {
+              partes.set(ind,palabra.toString()) 
+              palabra.clear
+              ind++ 
+              intP=0
+            }
+            else {palabra.set(intP,s.charAt(i))
+            	intP++        	
+            }
+        }
+        return partes // Devolvemos las partes
+    } /*{
+		 var String[] lista=#[]
+		 var char[] palabra=#[]
+		 var int indice
+		
+		 for(var int i;i<=s.length;i++){
+		 	if(s.charAt(i)!=' '){palabra.set(indice,s.charAt(i)) indice++}
+		 	else {indice=0
+		 	lista.add(palabra.toString)
+		 	palabra=#[]}
+		 }    
+		 if(indice!=0) lista.add(palabra.toString)
+		 return lista
+		 }	*/
+ 
 
 	def boolean sonParecidas(String str1, String str2) {
 		var int limitador
-		if(str1.length < str2.length) limitador = str1.length else limitador = str2.length
+		if(str1.length < str2.length) limitador = str2.length else limitador = str1.length
 		levenshtein(str1, str2) < limitador
-	}
-
+	 }
+	 
+	 
+	 def Collection<Integer> ordenador(Collection<Integer> numeros)
+	 {     
+	   numeros.sort[num1,num2|if(num1>num2) 1 else -1]
+	  }
 	def String seleccionarLaMasParecida(String str, String[] palabras) {
 		palabras.filter[this.sonParecidas(it, str)].fold(" ", [palabra1, palabra2|masParecido(palabra1, palabra2, str)])
-
 	}
-}
+	def int puntajeTotalDelPunto(Poi unPunto,String str1)
+	{
+		this.separarPalabras(str1).map[this.levenshtein(this.seleccionarLaMasParecida(it, unPunto.listaDeTags()),it)].fold(0,[num1, num2| (num1+num2)])
+	}
+	def Poi puntoMasSemejanteA(String str1, Poi punto1,Poi punto2)
+	{if(this.puntajeTotalDelPunto(punto1, str1)<this.puntajeTotalDelPunto(punto2,str1)) punto1 else punto2}	
+	def Collection<Poi> OrdenarPuntosSegunSemejansaA(String str1, Collection<Poi> puntos){
+		puntos.filter[it.listaDeTags().exists[this.sonParecidas(str1,it)]].sort[p1,p2|if(yo.puntajeTotalDelPunto(p1,str1)<yo.puntajeTotalDelPunto(p2,str1)) 1 else -1]
+	}	
+	}
+	
+	/*public class CreadorDeComparadoresDePuntos{
+		def Comparator<Poi> crearComparador(String str1, Buscador buscador){
+			new Comparator<Poi>(){
+				public override int compare(Poi p1,Poi p2){
+					if(buscador.puntajeTotalDelPunto(p1,str1)<buscador.puntajeTotalDelPunto(p2,str1)) 1 else -1}
+			}
+		}*/
+	
+
+

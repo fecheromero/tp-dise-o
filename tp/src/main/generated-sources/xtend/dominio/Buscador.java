@@ -1,7 +1,11 @@
 package dominio;
 
 import com.google.common.base.Objects;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.Functions.Function2;
@@ -11,6 +15,19 @@ import org.eclipse.xtext.xbase.lib.Pure;
 
 @SuppressWarnings("all")
 public class Buscador {
+  private Buscador yo = this;
+  
+  private final List<String> palabrasInutiles = Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("a", "ante", "cabe", "con", "contra", "de", "desde", "en", "entre", "para", "por", "segun", "sin", "sobre", "tras", "durante", "mediante", "el", "las", "los", "la"));
+  
+  public boolean esPalabraInutil(final String str1) {
+    final Function1<String, Boolean> _function = new Function1<String, Boolean>() {
+      public Boolean apply(final String it) {
+        return Boolean.valueOf(Objects.equal(it, str1));
+      }
+    };
+    return IterableExtensions.<String>exists(this.palabrasInutiles, _function);
+  }
+  
   public String masParecido(final String str1, final String str2, final String str3) {
     String _xifexpression = null;
     int _levenshtein = this.levenshtein(str1, str3);
@@ -96,38 +113,47 @@ public class Buscador {
     return this.levenshtein(_charArray, _charArray_1);
   }
   
-  public String[] separarPalabras(final String str1) {
-    char[] cadena = str1.toCharArray();
-    int longitud = cadena.length;
-    String[] listaDePalabras = null;
+  public String[] separarPalabras(final String s) {
+    int ind = 0;
     char[] palabra = null;
-    int puntero = 0;
-    for (int i = 0; (i <= longitud); i++) {
-      char _get = cadena[i];
-      boolean _equals = Objects.equal(Character.valueOf(_get), " ");
+    int intP = 0;
+    String[] partes = null;
+    for (int i = 0; (i <= s.length()); i++) {
+      char _charAt = s.charAt(i);
+      boolean _equals = Objects.equal(Character.valueOf(_charAt), " ");
       if (_equals) {
-        final String[] _converted_listaDePalabras = (String[])listaDePalabras;
         final char[] _converted_palabra = (char[])palabra;
         String _string = ((List<Character>)Conversions.doWrapArray(_converted_palabra)).toString();
-        ((List<String>)Conversions.doWrapArray(_converted_listaDePalabras)).add(_string);
-        puntero = 0;
-        i++;
+        partes[ind] = _string;
+        final char[] _converted_palabra_1 = (char[])palabra;
+        ((List<Character>)Conversions.doWrapArray(_converted_palabra_1)).clear();
+        ind++;
+        intP = 0;
       } else {
-        char _get_1 = cadena[i];
-        palabra[puntero] = _get_1;
-        i++;
-        puntero++;
+        char _charAt_1 = s.charAt(i);
+        palabra[intP] = _charAt_1;
+        intP++;
       }
     }
-    if ((puntero != 0)) {
-      final String[] _converted_listaDePalabras = (String[])listaDePalabras;
-      final char[] _converted_palabra = (char[])palabra;
-      String _string = ((List<Character>)Conversions.doWrapArray(_converted_palabra)).toString();
-      ((List<String>)Conversions.doWrapArray(_converted_listaDePalabras)).add(_string);
-    }
-    return listaDePalabras;
+    return partes;
   }
   
+  /**
+   * {
+   * var String[] lista=#[]
+   * var char[] palabra=#[]
+   * var int indice
+   * 
+   * for(var int i;i<=s.length;i++){
+   * if(s.charAt(i)!=' '){palabra.set(indice,s.charAt(i)) indice++}
+   * else {indice=0
+   * lista.add(palabra.toString)
+   * palabra=#[]}
+   * }
+   * if(indice!=0) lista.add(palabra.toString)
+   * return lista
+   * }
+   */
   public boolean sonParecidas(final String str1, final String str2) {
     boolean _xblockexpression = false;
     {
@@ -136,16 +162,32 @@ public class Buscador {
       int _length_1 = str2.length();
       boolean _lessThan = (_length < _length_1);
       if (_lessThan) {
-        int _length_2 = str1.length();
+        int _length_2 = str2.length();
         limitador = _length_2;
       } else {
-        int _length_3 = str2.length();
+        int _length_3 = str1.length();
         limitador = _length_3;
       }
       int _levenshtein = this.levenshtein(str1, str2);
       _xblockexpression = (_levenshtein < limitador);
     }
     return _xblockexpression;
+  }
+  
+  public Collection<Integer> ordenador(final Collection<Integer> numeros) {
+    final Comparator<Integer> _function = new Comparator<Integer>() {
+      public int compare(final Integer num1, final Integer num2) {
+        int _xifexpression = (int) 0;
+        boolean _greaterThan = (num1.compareTo(num2) > 0);
+        if (_greaterThan) {
+          _xifexpression = 1;
+        } else {
+          _xifexpression = (-1);
+        }
+        return _xifexpression;
+      }
+    };
+    return IterableExtensions.<Integer>sortWith(numeros, _function);
   }
   
   public String seleccionarLaMasParecida(final String str, final String[] palabras) {
@@ -161,5 +203,24 @@ public class Buscador {
       }
     };
     return IterableExtensions.<String, String>fold(_filter, " ", _function_1);
+  }
+  
+  public int puntajeTotalDelPunto(final /* Poi */Object unPunto, final String str1) {
+    throw new Error("Unresolved compilation problems:"
+      + "\nlistaDeTags cannot be resolved");
+  }
+  
+  public /* Poi */Object puntoMasSemejanteA(final String str1, final /* Poi */Object punto1, final /* Poi */Object punto2) {
+    throw new Error("Unresolved compilation problems:"
+      + "\nThe method puntajeTotalDelPunto(Poi, String) from the type Buscador refers to the missing type Poi"
+      + "\nThe method puntajeTotalDelPunto(Poi, String) from the type Buscador refers to the missing type Poi");
+  }
+  
+  public /* Collection<Poi> */Object OrdenarPuntosSegunSemejansaA(final String str1, final /* Collection<Poi> */Object puntos) {
+    throw new Error("Unresolved compilation problems:"
+      + "\nThe method puntajeTotalDelPunto(Poi, String) from the type Buscador refers to the missing type Poi"
+      + "\nThe method puntajeTotalDelPunto(Poi, String) from the type Buscador refers to the missing type Poi"
+      + "\nlistaDeTags cannot be resolved"
+      + "\nexists cannot be resolved");
   }
 }

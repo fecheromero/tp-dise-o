@@ -1,0 +1,5 @@
+package dominio
+
+class Servicio {
+	
+}
