@@ -11,5 +11,6 @@ class SucursalBanco extends PuntoDeInteres {
 		this.direccion=_direccion
 		this.nombre=_nombre
 		this.servicios = servicios
+		
 	}
 }
