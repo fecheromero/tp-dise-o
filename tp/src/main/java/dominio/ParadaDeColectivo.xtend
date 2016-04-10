@@ -7,8 +7,9 @@ public class ParadaDeColectivo extends PuntoDeInteres {
 
 	static double DISTANCIA_MAXIMA = 100
 
-	new(String tipo) {
-		this.tipo = tipo
+	new(Direccion _direccion,String _nombre) {
+		this.direccion=_direccion
+		this.nombre=_nombre
 	}
 
 }

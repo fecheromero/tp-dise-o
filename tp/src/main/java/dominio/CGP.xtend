@@ -8,8 +8,9 @@ import org.eclipse.xtend.lib.annotations.Accessors
 public class CGP extends PuntoDeInteres {
 	List<Servicio> servicios
 
-	new(String tipo, List<Servicio> servicios) {
-		this.tipo = tipo
+	new( List<Servicio> servicios,Direccion _direccion,String _nombre) {
+		this.direccion=_direccion
+		this.nombre=_nombre
 		this.servicios = servicios
 	}
 
