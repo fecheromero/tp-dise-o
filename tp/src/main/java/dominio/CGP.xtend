@@ -20,7 +20,7 @@ public class CGP extends PuntoDeInteres {
 	}
 
 	override boolean estaCercaDe(Point coordenadasDestino) {
-		this.getDireccion.getComuna.getPoligono.isInside(coordenadasDestino)
+		this.direccion.comuna.poligono.isInside(coordenadasDestino)
 	}
 
 	override boolean estaDisponible(Momento unMomento) {
