@@ -1,10 +1,12 @@
 package dominio;
 
 import com.google.common.base.Objects;
+import dominio.PuntoDeInteres;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
@@ -17,7 +19,9 @@ import org.eclipse.xtext.xbase.lib.Pure;
 public class Buscador {
   private Buscador yo = this;
   
-  private final List<String> palabrasInutiles = Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("a", "ante", "cabe", "con", "contra", "de", "desde", "en", "entre", "para", "por", "segun", "sin", "sobre", "tras", "durante", "mediante", "el", "las", "los", "la"));
+  private final static List<String> palabrasInutiles = Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("a", "ante", "cabe", "con", "contra", "de", "desde", "en", "entre", "para", "por", "segun", "sin", "sobre", "tras", "durante", "mediante", "el", "las", "los", "la"));
+  
+  private Set<PuntoDeInteres> puntos;
   
   public boolean esPalabraInutil(final String str1) {
     final Function1<String, Boolean> _function = new Function1<String, Boolean>() {
@@ -25,7 +29,7 @@ public class Buscador {
         return Boolean.valueOf(Objects.equal(it, str1));
       }
     };
-    return IterableExtensions.<String>exists(this.palabrasInutiles, _function);
+    return IterableExtensions.<String>exists(Buscador.palabrasInutiles, _function);
   }
   
   public String masParecido(final String str1, final String str2, final String str3) {
@@ -114,46 +118,9 @@ public class Buscador {
   }
   
   public String[] separarPalabras(final String s) {
-    int ind = 0;
-    char[] palabra = null;
-    int intP = 0;
-    String[] partes = null;
-    for (int i = 0; (i <= s.length()); i++) {
-      char _charAt = s.charAt(i);
-      boolean _equals = Objects.equal(Character.valueOf(_charAt), " ");
-      if (_equals) {
-        final char[] _converted_palabra = (char[])palabra;
-        String _string = ((List<Character>)Conversions.doWrapArray(_converted_palabra)).toString();
-        partes[ind] = _string;
-        final char[] _converted_palabra_1 = (char[])palabra;
-        ((List<Character>)Conversions.doWrapArray(_converted_palabra_1)).clear();
-        ind++;
-        intP = 0;
-      } else {
-        char _charAt_1 = s.charAt(i);
-        palabra[intP] = _charAt_1;
-        intP++;
-      }
-    }
-    return partes;
+    return s.split(" ");
   }
   
-  /**
-   * {
-   * var String[] lista=#[]
-   * var char[] palabra=#[]
-   * var int indice
-   * 
-   * for(var int i;i<=s.length;i++){
-   * if(s.charAt(i)!=' '){palabra.set(indice,s.charAt(i)) indice++}
-   * else {indice=0
-   * lista.add(palabra.toString)
-   * palabra=#[]}
-   * }
-   * if(indice!=0) lista.add(palabra.toString)
-   * return lista
-   * }
-   */
   public boolean sonParecidas(final String str1, final String str2) {
     boolean _xblockexpression = false;
     {
@@ -205,22 +172,71 @@ public class Buscador {
     return IterableExtensions.<String, String>fold(_filter, " ", _function_1);
   }
   
-  public int puntajeTotalDelPunto(final /* Poi */Object unPunto, final String str1) {
-    throw new Error("Unresolved compilation problems:"
-      + "\nlistaDeTags cannot be resolved");
+  public int puntajeTotalDelPunto(final PuntoDeInteres unPunto, final String str1) {
+    String[] _separarPalabras = this.separarPalabras(str1);
+    final Function1<String, Integer> _function = new Function1<String, Integer>() {
+      public Integer apply(final String it) {
+        String _listaDeTags = unPunto.listaDeTags();
+        String[] _separarPalabras = Buscador.this.separarPalabras(_listaDeTags);
+        String _seleccionarLaMasParecida = Buscador.this.seleccionarLaMasParecida(it, _separarPalabras);
+        return Integer.valueOf(Buscador.this.levenshtein(_seleccionarLaMasParecida, it));
+      }
+    };
+    List<Integer> _map = ListExtensions.<String, Integer>map(((List<String>)Conversions.doWrapArray(_separarPalabras)), _function);
+    final Function2<Integer, Integer, Integer> _function_1 = new Function2<Integer, Integer, Integer>() {
+      public Integer apply(final Integer num1, final Integer num2) {
+        return Integer.valueOf(((num1).intValue() + (num2).intValue()));
+      }
+    };
+    return (int) IterableExtensions.<Integer, Integer>fold(_map, Integer.valueOf(0), _function_1);
   }
   
-  public /* Poi */Object puntoMasSemejanteA(final String str1, final /* Poi */Object punto1, final /* Poi */Object punto2) {
-    throw new Error("Unresolved compilation problems:"
-      + "\nThe method puntajeTotalDelPunto(Poi, String) from the type Buscador refers to the missing type Poi"
-      + "\nThe method puntajeTotalDelPunto(Poi, String) from the type Buscador refers to the missing type Poi");
+  public PuntoDeInteres puntoMasSemejanteA(final String str1, final PuntoDeInteres punto1, final PuntoDeInteres punto2) {
+    PuntoDeInteres _xifexpression = null;
+    int _puntajeTotalDelPunto = this.puntajeTotalDelPunto(punto1, str1);
+    int _puntajeTotalDelPunto_1 = this.puntajeTotalDelPunto(punto2, str1);
+    boolean _lessThan = (_puntajeTotalDelPunto < _puntajeTotalDelPunto_1);
+    if (_lessThan) {
+      _xifexpression = punto1;
+    } else {
+      _xifexpression = punto2;
+    }
+    return _xifexpression;
   }
   
-  public /* Collection<Poi> */Object OrdenarPuntosSegunSemejansaA(final String str1, final /* Collection<Poi> */Object puntos) {
-    throw new Error("Unresolved compilation problems:"
-      + "\nThe method puntajeTotalDelPunto(Poi, String) from the type Buscador refers to the missing type Poi"
-      + "\nThe method puntajeTotalDelPunto(Poi, String) from the type Buscador refers to the missing type Poi"
-      + "\nlistaDeTags cannot be resolved"
-      + "\nexists cannot be resolved");
+  public Collection<PuntoDeInteres> ordenarPuntosSegunSemejanzaA(final String str1) {
+    final Function1<PuntoDeInteres, Boolean> _function = new Function1<PuntoDeInteres, Boolean>() {
+      public Boolean apply(final PuntoDeInteres it) {
+        String _listaDeTags = it.listaDeTags();
+        String[] _separarPalabras = Buscador.this.separarPalabras(_listaDeTags);
+        final Function1<String, Boolean> _function = new Function1<String, Boolean>() {
+          public Boolean apply(final String it) {
+            return Boolean.valueOf(Buscador.this.sonParecidas(str1, it));
+          }
+        };
+        return Boolean.valueOf(IterableExtensions.<String>exists(((Iterable<String>)Conversions.doWrapArray(_separarPalabras)), _function));
+      }
+    };
+    Iterable<PuntoDeInteres> _filter = IterableExtensions.<PuntoDeInteres>filter(this.puntos, _function);
+    final Comparator<PuntoDeInteres> _function_1 = new Comparator<PuntoDeInteres>() {
+      public int compare(final PuntoDeInteres p1, final PuntoDeInteres p2) {
+        int _xifexpression = (int) 0;
+        int _puntajeTotalDelPunto = Buscador.this.yo.puntajeTotalDelPunto(p1, str1);
+        int _puntajeTotalDelPunto_1 = Buscador.this.yo.puntajeTotalDelPunto(p2, str1);
+        boolean _lessThan = (_puntajeTotalDelPunto < _puntajeTotalDelPunto_1);
+        if (_lessThan) {
+          _xifexpression = 1;
+        } else {
+          _xifexpression = (-1);
+        }
+        return _xifexpression;
+      }
+    };
+    return IterableExtensions.<PuntoDeInteres>sortWith(_filter, _function_1);
+  }
+  
+  public PuntoDeInteres[] topTenDePuntos(final String str1) {
+    Collection<PuntoDeInteres> _ordenarPuntosSegunSemejanzaA = this.ordenarPuntosSegunSemejanzaA(str1);
+    return ((PuntoDeInteres[])Conversions.unwrapArray(IterableExtensions.<PuntoDeInteres>take(_ordenarPuntosSegunSemejanzaA, 10), PuntoDeInteres.class));
   }
 }

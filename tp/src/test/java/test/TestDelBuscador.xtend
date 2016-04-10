@@ -17,6 +17,7 @@ public class TestDelBuscador {
 	  string3="sangucheria"
 	 string4="embuebido"
 	  string5="muebleria don pepito"
+	  
 	 buscador=new Buscador()
 	}
 	@Test
@@ -34,6 +35,6 @@ public class TestDelBuscador {
 	}
 	@Test
 	def void pruebaDeSeparadorDePalabras(){
-		Assert.assertEquals(buscador.separarPalabras("palabra1 palabra2 palabra3"),#["palabra1","palabra2","palabra3"])
+		Assert.assertArrayEquals(buscador.separarPalabras("palabra1 palabra2 palabra3"),#["palabra1","palabra2","palabra3"])
 	}
 }
