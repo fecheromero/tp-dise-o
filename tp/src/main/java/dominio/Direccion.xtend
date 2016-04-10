@@ -17,6 +17,21 @@ class Direccion {
 	String piso
 	String departamento
 	String unidad
+	
+	new(String callePrincipal, String numero, String[] entre, Point coordenadas, String localidad, String provincia, Comuna comuna, String codigoPostal, String piso, String departamento, String unidad){
+		this.callePrincipal = callePrincipal
+		this.numero = numero
+		this.entre = entre
+		this.coordenadas = coordenadas
+		this.localidad = localidad
+		this.provincia = provincia
+		this.comuna = comuna
+		this.codigoPostal = codigoPostal
+		this.piso = piso
+		this.departamento = departamento
+		this.unidad = unidad
+	}
+	
 	def String listaDeTags(){
 		var String lista=""
 		lista.concat(this.callePrincipal).concat(this.numero).concat(this.entre.get(1)).concat(this.entre.get(2)).concat(this.localidad).concat(this.provincia).concat(this.comuna.listaDeTags()).concat(this.codigoPostal).concat(this.piso).concat(this.departamento).concat(this.unidad)
