@@ -9,7 +9,6 @@ import java.util.List
 import java.util.Set
 import java.util.TreeSet
 import java.util.HashSet
-
 public class TestDelBuscador {
 	Buscador buscador
 	String string1
@@ -23,6 +22,7 @@ public class TestDelBuscador {
     ParadaDeColectivo _114
     LibreriaEscolar unaLibreria
     HashSet<PuntoDeInteres> unSorteaditoDePuntos
+    
 	@Before
 	def void setUp()
 	{  string1="muebleria"
@@ -30,6 +30,7 @@ public class TestDelBuscador {
 	  string3="sangucheria"
 	 string4="embuebido"
 	  string5="muebleria don pepito"
+	  
 	 almagro=new Comuna("almagro",new Polygon(#[new Point(1,2),new Point(2,3)]))
 	 lugano=new Comuna("lugano",new Polygon(#[new Point(2,4),new Point(4,5)]))
 	  unCGP=new CGP(#[new Servicio("asistencia Social")],new Direccion("calle sarmiento","2142",#["san Martin","Belgrano"],new Point(4,6),"bs as","Buenos Aires",almagro,"1881","","",""),"Centro de gestion y participacion")
