@@ -14,8 +14,7 @@ class Servicio {
 		lista = nombre
 		
 	}
-override boolean estaDisponible(Momento unMomento) {
-		return (unMomento) != null 
-		 
+def boolean estaDisponible(Momento unMomento) {
+		return this.horario.esHabilElMomento(unMomento)		 
 	}
 }

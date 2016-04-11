@@ -24,18 +24,22 @@ public class CGP extends PuntoDeInteres {
 	}
 
 	override boolean estaDisponible(Momento unMomento) {
-		return algunServicioEstaDisponibleEn(unMomento)		 
+		return algunServicioEstaDisponibleEn(unMomento)
 	}
 
 	override boolean estaDisponible(Momento unMomento, String nombreDeServicio) {
-		return true
+		return estaDisponibleElServicio(unMomento, nombreDeServicio)
 	}
-	def boolean algunServicioEstaDisponibleEn(Momento unMomento){
-		return this.buscarServicioDisponibleEnMomento(unMomento).length > 0 
+
+	def boolean algunServicioEstaDisponibleEn(Momento unMomento) {
+		return servicios.exists[unServicio|unServicio.estaDisponible(unMomento)]
 	}
-	
-	def List<Servicio> buscarServicioDisponibleEnMomento(Momento unMomento) {
-		return servicios.filter[unServicio | unServicio.estaDisponible(unMomento)]
-			}
-	
+
+	def boolean estaDisponibleElServicio(Momento unMomento, String nombreDeServicio) {
+		return (buscarServicioDeNombre(nombreDeServicio).estaDisponible(unMomento))
+	}
+
+	def Servicio buscarServicioDeNombre(String nombreDeServicio) {
+		return (servicios.findFirst[unServicio|unServicio.nombre == nombreDeServicio])
+	}
 }

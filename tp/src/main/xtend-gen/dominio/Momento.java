@@ -2,11 +2,12 @@ package dominio;
 
 import org.eclipse.xtend.lib.annotations.Accessors;
 import org.eclipse.xtext.xbase.lib.Pure;
+import org.joda.time.LocalDate;
 
 @Accessors
 @SuppressWarnings("all")
 public class Momento {
-  private /* LocalDate */Object fecha;
+  private LocalDate fecha;
   
   private int hora;
   

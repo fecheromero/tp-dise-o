@@ -1,5 +1,6 @@
 package dominio;
 
+import com.google.common.base.Objects;
 import dominio.Comuna;
 import dominio.Direccion;
 import dominio.Momento;
@@ -7,8 +8,8 @@ import dominio.PuntoDeInteres;
 import dominio.Servicio;
 import java.util.List;
 import org.eclipse.xtend.lib.annotations.Accessors;
-import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
+import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
 import org.eclipse.xtext.xbase.lib.Pure;
 import org.uqbar.geodds.Point;
@@ -50,20 +51,31 @@ public class CGP extends PuntoDeInteres {
   }
   
   public boolean estaDisponible(final Momento unMomento, final String nombreDeServicio) {
-    return true;
+    return this.estaDisponibleElServicio(unMomento, nombreDeServicio);
   }
   
   public boolean algunServicioEstaDisponibleEn(final Momento unMomento) {
-    List<Servicio> _buscarServicioDisponibleEnMomento = this.buscarServicioDisponibleEnMomento(unMomento);
-    int _length = ((Object[])Conversions.unwrapArray(_buscarServicioDisponibleEnMomento, Object.class)).length;
-    return (_length > 0);
+    final Function1<Servicio, Boolean> _function = new Function1<Servicio, Boolean>() {
+      public Boolean apply(final Servicio unServicio) {
+        return Boolean.valueOf(unServicio.estaDisponible(unMomento));
+      }
+    };
+    return IterableExtensions.<Servicio>exists(this.servicios, _function);
   }
   
-  public List<Servicio> buscarServicioDisponibleEnMomento(final Momento unMomento) {
-    throw new Error("Unresolved compilation problems:"
-      + "\nType mismatch: cannot convert from Servicio to Momento"
-      + "\nType mismatch: cannot convert from Momento to String"
-      + "\nType mismatch: cannot convert from Iterable<Servicio> to List<Servicio>");
+  public boolean estaDisponibleElServicio(final Momento unMomento, final String nombreDeServicio) {
+    Servicio _buscarServicioDeNombre = this.buscarServicioDeNombre(nombreDeServicio);
+    return _buscarServicioDeNombre.estaDisponible(unMomento);
+  }
+  
+  public Servicio buscarServicioDeNombre(final String nombreDeServicio) {
+    final Function1<Servicio, Boolean> _function = new Function1<Servicio, Boolean>() {
+      public Boolean apply(final Servicio unServicio) {
+        String _nombre = unServicio.getNombre();
+        return Boolean.valueOf(Objects.equal(_nombre, nombreDeServicio));
+      }
+    };
+    return IterableExtensions.<Servicio>findFirst(this.servicios, _function);
   }
   
   @Pure

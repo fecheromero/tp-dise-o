@@ -1,6 +1,7 @@
 package dominio;
 
 import dominio.Direccion;
+import dominio.Horario;
 import dominio.Momento;
 import java.util.Collections;
 import java.util.List;
@@ -18,9 +19,9 @@ public abstract class PuntoDeInteres {
   
   private String nombre;
   
-  private static double FACTOR_CONVERSION = 0.001;
+  private Horario horario;
   
-  private static double DISTANCIA_MAXIMA = 500;
+  private static double DISTANCIA_MAXIMA = 0.5;
   
   public String listaDeTags() {
     String _xblockexpression = null;
@@ -40,31 +41,23 @@ public abstract class PuntoDeInteres {
   }
   
   public boolean estaCercaDe(final Point coordenadasDestino) {
-    return this.verificarCercania(this, coordenadasDestino, PuntoDeInteres.DISTANCIA_MAXIMA);
-  }
-  
-  public boolean verificarCercania(final PuntoDeInteres unPunto, final Point coordenadasDestino, final double distanciaMaxima) {
-    double distancia = 0;
-    Direccion _direccion = this.getDireccion();
-    Point _coordenadas = _direccion.getCoordenadas();
+    Point _coordenadas = this.direccion.getCoordenadas();
     double _distance = _coordenadas.distance(coordenadasDestino);
-    distancia = _distance;
-    if (((distancia * PuntoDeInteres.FACTOR_CONVERSION) < PuntoDeInteres.DISTANCIA_MAXIMA)) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-  
-  public Direccion getDireccion() {
-    return this.direccion;
+    return (_distance < PuntoDeInteres.DISTANCIA_MAXIMA);
   }
   
   public abstract boolean estaDisponible(final Momento unMomento);
   
   public abstract boolean estaDisponible(final Momento unMomento, final String nombreDeServicio);
   
-  public abstract void setearDiasHabiles(final List<String> diasHabiles);
+  public void setearDiasHabiles(final List<String> diasHabiles) {
+    this.horario.setearDiasHabiles(diasHabiles);
+  }
+  
+  @Pure
+  public Direccion getDireccion() {
+    return this.direccion;
+  }
   
   public void setDireccion(final Direccion direccion) {
     this.direccion = direccion;
@@ -77,5 +70,14 @@ public abstract class PuntoDeInteres {
   
   public void setNombre(final String nombre) {
     this.nombre = nombre;
+  }
+  
+  @Pure
+  public Horario getHorario() {
+    return this.horario;
+  }
+  
+  public void setHorario(final Horario horario) {
+    this.horario = horario;
   }
 }

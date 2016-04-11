@@ -9,5 +9,5 @@ class Momento {
 	int hora
 	int minuto
 	int segundos
-	
+
 }

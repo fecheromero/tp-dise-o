@@ -1,6 +1,8 @@
 package dominio;
 
 import dominio.Direccion;
+import dominio.Horario;
+import dominio.Momento;
 import dominio.PuntoDeInteres;
 import dominio.Servicio;
 import java.util.List;
@@ -16,6 +18,15 @@ public class SucursalBanco extends PuntoDeInteres {
     this.setDireccion(_direccion);
     this.setNombre(_nombre);
     this.servicios = servicios;
+  }
+  
+  public boolean estaDisponible(final Momento unMomento) {
+    Horario _horario = this.getHorario();
+    return _horario.esHabilElMomento(unMomento);
+  }
+  
+  public boolean estaDisponible(final Momento unMomento, final String nombreDeServicio) {
+    return this.estaDisponible(unMomento);
   }
   
   @Pure
