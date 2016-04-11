@@ -143,22 +143,6 @@ public class Buscador {
     return _xblockexpression;
   }
   
-  public Collection<Integer> ordenador(final Collection<Integer> numeros) {
-    final Comparator<Integer> _function = new Comparator<Integer>() {
-      public int compare(final Integer num1, final Integer num2) {
-        int _xifexpression = (int) 0;
-        boolean _greaterThan = (num1.compareTo(num2) > 0);
-        if (_greaterThan) {
-          _xifexpression = 1;
-        } else {
-          _xifexpression = (-1);
-        }
-        return _xifexpression;
-      }
-    };
-    return IterableExtensions.<Integer>sortWith(numeros, _function);
-  }
-  
   public String seleccionarLaMasParecida(final String str, final String[] palabras) {
     final Function1<String, Boolean> _function = new Function1<String, Boolean>() {
       public Boolean apply(final String it) {
