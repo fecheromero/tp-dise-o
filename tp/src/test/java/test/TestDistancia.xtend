@@ -21,6 +21,7 @@ public class TestDistancia {
 	Comuna once
 	ParadaDeColectivo _114
 	 LibreriaEscolar unaLibreria
+	 KioscoDiarios unKiosco
 	@Before
 	def void setUp(){
 		unPunto = new Point(1,2)
@@ -31,7 +32,7 @@ public class TestDistancia {
 		otroCGP = new CGP(#[new Servicio("asistencia Comunitaria")],new Direccion("calle nogoya","2156",#["san Martin","Uquiza"],new Point(1,2),"bs as","Buenos Aires",once,"1881","","",""),"Centro de gestion y participacion")
 	 	 _114=new ParadaDeColectivo(new Direccion("Mozart","1919",#["Dellepiane","Otra calle"],new Point(0,1),"bs as","Buenos Aires",almagro,"1422","","",""),"Parada colectivo 114") 
 	  	  unaLibreria=new LibreriaEscolar(new Direccion("calle 848","2114",#["893","892"],new Point(6,2),"bs as","Buenos Aires",almagro,"1881","","",""),"libreria don Pepito")
-	  
+	  	unKiosco=new KioscoDiarios(new Direccion("calle pepe","3333",#["jorge","roberto"],new Point(1,0),"bs as","Buenos Aires",almagro,"3333","","",""),"kiosco piola")
 	}
 	//1 unidad en coordenadas geograficas son aproximadamente 110,59 km
 	@Test
@@ -48,8 +49,16 @@ public class TestDistancia {
     	Assert.assertEquals(_114.estaCercaDe(new Point(0,1.0005)),true)
     }
     @Test
-    def void estaCercaUnaLibreriaAUnPuntoAMasDe5Cuadras(){
+    def void NoestaCercaUnaParadaDeColectivoDeUnPuntoAMasDeUnaCuadra(){
+    	Assert.assertEquals(_114.estaCercaDe(new Point(0,1.0014)),false)
+    }
+    @Test
+    def void NoEstaCercaUnaLibreriaAUnPuntoAMasDe5Cuadras(){
     	Assert.assertEquals(unaLibreria.estaCercaDe(new Point(6,2.013)),false)
+    }
+    @Test 
+    def void NoEstaCercaUnKioscoAUnPuntoAMasDe2Cuadras(){
+    	    	Assert.assertEquals(unKiosco.estaCercaDe(new Point(1,0.0019)),false)
     }
     }
 	
