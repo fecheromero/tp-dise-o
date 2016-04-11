@@ -1,9 +1,20 @@
 package dominio
 
+import org.eclipse.xtend.lib.annotations.Accessors
+
+@Accessors
 class Servicio {
 	String nombre
-	def String listaDeTags(){
+	Horario horario
+	new(String _nombre){
+		nombre=_nombre
+	}
+	def String listaDeTags() {
 		var String lista
-		lista=nombre
+		lista = nombre
+		
+	}
+def boolean estaDisponible(Momento unMomento) {
+		return this.horario.esHabilElMomento(unMomento)		 
 	}
 }
