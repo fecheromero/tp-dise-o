@@ -3,6 +3,7 @@ package dominio
 import org.uqbar.geodds.Point
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.joda.time.DateTime
 
 @Accessors
 public class CGP extends PuntoDeInteres {
@@ -23,19 +24,19 @@ public class CGP extends PuntoDeInteres {
 		this.direccion.comuna.poligono.isInside(coordenadasDestino)
 	}
 
-	override boolean estaDisponible(Momento unMomento) {
+	override boolean estaDisponible(DateTime unMomento) {
 		return algunServicioEstaDisponibleEn(unMomento)
 	}
 
-	override boolean estaDisponible(Momento unMomento, String nombreDeServicio) {
+	override boolean estaDisponible(DateTime unMomento, String nombreDeServicio) {
 		return estaDisponibleElServicio(unMomento, nombreDeServicio)
 	}
 
-	def boolean algunServicioEstaDisponibleEn(Momento unMomento) {
+	def boolean algunServicioEstaDisponibleEn(DateTime unMomento) {
 		return servicios.exists[unServicio|unServicio.estaDisponible(unMomento)]
 	}
 
-	def boolean estaDisponibleElServicio(Momento unMomento, String nombreDeServicio) {
+	def boolean estaDisponibleElServicio(DateTime unMomento, String nombreDeServicio) {
 		return (buscarServicioDeNombre(nombreDeServicio).estaDisponible(unMomento))
 	}
 

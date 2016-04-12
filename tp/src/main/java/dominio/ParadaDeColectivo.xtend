@@ -1,22 +1,22 @@
 package dominio
 
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.joda.time.DateTime
 
 @Accessors
 public class ParadaDeColectivo extends PuntoDeInteres {
-
-	static double DISTANCIA_MAXIMA = 0.1
-
+	
 	new(Direccion _direccion, String _nombre) {
 		this.direccion = _direccion
 		this.nombre = _nombre
+		 DISTANCIA_MAXIMA=0.1
 	}
 
-	override estaDisponible(Momento unMomento) {
+	override estaDisponible(DateTime unMomento) {
 		return true
 	}
 
-	override estaDisponible(Momento unMomento, String nombreDeServicio) {
+	override estaDisponible(DateTime unMomento, String nombreDeServicio) {
 		return true
 	}
 

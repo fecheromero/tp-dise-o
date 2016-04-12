@@ -1,6 +1,7 @@
 package dominio
 
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.joda.time.DateTime
 
 @Accessors
 class Servicio {
@@ -14,7 +15,7 @@ class Servicio {
 		lista = nombre
 		
 	}
-def boolean estaDisponible(Momento unMomento) {
+def boolean estaDisponible(DateTime unMomento) {
 		return this.horario.esHabilElMomento(unMomento)		 
 	}
 }

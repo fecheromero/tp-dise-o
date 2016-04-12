@@ -2,6 +2,7 @@ package dominio
 
 import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.List
+import org.joda.time.DateTime
 
 @Accessors
 class SucursalBanco extends PuntoDeInteres {
@@ -13,12 +14,16 @@ class SucursalBanco extends PuntoDeInteres {
 		this.servicios = servicios
 
 	}
+		override String listaDeTags() {
 
-	override boolean estaDisponible(Momento unMomento) {
+		super.listaDeTags().concat(" ".concat(servicios.map[servicio|servicio.listaDeTags()].toString()))
+	}
+
+	override boolean estaDisponible(DateTime unMomento) {
 		return this.horario.esHabilElMomento(unMomento)
 	}
 
-	override boolean estaDisponible(Momento unMomento, String nombreDeServicio) {
+	override boolean estaDisponible(DateTime unMomento, String nombreDeServicio) {
 		return this.estaDisponible(unMomento)
 	}
 }

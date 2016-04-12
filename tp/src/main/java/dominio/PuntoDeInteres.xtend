@@ -1,11 +1,12 @@
 package dominio
 
 import org.uqbar.geodds.Point
-import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import java.lang.reflect.Array
 import java.util.ArrayList
 import java.util.HashSet
+import org.joda.time.DateTime
+import java.util.Set
 
 @Accessors
 public abstract class PuntoDeInteres {
@@ -14,7 +15,7 @@ public abstract class PuntoDeInteres {
 	String nombre
 	Horario horario
 	//static double FACTOR_CONVERSION = 0.001
-	static double DISTANCIA_MAXIMA = 0.5
+	 var double DISTANCIA_MAXIMA = 0.5
 
 	public def String listaDeTags() {
 		var String lista = ""
@@ -42,13 +43,14 @@ public abstract class PuntoDeInteres {
 	//	return direccion
 	//}
 
-	def boolean estaDisponible(Momento unMomento) 
+	def boolean estaDisponible(DateTime unMomento) 
 
-	def boolean estaDisponible(Momento unMomento, String nombreDeServicio) 
+	def boolean estaDisponible(DateTime unMomento, String nombreDeServicio) 
 	
-	def void setearDiasHabiles(List<String> diasHabiles)	{
+	def void setearDiasHabiles(Set<Integer> diasHabiles)	{
 		this.horario.setearDiasHabiles(diasHabiles)
 	} 
-	
-	
+	def void setearTurnosDisponibles(Set<Turno> turnos){
+	this.horario.setearTurnosDisponibles(turnos)
+	}
 }

@@ -68,10 +68,7 @@ public class Buscador {
 	 }
 	 
 	 
-	 def Collection<Integer> ordenador(Collection<Integer> numeros)
-	 {     
-	   numeros.sort[num1,num2|if(num1>num2) 1 else -1]
-	  }
+
 	def String seleccionarLaMasParecida(String str, String[] palabras) {
 		palabras.filter[this.sonParecidas(it, str)].fold(" ", [palabra1, palabra2|masParecido(palabra1, palabra2, str)])
 	}
