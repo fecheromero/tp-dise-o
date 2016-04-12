@@ -1,6 +1,7 @@
 package dominio
 
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.joda.time.DateTime
 
 @Accessors
 public class ParadaDeColectivo extends PuntoDeInteres {
@@ -12,11 +13,11 @@ public class ParadaDeColectivo extends PuntoDeInteres {
 		this.nombre = _nombre
 	}
 
-	override estaDisponible(Momento unMomento) {
+	override estaDisponible(DateTime unMomento) {
 		return true
 	}
 
-	override estaDisponible(Momento unMomento, String nombreDeServicio) {
+	override estaDisponible(DateTime unMomento, String nombreDeServicio) {
 		return true
 	}
 
