@@ -15,7 +15,7 @@ public abstract class PuntoDeInteres {
 	String nombre
 	Horario horario
 	//static double FACTOR_CONVERSION = 0.001
-	static double DISTANCIA_MAXIMA = 0.5
+	 var double DISTANCIA_MAXIMA = 0.5
 
 	public def String listaDeTags() {
 		var String lista = ""

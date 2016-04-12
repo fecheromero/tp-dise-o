@@ -5,12 +5,11 @@ import org.joda.time.DateTime
 
 @Accessors
 public class ParadaDeColectivo extends PuntoDeInteres {
-
-	static double DISTANCIA_MAXIMA = 0.1
-
+	
 	new(Direccion _direccion, String _nombre) {
 		this.direccion = _direccion
 		this.nombre = _nombre
+		 DISTANCIA_MAXIMA=0.1
 	}
 
 	override estaDisponible(DateTime unMomento) {

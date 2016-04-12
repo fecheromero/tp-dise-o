@@ -14,6 +14,10 @@ class SucursalBanco extends PuntoDeInteres {
 		this.servicios = servicios
 
 	}
+		override String listaDeTags() {
+
+		super.listaDeTags().concat(" ".concat(servicios.map[servicio|servicio.listaDeTags()].toString()))
+	}
 
 	override boolean estaDisponible(DateTime unMomento) {
 		return this.horario.esHabilElMomento(unMomento)
