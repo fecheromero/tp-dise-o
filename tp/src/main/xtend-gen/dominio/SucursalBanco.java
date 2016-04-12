@@ -2,12 +2,14 @@ package dominio;
 
 import dominio.Direccion;
 import dominio.Horario;
-import dominio.Momento;
 import dominio.PuntoDeInteres;
 import dominio.Servicio;
 import java.util.List;
 import org.eclipse.xtend.lib.annotations.Accessors;
+import org.eclipse.xtext.xbase.lib.Functions.Function1;
+import org.eclipse.xtext.xbase.lib.ListExtensions;
 import org.eclipse.xtext.xbase.lib.Pure;
+import org.joda.time.DateTime;
 
 @Accessors
 @SuppressWarnings("all")
@@ -20,13 +22,22 @@ public class SucursalBanco extends PuntoDeInteres {
     this.servicios = servicios;
   }
   
-  public boolean estaDisponible(final Momento unMomento) {
-    Horario _horario = this.getHorario();
-    return _horario.esHabilElMomento(unMomento);
+  public String listaDeTags() {
+    String _listaDeTags = super.listaDeTags();
+    final Function1<Servicio, String> _function = new Function1<Servicio, String>() {
+      public String apply(final Servicio servicio) {
+        return servicio.listaDeTags();
+      }
+    };
+    List<String> _map = ListExtensions.<Servicio, String>map(this.servicios, _function);
+    String _string = _map.toString();
+    String _concat = " ".concat(_string);
+    return _listaDeTags.concat(_concat);
   }
   
-  public boolean estaDisponible(final Momento unMomento, final String nombreDeServicio) {
-    return this.estaDisponible(unMomento);
+  public boolean estaDisponible(final DateTime unMomento) {
+    Horario _horario = this.getHorario();
+    return _horario.esHabilElMomento(unMomento);
   }
   
   @Pure

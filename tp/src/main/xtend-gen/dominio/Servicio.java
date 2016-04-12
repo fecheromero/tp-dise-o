@@ -1,9 +1,9 @@
 package dominio;
 
 import dominio.Horario;
-import dominio.Momento;
 import org.eclipse.xtend.lib.annotations.Accessors;
 import org.eclipse.xtext.xbase.lib.Pure;
+import org.joda.time.DateTime;
 
 @Accessors
 @SuppressWarnings("all")
@@ -25,7 +25,7 @@ public class Servicio {
     return _xblockexpression;
   }
   
-  public boolean estaDisponible(final Momento unMomento) {
+  public boolean estaDisponible(final DateTime unMomento) {
     return this.horario.esHabilElMomento(unMomento);
   }
   

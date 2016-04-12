@@ -1,25 +1,20 @@
 package dominio;
 
 import dominio.Direccion;
-import dominio.Momento;
 import dominio.PuntoDeInteres;
 import org.eclipse.xtend.lib.annotations.Accessors;
+import org.joda.time.DateTime;
 
 @Accessors
 @SuppressWarnings("all")
 public class ParadaDeColectivo extends PuntoDeInteres {
-  private static double DISTANCIA_MAXIMA = 0.1;
-  
   public ParadaDeColectivo(final Direccion _direccion, final String _nombre) {
     this.setDireccion(_direccion);
     this.setNombre(_nombre);
+    this.setDISTANCIA_MAXIMA(0.1);
   }
   
-  public boolean estaDisponible(final Momento unMomento) {
-    return true;
-  }
-  
-  public boolean estaDisponible(final Momento unMomento, final String nombreDeServicio) {
+  public boolean estaDisponible(final DateTime unMomento) {
     return true;
   }
 }

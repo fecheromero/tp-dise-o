@@ -49,9 +49,7 @@ public abstract class PuntoDeInteres {
 
 	def boolean estaDisponible(DateTime unMomento)
 
-	def boolean estaDisponible(DateTime unMomento, String nombreDeServicio)
-
-	def void setearDiasHabiles(Set<Integer> diasHabiles) {
+		def void setearDiasHabiles(Set<Integer> diasHabiles) {
 		this.horario.setearDiasHabiles(diasHabiles)
 	}
 

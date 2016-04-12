@@ -3,6 +3,8 @@ package test;
 import dominio.CGP;
 import dominio.Comuna;
 import dominio.Direccion;
+import dominio.KioscoDiarios;
+import dominio.LibreriaEscolar;
 import dominio.ParadaDeColectivo;
 import dominio.Servicio;
 import java.util.Collections;
@@ -29,6 +31,12 @@ public class TestDistancia {
   
   private Comuna once;
   
+  private ParadaDeColectivo _114;
+  
+  private LibreriaEscolar unaLibreria;
+  
+  private KioscoDiarios unKiosco;
+  
   @Before
   public void setUp() {
     Point _point = new Point(1, 2);
@@ -40,32 +48,74 @@ public class TestDistancia {
     Polygon _polygon = new Polygon(Collections.<Point>unmodifiableList(CollectionLiterals.<Point>newArrayList(_point_2, _point_3)));
     Comuna _comuna = new Comuna("almagro", _polygon);
     this.almagro = _comuna;
-    Point _point_4 = new Point(5, 6);
-    Point _point_5 = new Point(6, 7);
-    Polygon _polygon_1 = new Polygon(Collections.<Point>unmodifiableList(CollectionLiterals.<Point>newArrayList(_point_4, _point_5)));
+    Point _point_4 = new Point(0, 0);
+    Point _point_5 = new Point(0, 5);
+    Point _point_6 = new Point(5, 5);
+    Point _point_7 = new Point(5, 0);
+    Polygon _polygon_1 = new Polygon(Collections.<Point>unmodifiableList(CollectionLiterals.<Point>newArrayList(_point_4, _point_5, _point_6, _point_7)));
     Comuna _comuna_1 = new Comuna("once", _polygon_1);
     this.once = _comuna_1;
     Servicio _servicio = new Servicio("asistencia Social");
-    Point _point_6 = new Point(4, 6);
-    Direccion _direccion = new Direccion("calle sarmiento", "2142", new String[] { "san Martin", "Belgrano" }, _point_6, "bs as", "Buenos Aires", this.almagro, "1881", "", "", "");
+    Point _point_8 = new Point(4, 6);
+    Direccion _direccion = new Direccion("calle sarmiento", "2142", new String[] { "san Martin", "Belgrano" }, _point_8, "bs as", "Buenos Aires", this.almagro, "1881", "", "", "");
     CGP _cGP = new CGP(Collections.<Servicio>unmodifiableList(CollectionLiterals.<Servicio>newArrayList(_servicio)), _direccion, "Centro de gestion y participacion");
     this.unCGP = _cGP;
     Servicio _servicio_1 = new Servicio("asistencia Comunitaria");
-    Point _point_7 = new Point(1, 2);
-    Direccion _direccion_1 = new Direccion("calle nogoya", "2156", new String[] { "san Martin", "Uquiza" }, _point_7, "bs as", "Buenos Aires", this.once, "1881", "", "", "");
+    Point _point_9 = new Point(1, 2);
+    Direccion _direccion_1 = new Direccion("calle nogoya", "2156", new String[] { "san Martin", "Uquiza" }, _point_9, "bs as", "Buenos Aires", this.once, "1881", "", "", "");
     CGP _cGP_1 = new CGP(Collections.<Servicio>unmodifiableList(CollectionLiterals.<Servicio>newArrayList(_servicio_1)), _direccion_1, "Centro de gestion y participacion");
     this.otroCGP = _cGP_1;
+    Point _point_10 = new Point(0, 1);
+    Direccion _direccion_2 = new Direccion("Mozart", "1919", new String[] { "Dellepiane", "Otra calle" }, _point_10, "bs as", "Buenos Aires", this.almagro, "1422", "", "", "");
+    ParadaDeColectivo _paradaDeColectivo = new ParadaDeColectivo(_direccion_2, "Parada colectivo 114");
+    this._114 = _paradaDeColectivo;
+    Point _point_11 = new Point(6, 2);
+    Direccion _direccion_3 = new Direccion("calle 848", "2114", new String[] { "893", "892" }, _point_11, "bs as", "Buenos Aires", this.almagro, "1881", "", "", "");
+    LibreriaEscolar _libreriaEscolar = new LibreriaEscolar(_direccion_3, "libreria don Pepito");
+    this.unaLibreria = _libreriaEscolar;
+    Point _point_12 = new Point(1, 0);
+    Direccion _direccion_4 = new Direccion("calle pepe", "3333", new String[] { "jorge", "roberto" }, _point_12, "bs as", "Buenos Aires", this.almagro, "3333", "", "", "");
+    KioscoDiarios _kioscoDiarios = new KioscoDiarios(_direccion_4, "kiosco piola");
+    this.unKiosco = _kioscoDiarios;
   }
   
   @Test
-  public void estaCercaDe() {
+  public void estaCercaDeUnCGPAUnPuntoFueraDeSuComuna() {
     boolean _estaCercaDe = this.unCGP.estaCercaDe(this.unPunto);
     Assert.assertEquals(Boolean.valueOf(_estaCercaDe), Boolean.valueOf(false));
   }
   
   @Test
-  public void estaCerca() {
+  public void estaCercaUnCGPAUnPuntoDentroDeSuComuna() {
     boolean _estaCercaDe = this.otroCGP.estaCercaDe(this.unPunto);
+    Assert.assertEquals(Boolean.valueOf(_estaCercaDe), Boolean.valueOf(true));
+  }
+  
+  @Test
+  public void estaCercaUnaParadaDeColectivoDePuntoAMenosDe1Cuadra() {
+    Point _point = new Point(0, 1.0005);
+    boolean _estaCercaDe = this._114.estaCercaDe(_point);
+    Assert.assertEquals(Boolean.valueOf(_estaCercaDe), Boolean.valueOf(true));
+  }
+  
+  @Test
+  public void NoestaCercaUnaParadaDeColectivoDeUnPuntoAMasDeUnaCuadra() {
+    Point _point = new Point(0, 1.0014);
+    boolean _estaCercaDe = this._114.estaCercaDe(_point);
+    Assert.assertEquals(Boolean.valueOf(_estaCercaDe), Boolean.valueOf(false));
+  }
+  
+  @Test
+  public void NoEstaCercaUnaLibreriaAUnPuntoAMasDe5Cuadras() {
+    Point _point = new Point(6, 2.013);
+    boolean _estaCercaDe = this.unaLibreria.estaCercaDe(_point);
+    Assert.assertEquals(Boolean.valueOf(_estaCercaDe), Boolean.valueOf(false));
+  }
+  
+  @Test
+  public void NoEstaCercaUnKioscoAUnPuntoAMasDe2Cuadras() {
+    Point _point = new Point(1, 0.0019);
+    boolean _estaCercaDe = this.unKiosco.estaCercaDe(_point);
     Assert.assertEquals(Boolean.valueOf(_estaCercaDe), Boolean.valueOf(false));
   }
 }

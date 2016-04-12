@@ -2,14 +2,15 @@ package dominio;
 
 import dominio.Direccion;
 import dominio.Horario;
-import dominio.Momento;
+import dominio.Turno;
 import java.util.Collections;
-import java.util.List;
+import java.util.Set;
 import org.eclipse.xtend.lib.annotations.Accessors;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Functions.Function2;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.Pure;
+import org.joda.time.DateTime;
 import org.uqbar.geodds.Point;
 
 @Accessors
@@ -21,7 +22,7 @@ public abstract class PuntoDeInteres {
   
   private Horario horario;
   
-  private static double DISTANCIA_MAXIMA = 0.5;
+  private double DISTANCIA_MAXIMA = 0.5;
   
   public String listaDeTags() {
     String _xblockexpression = null;
@@ -43,15 +44,26 @@ public abstract class PuntoDeInteres {
   public boolean estaCercaDe(final Point coordenadasDestino) {
     Point _coordenadas = this.direccion.getCoordenadas();
     double _distance = _coordenadas.distance(coordenadasDestino);
-    return (_distance < PuntoDeInteres.DISTANCIA_MAXIMA);
+    return (_distance < this.DISTANCIA_MAXIMA);
   }
   
-  public abstract boolean estaDisponible(final Momento unMomento);
+  public void elNegocioEstaDisponibleEnUnMomento(final DateTime unMomento) {
+    boolean _estaDisponible = this.estaDisponible(unMomento);
+    if (_estaDisponible) {
+      System.out.println(("Esta Disponible " + this.nombre));
+    } else {
+      System.out.println(("No esta Disponible " + this.nombre));
+    }
+  }
   
-  public abstract boolean estaDisponible(final Momento unMomento, final String nombreDeServicio);
+  public abstract boolean estaDisponible(final DateTime unMomento);
   
-  public void setearDiasHabiles(final List<String> diasHabiles) {
+  public void setearDiasHabiles(final Set<Integer> diasHabiles) {
     this.horario.setearDiasHabiles(diasHabiles);
+  }
+  
+  public void setearTurnosDisponibles(final Set<Turno> turnos) {
+    this.horario.setearTurnosDisponibles(turnos);
   }
   
   @Pure
@@ -79,5 +91,14 @@ public abstract class PuntoDeInteres {
   
   public void setHorario(final Horario horario) {
     this.horario = horario;
+  }
+  
+  @Pure
+  public double getDISTANCIA_MAXIMA() {
+    return this.DISTANCIA_MAXIMA;
+  }
+  
+  public void setDISTANCIA_MAXIMA(final double DISTANCIA_MAXIMA) {
+    this.DISTANCIA_MAXIMA = DISTANCIA_MAXIMA;
   }
 }

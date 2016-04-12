@@ -24,11 +24,17 @@ public class CGP extends PuntoDeInteres {
 		this.direccion.comuna.poligono.isInside(coordenadasDestino)
 	}
 
+def void elNegocioEstaDisponibleEnUnMomento(DateTime unMomento , String nombreDeServicio) {
+		if (this.estaDisponible(unMomento, nombreDeServicio))
+			System::out.println("Esta Disponible " + this.nombre)
+		else
+			System::out.println("No esta Disponible " + this.nombre)
+	}
 	override boolean estaDisponible(DateTime unMomento) {
 		return algunServicioEstaDisponibleEn(unMomento)
 	}
 
-	override boolean estaDisponible(DateTime unMomento, String nombreDeServicio) {
+	def boolean estaDisponible(DateTime unMomento, String nombreDeServicio) {
 		return estaDisponibleElServicio(unMomento, nombreDeServicio)
 	}
 

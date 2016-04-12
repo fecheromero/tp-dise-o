@@ -8,7 +8,4 @@ public abstract class LocalComercial extends PuntoDeInteres {
 		return this.horario.esHabilElMomento(unMomento)
 	}
 
-	override boolean estaDisponible(DateTime unMomento, String nombreDeServicio) {
-		return this.estaDisponible(unMomento)
-	}
 }

@@ -28,7 +28,6 @@ public class Horario {
 	}
 
 	def estaEnDiaHabil(DateTime unMomento) {
-		// if true
 		return this.diasHabilesPoi.exists[unDia|unDia == unMomento.getDayOfWeek()]
 	}
 
