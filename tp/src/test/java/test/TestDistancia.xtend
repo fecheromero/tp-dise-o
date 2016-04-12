@@ -14,7 +14,6 @@ import dominio.*
 public class TestDistancia {
 	Point unPunto
 	Point puntoParadaColectivo
-	ParadaDeColectivo parada1
 	Comuna almagro
 	CGP unCGP
 	CGP otroCGP

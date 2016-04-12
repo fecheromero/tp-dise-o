@@ -4,6 +4,7 @@ import dominio.Buscador;
 import dominio.CGP;
 import dominio.Comuna;
 import dominio.Direccion;
+import dominio.KioscoDiarios;
 import dominio.LibreriaEscolar;
 import dominio.ParadaDeColectivo;
 import dominio.PuntoDeInteres;
@@ -43,6 +44,8 @@ public class TestDelBuscador {
   
   private LibreriaEscolar unaLibreria;
   
+  private KioscoDiarios unKiosco;
+  
   private HashSet<PuntoDeInteres> unSorteaditoDePuntos;
   
   @Before
@@ -75,9 +78,13 @@ public class TestDelBuscador {
     Direccion _direccion_2 = new Direccion("calle 848", "2114", new String[] { "893", "892" }, _point_6, "bs as", "Buenos Aires", this.almagro, "1881", "", "", "");
     LibreriaEscolar _libreriaEscolar = new LibreriaEscolar(_direccion_2, "libreria don Pepito");
     this.unaLibreria = _libreriaEscolar;
+    Point _point_7 = new Point(1, 0);
+    Direccion _direccion_3 = new Direccion("calle pepe", "3333", new String[] { "jorge", "roberto" }, _point_7, "bs as", "Buenos Aires", this.almagro, "3333", "", "", "");
+    KioscoDiarios _kioscoDiarios = new KioscoDiarios(_direccion_3, "lo de tucu");
+    this.unKiosco = _kioscoDiarios;
     HashSet<PuntoDeInteres> _hashSet = new HashSet<PuntoDeInteres>();
     this.unSorteaditoDePuntos = _hashSet;
-    this.unSorteaditoDePuntos.addAll(Collections.<PuntoDeInteres>unmodifiableList(CollectionLiterals.<PuntoDeInteres>newArrayList(this.unaLibreria, this._114, this.unCGP)));
+    this.unSorteaditoDePuntos.addAll(Collections.<PuntoDeInteres>unmodifiableList(CollectionLiterals.<PuntoDeInteres>newArrayList(this.unaLibreria, this._114, this.unCGP, this.unKiosco)));
     Buscador _buscador = new Buscador();
     this.buscador = _buscador;
     this.buscador.setPuntos(this.unSorteaditoDePuntos);
@@ -96,16 +103,23 @@ public class TestDelBuscador {
   }
   
   @Test
-  public void pruebaDeBusquedaLibreriaDonPepitoEnUnSoreaditoDePuntos() {
+  public void pruebaDeBusquedaLibreriaDonPepitoEnUnSorteaditoDePuntos() {
     PuntoDeInteres[] _pTenDePuntos = this.buscador.topTenDePuntos("libreria don Pepito");
     Iterable<Object> _take = IterableExtensions.<Object>take(((Iterable<Object>)Conversions.doWrapArray(_pTenDePuntos)), 1);
     Assert.assertArrayEquals(((Object[])Conversions.unwrapArray(_take, Object.class)), new Object[] { this.unaLibreria });
   }
   
   @Test
-  public void pruebaDeBusquedaParadaDel114() {
+  public void pruebaDeBusquedaParadaDel114EnUnSorteaditoDePuntos() {
     PuntoDeInteres[] _pTenDePuntos = this.buscador.topTenDePuntos("114");
     Iterable<Object> _take = IterableExtensions.<Object>take(((Iterable<Object>)Conversions.doWrapArray(_pTenDePuntos)), 1);
     Assert.assertArrayEquals(((Object[])Conversions.unwrapArray(_take, Object.class)), new Object[] { this._114 });
+  }
+  
+  @Test
+  public void pruebaDeBusquedaxRubroKioscoEnUnSorteaditoDePuntos() {
+    PuntoDeInteres[] _pTenDePuntos = this.buscador.topTenDePuntos("kiosco");
+    Iterable<Object> _take = IterableExtensions.<Object>take(((Iterable<Object>)Conversions.doWrapArray(_pTenDePuntos)), 1);
+    Assert.assertArrayEquals(((Object[])Conversions.unwrapArray(_take, Object.class)), new Object[] { this.unKiosco });
   }
 }

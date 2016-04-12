@@ -21,6 +21,7 @@ public class TestDelBuscador {
     CGP unCGP
     ParadaDeColectivo _114
     LibreriaEscolar unaLibreria
+     KioscoDiarios unKiosco
     HashSet<PuntoDeInteres> unSorteaditoDePuntos
     
 	@Before
@@ -36,8 +37,9 @@ public class TestDelBuscador {
 	  unCGP=new CGP(#[new Servicio("asistencia Social")],new Direccion("calle sarmiento","2142",#["san Martin","Belgrano"],new Point(4,6),"bs as","Buenos Aires",almagro,"1881","","",""),"Centro de gestion y participacion")
 	  _114=new ParadaDeColectivo(new Direccion("Mozart","1919",#["Dellepiane","Otra calle"],new Point(1,2),"bs as","Buenos Aires",lugano,"1422","","",""),"Parada colectivo 114") 
 	  unaLibreria=new LibreriaEscolar(new Direccion("calle 848","2114",#["893","892"],new Point(6,2),"bs as","Buenos Aires",almagro,"1881","","",""),"libreria don Pepito")
+	unKiosco=new KioscoDiarios(new Direccion("calle pepe","3333",#["jorge","roberto"],new Point(1,0),"bs as","Buenos Aires",almagro,"3333","","",""),"lo de tucu")
 	 unSorteaditoDePuntos=new HashSet<PuntoDeInteres>
-	 unSorteaditoDePuntos.addAll(#[unaLibreria,_114,unCGP])
+	 unSorteaditoDePuntos.addAll(#[unaLibreria,_114,unCGP,unKiosco])
 	 buscador=new Buscador()
 	 buscador.puntos=unSorteaditoDePuntos
 	}
@@ -52,11 +54,15 @@ public class TestDelBuscador {
 	}
 	
 	@Test
-	def void pruebaDeBusquedaLibreriaDonPepitoEnUnSoreaditoDePuntos(){
+	def void pruebaDeBusquedaLibreriaDonPepitoEnUnSorteaditoDePuntos(){
 		Assert.assertArrayEquals(buscador.topTenDePuntos("libreria don Pepito").take(1),#[unaLibreria])
 	}
 	@Test
-	def void pruebaDeBusquedaParadaDel114(){
+	def void pruebaDeBusquedaParadaDel114EnUnSorteaditoDePuntos(){
 		Assert.assertArrayEquals(buscador.topTenDePuntos("114").take(1),#[_114])
+	}
+		@Test
+	def void pruebaDeBusquedaxRubroKioscoEnUnSorteaditoDePuntos(){
+		Assert.assertArrayEquals(buscador.topTenDePuntos("kiosco").take(1),#[unKiosco])
 	}
 }
