@@ -3,7 +3,6 @@ package dominio;
 import com.google.common.base.Objects;
 import dominio.Comuna;
 import dominio.Direccion;
-import dominio.Momento;
 import dominio.PuntoDeInteres;
 import dominio.Servicio;
 import java.util.List;
@@ -12,6 +11,7 @@ import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
 import org.eclipse.xtext.xbase.lib.Pure;
+import org.joda.time.DateTime;
 import org.uqbar.geodds.Point;
 import org.uqbar.geodds.Polygon;
 
@@ -46,15 +46,28 @@ public class CGP extends PuntoDeInteres {
     return _poligono.isInside(coordenadasDestino);
   }
   
-  public boolean estaDisponible(final Momento unMomento) {
+  public void elNegocioEstaDisponibleEnUnMomento(final DateTime unMomento, final String nombreDeServicio) {
+    boolean _estaDisponible = this.estaDisponible(unMomento, nombreDeServicio);
+    if (_estaDisponible) {
+      String _nombre = this.getNombre();
+      String _plus = ("Esta Disponible " + _nombre);
+      System.out.println(_plus);
+    } else {
+      String _nombre_1 = this.getNombre();
+      String _plus_1 = ("No esta Disponible " + _nombre_1);
+      System.out.println(_plus_1);
+    }
+  }
+  
+  public boolean estaDisponible(final DateTime unMomento) {
     return this.algunServicioEstaDisponibleEn(unMomento);
   }
   
-  public boolean estaDisponible(final Momento unMomento, final String nombreDeServicio) {
+  public boolean estaDisponible(final DateTime unMomento, final String nombreDeServicio) {
     return this.estaDisponibleElServicio(unMomento, nombreDeServicio);
   }
   
-  public boolean algunServicioEstaDisponibleEn(final Momento unMomento) {
+  public boolean algunServicioEstaDisponibleEn(final DateTime unMomento) {
     final Function1<Servicio, Boolean> _function = new Function1<Servicio, Boolean>() {
       public Boolean apply(final Servicio unServicio) {
         return Boolean.valueOf(unServicio.estaDisponible(unMomento));
@@ -63,7 +76,7 @@ public class CGP extends PuntoDeInteres {
     return IterableExtensions.<Servicio>exists(this.servicios, _function);
   }
   
-  public boolean estaDisponibleElServicio(final Momento unMomento, final String nombreDeServicio) {
+  public boolean estaDisponibleElServicio(final DateTime unMomento, final String nombreDeServicio) {
     Servicio _buscarServicioDeNombre = this.buscarServicioDeNombre(nombreDeServicio);
     return _buscarServicioDeNombre.estaDisponible(unMomento);
   }

@@ -14,8 +14,7 @@ public abstract class PuntoDeInteres {
 	Direccion direccion
 	String nombre
 	Horario horario
-	//static double FACTOR_CONVERSION = 0.001
-	 var double DISTANCIA_MAXIMA = 0.5
+	var double DISTANCIA_MAXIMA = 0.5
 
 	public def String listaDeTags() {
 		var String lista = ""
@@ -25,32 +24,23 @@ public abstract class PuntoDeInteres {
 	}
 
 	def boolean estaCercaDe(Point coordenadasDestino) {
-		direccion.coordenadas.distance(coordenadasDestino)<DISTANCIA_MAXIMA
+		direccion.coordenadas.distance(coordenadasDestino) < DISTANCIA_MAXIMA
+	}
+	def void elNegocioEstaDisponibleEnUnMomento(DateTime unMomento) {
+		if (this.estaDisponible(unMomento))
+			System::out.println("Esta Disponible " + this.nombre + " la fecha: "+ unMomento)
+		else
+			System::out.println("No esta Disponible " + this.nombre + " la fecha: "+ unMomento)
 	}
 
-	//def boolean verificarCercania(PuntoDeInteres unPunto, Point coordenadasDestino, double distanciaMaxima) {
-	//	var double distancia
+	def boolean estaDisponible(DateTime unMomento)
 
-	//	distancia = this.getDireccion.getCoordenadas.distance(coordenadasDestino)
-	//	if (distancia * FACTOR_CONVERSION < DISTANCIA_MAXIMA) {
-	//		return true
-	//	} else {
-	//		return false
-	//	}
-	//}
-
-	//def Direccion getDireccion() {                      //el Accesor ya existe es .direccion//
-	//	return direccion
-	//}
-
-	def boolean estaDisponible(DateTime unMomento) 
-
-	def boolean estaDisponible(DateTime unMomento, String nombreDeServicio) 
-	
-	def void setearDiasHabiles(Set<Integer> diasHabiles)	{
+		/*def void setearDiasHabiles(HashSet<Integer> diasHabiles) {
 		this.horario.setearDiasHabiles(diasHabiles)
-	} 
-	def void setearTurnosDisponibles(Set<Turno> turnos){
-	this.horario.setearTurnosDisponibles(turnos)
 	}
+
+	def void setearTurnosDisponibles(HashSet<Turno> turnos) {
+		this.horario.setearTurnosDisponibles(turnos)
+	}
+*/
 }

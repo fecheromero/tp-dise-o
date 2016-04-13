@@ -16,8 +16,5 @@ public class ParadaDeColectivo extends PuntoDeInteres {
 		return true
 	}
 
-	override estaDisponible(DateTime unMomento, String nombreDeServicio) {
-		return true
-	}
 
 }
