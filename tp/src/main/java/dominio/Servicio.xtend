@@ -8,9 +8,6 @@ class Servicio {
 	String nombre
 	Horario horario
 
-	new(String _nombre) {
-		nombre = _nombre
-	}
 
 	new(String _nombre,Horario _horario) {
 		this.nombre = _nombre

@@ -41,7 +41,7 @@ public class TestDelBuscador {
 		string4 = "embuebido"
 		string5 = "muebleria don pepito"
 		servicios = new HashSet<Servicio>
-		servicios.add(new Servicio("asistencia Social"))
+		servicios.add(new Servicio("asistencia Social",unHorario))
 		almagro = new Comuna("almagro", new Polygon(#[new Point(1, 2), new Point(2, 3)]))
 		lugano = new Comuna("lugano", new Polygon(#[new Point(2, 4), new Point(4, 5)]))
 		unCGP = new CGP(servicios,new Direccion("calle sarmiento", "2142", #["san Martin", "Belgrano"], new Point(4, 6), "bs as","Buenos Aires", almagro, "1881", "", "", ""), "Centro de gestion y participacion")

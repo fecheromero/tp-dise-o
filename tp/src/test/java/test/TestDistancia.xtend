@@ -33,10 +33,10 @@ public class TestDistancia {
 	@Before
 	def void setUp() {
 		serviciosCgp1 = new HashSet<Servicio>
-		serviciosCgp1.addAll(new Servicio("asistencia Social"), new Servicio("asistencia Comunitaria"))
+		serviciosCgp1.addAll(new Servicio("asistencia Social",unHorario), new Servicio("asistencia Comunitaria",unHorario))
 		serviciosCgp2 = new HashSet<Servicio>
-		serviciosCgp2.addAll(new Servicio("asistencia Social"), new Servicio("asistencia Jurídica"),
-			new Servicio("Registro Civil"))
+		serviciosCgp2.addAll(new Servicio("asistencia Social",unHorario), new Servicio("asistencia Jurídica",unHorario),
+			new Servicio("Registro Civil",unHorario))
 		unPunto = new Point(1, 2)
 		puntoParadaColectivo = new Point(1, 2)
 		almagro = new Comuna("almagro", new Polygon(#[new Point(1, 2), new Point(2, 3)]))

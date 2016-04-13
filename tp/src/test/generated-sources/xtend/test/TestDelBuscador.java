@@ -68,7 +68,7 @@ public class TestDelBuscador {
     this.string5 = "muebleria don pepito";
     HashSet<Servicio> _hashSet = new HashSet<Servicio>();
     this.servicios = _hashSet;
-    Servicio _servicio = new Servicio("asistencia Social");
+    Servicio _servicio = new Servicio("asistencia Social", this.unHorario);
     this.servicios.add(_servicio);
     Point _point = new Point(1, 2);
     Point _point_1 = new Point(2, 3);
