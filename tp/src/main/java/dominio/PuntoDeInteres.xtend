@@ -35,12 +35,5 @@ public abstract class PuntoDeInteres {
 
 	def boolean estaDisponible(DateTime unMomento)
 
-		/*def void setearDiasHabiles(HashSet<Integer> diasHabiles) {
-		this.horario.setearDiasHabiles(diasHabiles)
-	}
-
-	def void setearTurnosDisponibles(HashSet<Turno> turnos) {
-		this.horario.setearTurnosDisponibles(turnos)
-	}
-*/
+		
 }

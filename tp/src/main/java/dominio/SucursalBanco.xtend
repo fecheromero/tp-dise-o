@@ -20,8 +20,7 @@ class SucursalBanco extends PuntoDeInteres {
 		this.nombre = _nombre
 		this.servicios = servicios
 		
-		//this.turnoBanco.horaInicio = new LocalTime(10, 0)
-		//this.turnoBanco.horaFin = new LocalTime(15, 0)
+		
 		turnosDisponiblesBanco = new HashSet<Turno>
 		diasHabilesBanco = new HashSet<Integer>
 		turnoBanco = new Turno(new LocalTime(10, 0), new LocalTime(15, 0))
