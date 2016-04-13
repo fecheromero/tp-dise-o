@@ -4,16 +4,19 @@ import dominio.Buscador;
 import dominio.CGP;
 import dominio.Comuna;
 import dominio.Direccion;
+import dominio.Horario;
 import dominio.KioscoDiarios;
 import dominio.LibreriaEscolar;
 import dominio.ParadaDeColectivo;
 import dominio.PuntoDeInteres;
 import dominio.Servicio;
+import dominio.Turno;
 import java.util.Collections;
 import java.util.HashSet;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
+import org.joda.time.LocalTime;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -50,6 +53,12 @@ public class TestDelBuscador {
   
   private HashSet<Servicio> servicios;
   
+  private Horario unHorario;
+  
+  private HashSet<Integer> unosDias;
+  
+  private HashSet<Turno> unosTurnos;
+  
   @Before
   public void setUp() {
     this.string1 = "muebleria";
@@ -83,12 +92,12 @@ public class TestDelBuscador {
     Point _point_6 = new Point(6, 2);
     Direccion _direccion_2 = new Direccion("calle 848", "2114", new String[] { "893", "892" }, _point_6, "bs as", "Buenos Aires", this.almagro, 
       "1881", "", "", "");
-    LibreriaEscolar _libreriaEscolar = new LibreriaEscolar(_direccion_2, "libreria don Pepito");
+    LibreriaEscolar _libreriaEscolar = new LibreriaEscolar("libreria don Pepito", this.unHorario, _direccion_2);
     this.unaLibreria = _libreriaEscolar;
     Point _point_7 = new Point(1, 0);
     Direccion _direccion_3 = new Direccion("calle pepe", "3333", new String[] { "jorge", "roberto" }, _point_7, "bs as", "Buenos Aires", 
       this.almagro, "3333", "", "", "");
-    KioscoDiarios _kioscoDiarios = new KioscoDiarios(_direccion_3, "lo de tucu");
+    KioscoDiarios _kioscoDiarios = new KioscoDiarios("lo de tucu", this.unHorario, _direccion_3);
     this.unKiosco = _kioscoDiarios;
     HashSet<PuntoDeInteres> _hashSet_1 = new HashSet<PuntoDeInteres>();
     this.unSorteaditoDePuntos = _hashSet_1;
@@ -96,6 +105,17 @@ public class TestDelBuscador {
     Buscador _buscador = new Buscador();
     this.buscador = _buscador;
     this.buscador.setPuntos(this.unSorteaditoDePuntos);
+    HashSet<Turno> _hashSet_2 = new HashSet<Turno>();
+    this.unosTurnos = _hashSet_2;
+    LocalTime _localTime = new LocalTime(0, 10);
+    LocalTime _localTime_1 = new LocalTime(2, 4);
+    Turno _turno = new Turno(_localTime, _localTime_1);
+    this.unosTurnos.add(_turno);
+    HashSet<Integer> _hashSet_3 = new HashSet<Integer>();
+    this.unosDias = _hashSet_3;
+    this.unosDias.add(Integer.valueOf(1));
+    Horario _horario = new Horario(this.unosDias, this.unosTurnos);
+    this.unHorario = _horario;
   }
   
   @Test

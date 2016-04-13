@@ -10,6 +10,8 @@ import java.util.List
 import java.util.Set
 import java.util.TreeSet
 import java.util.HashSet
+import org.joda.time.DateTime
+import org.joda.time.LocalTime
 
 public class TestDelBuscador {
 	Buscador buscador
@@ -27,6 +29,9 @@ public class TestDelBuscador {
 	KioscoDiarios unKiosco
 	HashSet<PuntoDeInteres> unSorteaditoDePuntos
 	HashSet<Servicio> servicios
+	Horario unHorario
+	HashSet<Integer> unosDias
+	HashSet<Turno> unosTurnos
 
 	@Before
 	def void setUp() {
@@ -43,16 +48,21 @@ public class TestDelBuscador {
 		_114 = new ParadaDeColectivo(
 			new Direccion("Mozart", "1919", #["Dellepiane", "Otra calle"], new Point(1, 2), "bs as", "Buenos Aires",
 				lugano, "1422", "", "", ""), "Parada colectivo 114")
-		unaLibreria = new LibreriaEscolar(
+		unaLibreria = new LibreriaEscolar("libreria don Pepito",unHorario,
 			new Direccion("calle 848", "2114", #["893", "892"], new Point(6, 2), "bs as", "Buenos Aires", almagro,
-				"1881", "", "", ""), "libreria don Pepito")
-		unKiosco = new KioscoDiarios(
+				"1881", "", "", ""))
+		unKiosco = new KioscoDiarios("lo de tucu",unHorario,
 			new Direccion("calle pepe", "3333", #["jorge", "roberto"], new Point(1, 0), "bs as", "Buenos Aires",
-				almagro, "3333", "", "", ""), "lo de tucu")
+				almagro, "3333", "", "", ""))
 		unSorteaditoDePuntos = new HashSet<PuntoDeInteres>
 		unSorteaditoDePuntos.addAll(#[unaLibreria, _114, unCGP, unKiosco])
 		buscador = new Buscador()
 		buscador.puntos = unSorteaditoDePuntos
+		unosTurnos=new HashSet<Turno>
+		unosTurnos.add(new Turno(new LocalTime(0,10),new LocalTime(2,4)))
+		unosDias=new HashSet<Integer>
+		unosDias.add(1)
+		unHorario=new Horario(unosDias,unosTurnos)
 
 	}
 

@@ -12,6 +12,7 @@ import org.uqbar.geodds.Point
 import org.uqbar.geodds.Polygon
 import dominio.*
 import java.util.HashSet
+import org.joda.time.LocalTime
 
 public class TestDistancia {
 	Point unPunto
@@ -25,6 +26,9 @@ public class TestDistancia {
 	KioscoDiarios unKiosco
 	HashSet<Servicio> serviciosCgp1
 	HashSet<Servicio> serviciosCgp2
+	Horario unHorario
+	HashSet<Integer> unosDias
+	HashSet<Turno> unosTurnos
 
 	@Before
 	def void setUp() {
@@ -46,12 +50,18 @@ public class TestDistancia {
 		_114 = new ParadaDeColectivo(
 			new Direccion("Mozart", "1919", #["Dellepiane", "Otra calle"], new Point(0, 1), "bs as", "Buenos Aires",
 				almagro, "1422", "", "", ""), "Parada colectivo 114")
-		unaLibreria = new LibreriaEscolar(
+		unaLibreria = new LibreriaEscolar("libreria don Pepito",unHorario,
 			new Direccion("calle 848", "2114", #["893", "892"], new Point(6, 2), "bs as", "Buenos Aires", almagro,
-				"1881", "", "", ""), "libreria don Pepito")
-		unKiosco = new KioscoDiarios(
+				"1881", "", "", ""))
+		unKiosco = new KioscoDiarios("El Kiosquito",unHorario,
 			new Direccion("calle pepe", "3333", #["jorge", "roberto"], new Point(1, 0), "bs as", "Buenos Aires",
-				almagro, "3333", "", "", ""), "kiosco piola")
+				almagro, "3333", "", "", ""))
+					unosTurnos=new HashSet<Turno>
+		unosTurnos.add(new Turno(new LocalTime(0,10),new LocalTime(2,4)))
+		unosDias=new HashSet<Integer>
+		unosDias.add(1)
+		unHorario=new Horario(unosDias,unosTurnos)
+				
 	}
 
 	// 1 unidad en coordenadas geograficas son aproximadamente 110,59 km
