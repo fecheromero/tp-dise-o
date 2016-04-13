@@ -14,7 +14,6 @@ public abstract class PuntoDeInteres {
 	Direccion direccion
 	String nombre
 	Horario horario
-	// static double FACTOR_CONVERSION = 0.001
 	var double DISTANCIA_MAXIMA = 0.5
 
 	public def String listaDeTags() {
@@ -27,19 +26,6 @@ public abstract class PuntoDeInteres {
 	def boolean estaCercaDe(Point coordenadasDestino) {
 		direccion.coordenadas.distance(coordenadasDestino) < DISTANCIA_MAXIMA
 	}
-
-	// def boolean verificarCercania(PuntoDeInteres unPunto, Point coordenadasDestino, double distanciaMaxima) {
-	// var double distancia
-	// distancia = this.getDireccion.getCoordenadas.distance(coordenadasDestino)
-	// if (distancia * FACTOR_CONVERSION < DISTANCIA_MAXIMA) {
-	// return true
-	// } else {
-	// return false
-	// }
-	// }
-	// def Direccion getDireccion() {                      //el Accesor ya existe es .direccion//
-	// return direccion
-	// }
 	def void elNegocioEstaDisponibleEnUnMomento(DateTime unMomento) {
 		if (this.estaDisponible(unMomento))
 			System::out.println("Esta Disponible " + this.nombre + " la fecha: "+ unMomento)
