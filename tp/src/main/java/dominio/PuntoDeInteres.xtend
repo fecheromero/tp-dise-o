@@ -42,19 +42,19 @@ public abstract class PuntoDeInteres {
 	// }
 	def void elNegocioEstaDisponibleEnUnMomento(DateTime unMomento) {
 		if (this.estaDisponible(unMomento))
-			System::out.println("Esta Disponible " + this.nombre)
+			System::out.println("Esta Disponible " + this.nombre + " la fecha: "+ unMomento)
 		else
-			System::out.println("No esta Disponible " + this.nombre)
+			System::out.println("No esta Disponible " + this.nombre + " la fecha: "+ unMomento)
 	}
 
 	def boolean estaDisponible(DateTime unMomento)
 
-		def void setearDiasHabiles(Set<Integer> diasHabiles) {
+		/*def void setearDiasHabiles(HashSet<Integer> diasHabiles) {
 		this.horario.setearDiasHabiles(diasHabiles)
 	}
 
-	def void setearTurnosDisponibles(Set<Turno> turnos) {
+	def void setearTurnosDisponibles(HashSet<Turno> turnos) {
 		this.horario.setearTurnosDisponibles(turnos)
 	}
-
+*/
 }

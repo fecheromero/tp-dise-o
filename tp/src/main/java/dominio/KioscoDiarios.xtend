@@ -11,5 +11,10 @@ class KioscoDiarios extends LocalComercial{
 		this.nombre=_nombre
 		 DISTANCIA_MAXIMA=0.2
 	}
-
+new(String _nombre,Horario _horario,Direccion _direccion){
+		this.horario=_horario
+		this.nombre=_nombre
+		this.direccion=_direccion
+		
+	}
 }

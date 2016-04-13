@@ -4,12 +4,13 @@ import org.uqbar.geodds.Point
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.DateTime
+import java.util.HashSet
 
 @Accessors
 public class CGP extends PuntoDeInteres {
-	List<Servicio> servicios
-
-	new(List<Servicio> servicios, Direccion _direccion, String _nombre) {
+	HashSet<Servicio> servicios
+	
+	new(HashSet<Servicio> servicios, Direccion _direccion, String _nombre) {
 		this.direccion = _direccion
 		this.nombre = _nombre
 		this.servicios = servicios

@@ -2,17 +2,15 @@ package dominio
 
 import org.joda.time.DateTime
 import java.util.Set
+import java.util.HashSet
 
 public class Horario {
-	Set<Integer> diasHabilesPoi
-	Set<Turno> turnosDisponibles
+	HashSet<Integer> diasHabilesPoi
+	HashSet<Turno> turnosDisponibles
 
-	def void setearDiasHabiles(Set<Integer> diasHabiles) {
-		this.diasHabilesPoi = diasHabiles
-	}
-
-	def void setearTurnosDisponibles(Set<Turno> turnos) {
-		this.turnosDisponibles = turnos
+	new(HashSet<Integer> _diashabiles, HashSet<Turno> _turnos) {
+		this.diasHabilesPoi = _diashabiles
+		this.turnosDisponibles = _turnos
 	}
 
 	def boolean esHabilElMomento(DateTime unMomento) {
@@ -28,7 +26,7 @@ public class Horario {
 	}
 
 	def estaEnDiaHabil(DateTime unMomento) {
-		return this.diasHabilesPoi.exists[unDia|unDia == unMomento.getDayOfWeek()]
+		return this.diasHabilesPoi.contains(unMomento.getDayOfWeek())
 	}
 
 }
