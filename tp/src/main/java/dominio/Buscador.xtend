@@ -27,7 +27,6 @@ public class Buscador {
 		return c;
 	}
 
-	@Pure
 	static def int[][] newIntArrayOfSize(int nrow, int ncol) {
 		newArrayOfSize(nrow).map[newIntArrayOfSize(ncol)]
 	}
