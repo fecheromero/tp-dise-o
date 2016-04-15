@@ -3,6 +3,7 @@ language: xtend
 jdk:
   - oraclejdk8
 branches: 
+only:
 -development
 notifications:
    - fecheromero@gmail.com
