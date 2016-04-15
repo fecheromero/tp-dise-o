@@ -1,4 +1,4 @@
-language: xtend
+language: java
 
 jdk:
   - oraclejdk8
