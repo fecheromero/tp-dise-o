@@ -2,7 +2,8 @@ language: xtend
 
 jdk:
   - oraclejdk8
-branches: development
+branches: 
+-development
 notifications:
    - fecheromero@gmail.com
     - chona.diaz@gmail.com
