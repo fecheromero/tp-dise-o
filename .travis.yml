@@ -3,7 +3,7 @@ language: xtend
 jdk:
   - oraclejdk8
 branches: 
-only:
+  only:
     -development
 notifications:
   recipients:
@@ -12,7 +12,7 @@ notifications:
   -candezunino@gmail.com
   -nadiagutierrez89@yahoo.com.ar
   -iimariano94@gmail.com
+  
   email:
-    recipients:
     on_success: change
     on_failure: always
