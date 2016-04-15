@@ -2,6 +2,8 @@ language: Java
 
 jdk:
   - oraclejdk8
+before_install:
+  cd tp
 branches: 
   only:
     - development
