@@ -2,14 +2,14 @@ language: xtend
 
 jdk:
   - oraclejdk8
-
+branches: development
 notifications:
-  email:
-    recipients:
-    - fecheromero@gmail.com
+   - fecheromero@gmail.com
     - chona.diaz@gmail.com
     -candezunino@gmail.com
     -nadiagutierrez89@yahoo.com.ar
     -iimariano94@gmail.com
+  email:
+    recipients:
     on_success: change
     on_failure: always
