@@ -4,14 +4,14 @@ jdk:
   - oraclejdk8
 branches: 
   only:
-    -development
+    - development
 notifications:
   recipients:
   - fecheromero@gmail.com
   - chona.diaz@gmail.com
-  -candezunino@gmail.com
-  -nadiagutierrez89@yahoo.com.ar
-  -iimariano94@gmail.com
+  - candezunino@gmail.com
+  - nadiagutierrez89@yahoo.com.ar
+  - iimariano94@gmail.com
   
   email:
     on_success: change
