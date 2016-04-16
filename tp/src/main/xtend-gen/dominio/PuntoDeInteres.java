@@ -2,9 +2,7 @@ package dominio;
 
 import dominio.Direccion;
 import dominio.Horario;
-import dominio.Turno;
 import java.util.Collections;
-import java.util.Set;
 import org.eclipse.xtend.lib.annotations.Accessors;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Functions.Function2;
@@ -47,23 +45,8 @@ public abstract class PuntoDeInteres {
     return (_distance < this.DISTANCIA_MAXIMA);
   }
   
-  public void elNegocioEstaDisponibleEnUnMomento(final DateTime unMomento) {
-    boolean _estaDisponible = this.estaDisponible(unMomento);
-    if (_estaDisponible) {
-      System.out.println(("Esta Disponible " + this.nombre));
-    } else {
-      System.out.println(("No esta Disponible " + this.nombre));
-    }
-  }
-  
-  public abstract boolean estaDisponible(final DateTime unMomento);
-  
-  public void setearDiasHabiles(final Set<Integer> diasHabiles) {
-    this.horario.setearDiasHabiles(diasHabiles);
-  }
-  
-  public void setearTurnosDisponibles(final Set<Turno> turnos) {
-    this.horario.setearTurnosDisponibles(turnos);
+  public boolean estaDisponible(final DateTime unMomento) {
+    return this.horario.esHabilElMomento(unMomento);
   }
   
   @Pure

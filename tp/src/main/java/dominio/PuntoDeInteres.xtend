@@ -2,11 +2,9 @@ package dominio
 
 import org.uqbar.geodds.Point
 import org.eclipse.xtend.lib.annotations.Accessors
-import java.lang.reflect.Array
-import java.util.ArrayList
-import java.util.HashSet
+
 import org.joda.time.DateTime
-import java.util.Set
+
 
 @Accessors
 public abstract class PuntoDeInteres {
@@ -26,14 +24,16 @@ public abstract class PuntoDeInteres {
 	def boolean estaCercaDe(Point coordenadasDestino) {
 		direccion.coordenadas.distance(coordenadasDestino) < DISTANCIA_MAXIMA
 	}
-	def void elNegocioEstaDisponibleEnUnMomento(DateTime unMomento) {
+	
+		def boolean estaDisponible(DateTime unMomento) {
+		return this.horario.esHabilElMomento(unMomento)
+	}
+	/*def void elNegocioEstaDisponibleEnUnMomento(DateTime unMomento) {
 		if (this.estaDisponible(unMomento))
 			System::out.println("Esta Disponible " + this.nombre + " la fecha: "+ unMomento)
 		else
 			System::out.println("No esta Disponible " + this.nombre + " la fecha: "+ unMomento)
 	}
-
-	def boolean estaDisponible(DateTime unMomento)
-
+*/
 		
 }

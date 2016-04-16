@@ -1,17 +1,23 @@
 package test
 
+import dominio.Buscador
+import dominio.CGP
+import dominio.Comuna
+import dominio.Direccion
+import dominio.Horario
+import dominio.KioscoDiarios
+import dominio.LibreriaEscolar
+import dominio.ParadaDeColectivo
+import dominio.PuntoDeInteres
+import dominio.Servicio
+import dominio.Turno
+import java.util.HashSet
+import org.joda.time.LocalTime
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
-import dominio.*
 import org.uqbar.geodds.Point
 import org.uqbar.geodds.Polygon
-import java.util.List
-import java.util.Set
-import java.util.TreeSet
-import java.util.HashSet
-import org.joda.time.DateTime
-import org.joda.time.LocalTime
 
 public class TestDelBuscador {
 	Buscador buscador
@@ -40,6 +46,11 @@ public class TestDelBuscador {
 		string3 = "sangucheria"
 		string4 = "embuebido"
 		string5 = "muebleria don pepito"
+		unosTurnos=new HashSet<Turno>
+		unosTurnos.add(new Turno(new LocalTime(0,10),new LocalTime(2,4)))
+		unosDias=new HashSet<Integer>
+		unosDias.add(1)
+		unHorario=new Horario(unosDias,unosTurnos)
 		servicios = new HashSet<Servicio>
 		servicios.add(new Servicio("asistencia Social",unHorario))
 		almagro = new Comuna("almagro", new Polygon(#[new Point(1, 2), new Point(2, 3)]))
@@ -58,11 +69,7 @@ public class TestDelBuscador {
 		unSorteaditoDePuntos.addAll(#[unaLibreria, _114, unCGP, unKiosco])
 		buscador = new Buscador()
 		buscador.puntos = unSorteaditoDePuntos
-		unosTurnos=new HashSet<Turno>
-		unosTurnos.add(new Turno(new LocalTime(0,10),new LocalTime(2,4)))
-		unosDias=new HashSet<Integer>
-		unosDias.add(1)
-		unHorario=new Horario(unosDias,unosTurnos)
+		
 
 	}
 

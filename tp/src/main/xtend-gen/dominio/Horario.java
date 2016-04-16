@@ -1,24 +1,24 @@
 package dominio;
 
 import dominio.Turno;
-import java.util.Set;
+import java.util.HashSet;
+import org.eclipse.xtend.lib.annotations.Accessors;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
+import org.eclipse.xtext.xbase.lib.Pure;
 import org.joda.time.DateTime;
 import org.joda.time.LocalTime;
 
+@Accessors
 @SuppressWarnings("all")
 public class Horario {
-  private Set<Integer> diasHabilesPoi;
+  private HashSet<Integer> diasHabilesPoi;
   
-  private Set<Turno> turnosDisponibles;
+  private HashSet<Turno> turnosDisponibles;
   
-  public void setearDiasHabiles(final Set<Integer> diasHabiles) {
-    this.diasHabilesPoi = diasHabiles;
-  }
-  
-  public void setearTurnosDisponibles(final Set<Turno> turnos) {
-    this.turnosDisponibles = turnos;
+  public Horario(final HashSet<Integer> _diashabiles, final HashSet<Turno> _turnos) {
+    this.diasHabilesPoi = _diashabiles;
+    this.turnosDisponibles = _turnos;
   }
   
   public boolean esHabilElMomento(final DateTime unMomento) {
@@ -48,12 +48,25 @@ public class Horario {
   }
   
   public boolean estaEnDiaHabil(final DateTime unMomento) {
-    final Function1<Integer, Boolean> _function = new Function1<Integer, Boolean>() {
-      public Boolean apply(final Integer unDia) {
-        int _dayOfWeek = unMomento.getDayOfWeek();
-        return Boolean.valueOf(((unDia).intValue() == _dayOfWeek));
-      }
-    };
-    return IterableExtensions.<Integer>exists(this.diasHabilesPoi, _function);
+    int _dayOfWeek = unMomento.getDayOfWeek();
+    return this.diasHabilesPoi.contains(Integer.valueOf(_dayOfWeek));
+  }
+  
+  @Pure
+  public HashSet<Integer> getDiasHabilesPoi() {
+    return this.diasHabilesPoi;
+  }
+  
+  public void setDiasHabilesPoi(final HashSet<Integer> diasHabilesPoi) {
+    this.diasHabilesPoi = diasHabilesPoi;
+  }
+  
+  @Pure
+  public HashSet<Turno> getTurnosDisponibles() {
+    return this.turnosDisponibles;
+  }
+  
+  public void setTurnosDisponibles(final HashSet<Turno> turnosDisponibles) {
+    this.turnosDisponibles = turnosDisponibles;
   }
 }

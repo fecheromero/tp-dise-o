@@ -3,7 +3,6 @@ package dominio;
 import dominio.Horario;
 import org.eclipse.xtend.lib.annotations.Accessors;
 import org.eclipse.xtext.xbase.lib.Pure;
-import org.joda.time.DateTime;
 
 @Accessors
 @SuppressWarnings("all")
@@ -12,8 +11,9 @@ public class Servicio {
   
   private Horario horario;
   
-  public Servicio(final String _nombre) {
+  public Servicio(final String _nombre, final Horario _horario) {
     this.nombre = _nombre;
+    this.horario = _horario;
   }
   
   public String listaDeTags() {
@@ -23,10 +23,6 @@ public class Servicio {
       _xblockexpression = lista = this.nombre;
     }
     return _xblockexpression;
-  }
-  
-  public boolean estaDisponible(final DateTime unMomento) {
-    return this.horario.esHabilElMomento(unMomento);
   }
   
   @Pure

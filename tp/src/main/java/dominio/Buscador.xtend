@@ -1,8 +1,6 @@
 package dominio
 
 import java.util.Collection
-import java.util.Comparator
-import java.util.Set
 import java.util.HashSet
 import org.eclipse.xtend.lib.annotations.Accessors
 

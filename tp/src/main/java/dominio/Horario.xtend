@@ -1,9 +1,11 @@
 package dominio
 
 import org.joda.time.DateTime
-import java.util.Set
-import java.util.HashSet
 
+import java.util.HashSet
+import org.eclipse.xtend.lib.annotations.Accessors
+
+@Accessors
 public class Horario {
 	HashSet<Integer> diasHabilesPoi
 	HashSet<Turno> turnosDisponibles

@@ -1,42 +1,30 @@
 package dominio
 
-import org.eclipse.xtend.lib.annotations.Accessors
-import java.util.List
-import org.joda.time.DateTime
-import java.util.Set
+
 import org.joda.time.LocalTime
 import java.util.HashSet
+import org.joda.time.DateTime
 
-@Accessors
-class SucursalBanco extends PuntoDeInteres {
+class SucursalBanco extends PuntoDeInteresConServicios {
 	HashSet<Servicio> servicios
-	Turno turnoBanco
-	Horario horarioBancario
-	HashSet<Turno> turnosDisponiblesBanco
-	HashSet<Integer> diasHabilesBanco
-
+		
 	new(HashSet<Servicio> servicios, Direccion _direccion, String _nombre) {
-		this.direccion = _direccion
-		this.nombre = _nombre
-		this.servicios = servicios
-		
-		
-		turnosDisponiblesBanco = new HashSet<Turno>
-		diasHabilesBanco = new HashSet<Integer>
-		turnoBanco = new Turno(new LocalTime(10, 0), new LocalTime(15, 0))
+		super(servicios, _direccion, _nombre)
+		var turnosDisponiblesBanco = new HashSet<Turno>
+		var diasHabilesBanco = new HashSet<Integer>
+		var turnoBanco = new Turno(new LocalTime(10, 0), new LocalTime(15, 0))
 		turnosDisponiblesBanco.add(turnoBanco)
 		diasHabilesBanco.addAll(1, 2, 3, 4, 5)
-		horarioBancario = new Horario(diasHabilesBanco, turnosDisponiblesBanco)
+		this.horario = new Horario(diasHabilesBanco, turnosDisponiblesBanco)
 
+	}
+	override boolean estaDisponible(DateTime unMomento, String nombreDeServicio) {
+		return this.estaDisponible(unMomento)
 	}
 
 	override String listaDeTags() {
 
 		super.listaDeTags().concat(" ".concat(servicios.map[servicio|servicio.listaDeTags()].toString()))
-	}
-
-	override boolean estaDisponible(DateTime unMomento) {
-		return this.horarioBancario.esHabilElMomento(unMomento)
 	}
 
 }

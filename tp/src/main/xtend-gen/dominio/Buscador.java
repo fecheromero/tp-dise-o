@@ -57,7 +57,6 @@ public class Buscador {
     return c;
   }
   
-  @Pure
   public static int[][] newIntArrayOfSize(final int nrow, final int ncol) {
     Object[] _newArrayOfSize = new Object[nrow];
     final Function1<Object, int[]> _function = new Function1<Object, int[]>() {

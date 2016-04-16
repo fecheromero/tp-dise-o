@@ -1,9 +1,9 @@
 package dominio
 
-import java.util.ArrayList
+
 import org.uqbar.geodds.Point
 import org.eclipse.xtend.lib.annotations.Accessors
-import java.util.HashSet
+
 
 @Accessors
 class Direccion {

@@ -3,16 +3,19 @@ package test
 import dominio.CGP
 import dominio.Comuna
 import dominio.Direccion
+import dominio.Horario
+import dominio.KioscoDiarios
+import dominio.LibreriaEscolar
 import dominio.ParadaDeColectivo
 import dominio.Servicio
+import dominio.Turno
+import java.util.HashSet
+import org.joda.time.LocalTime
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.uqbar.geodds.Point
 import org.uqbar.geodds.Polygon
-import dominio.*
-import java.util.HashSet
-import org.joda.time.LocalTime
 
 public class TestDistancia {
 	Point unPunto
@@ -32,13 +35,20 @@ public class TestDistancia {
 
 	@Before
 	def void setUp() {
-		serviciosCgp1 = new HashSet<Servicio>
-		serviciosCgp1.addAll(new Servicio("asistencia Social",unHorario), new Servicio("asistencia Comunitaria",unHorario))
-		serviciosCgp2 = new HashSet<Servicio>
-		serviciosCgp2.addAll(new Servicio("asistencia Social",unHorario), new Servicio("asistencia Jurídica",unHorario),
-			new Servicio("Registro Civil",unHorario))
 		unPunto = new Point(1, 2)
 		puntoParadaColectivo = new Point(1, 2)
+		unosTurnos = new HashSet<Turno>
+		unosTurnos.add(new Turno(new LocalTime(0, 10), new LocalTime(2, 4)))
+		unosDias = new HashSet<Integer>
+		unosDias.add(1)
+		unHorario = new Horario(unosDias, unosTurnos)
+		serviciosCgp1 = new HashSet<Servicio>
+		serviciosCgp1.addAll(new Servicio("asistencia Social", unHorario),
+			new Servicio("asistencia Comunitaria", unHorario))
+		serviciosCgp2 = new HashSet<Servicio>
+		serviciosCgp2.addAll(new Servicio("asistencia Social", unHorario),
+			new Servicio("asistencia Jurídica", unHorario), new Servicio("Registro Civil", unHorario))
+		
 		almagro = new Comuna("almagro", new Polygon(#[new Point(1, 2), new Point(2, 3)]))
 		once = new Comuna("once", new Polygon(#[new Point(0, 0), new Point(0, 5), new Point(5, 5), new Point(5, 0)]))
 		unCGP = new CGP(serviciosCgp1,
@@ -50,18 +60,13 @@ public class TestDistancia {
 		_114 = new ParadaDeColectivo(
 			new Direccion("Mozart", "1919", #["Dellepiane", "Otra calle"], new Point(0, 1), "bs as", "Buenos Aires",
 				almagro, "1422", "", "", ""), "Parada colectivo 114")
-		unaLibreria = new LibreriaEscolar("libreria don Pepito",unHorario,
+		unaLibreria = new LibreriaEscolar("libreria don Pepito", unHorario,
 			new Direccion("calle 848", "2114", #["893", "892"], new Point(6, 2), "bs as", "Buenos Aires", almagro,
 				"1881", "", "", ""))
-		unKiosco = new KioscoDiarios("El Kiosquito",unHorario,
+		unKiosco = new KioscoDiarios("El Kiosquito", unHorario,
 			new Direccion("calle pepe", "3333", #["jorge", "roberto"], new Point(1, 0), "bs as", "Buenos Aires",
 				almagro, "3333", "", "", ""))
-					unosTurnos=new HashSet<Turno>
-		unosTurnos.add(new Turno(new LocalTime(0,10),new LocalTime(2,4)))
-		unosDias=new HashSet<Integer>
-		unosDias.add(1)
-		unHorario=new Horario(unosDias,unosTurnos)
-				
+
 	}
 
 	// 1 unidad en coordenadas geograficas son aproximadamente 110,59 km

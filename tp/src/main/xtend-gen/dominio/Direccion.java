@@ -67,14 +67,6 @@ public class Direccion {
     return _xblockexpression;
   }
   
-  public Point getCoordenadas() {
-    return this.coordenadas;
-  }
-  
-  public Comuna getComuna() {
-    return this.comuna;
-  }
-  
   @Pure
   public String getCallePrincipal() {
     return this.callePrincipal;
@@ -102,6 +94,11 @@ public class Direccion {
     this.entre = entre;
   }
   
+  @Pure
+  public Point getCoordenadas() {
+    return this.coordenadas;
+  }
+  
   public void setCoordenadas(final Point coordenadas) {
     this.coordenadas = coordenadas;
   }
@@ -122,6 +119,11 @@ public class Direccion {
   
   public void setProvincia(final String provincia) {
     this.provincia = provincia;
+  }
+  
+  @Pure
+  public Comuna getComuna() {
+    return this.comuna;
   }
   
   public void setComuna(final Comuna comuna) {

@@ -1,20 +1,12 @@
 package dominio
 
 import org.uqbar.geodds.Point
-import java.util.List
+
 import org.eclipse.xtend.lib.annotations.Accessors
-import org.joda.time.DateTime
-import java.util.HashSet
+
 
 @Accessors
-public class CGP extends PuntoDeInteres {
-	HashSet<Servicio> servicios
-	
-	new(HashSet<Servicio> servicios, Direccion _direccion, String _nombre) {
-		this.direccion = _direccion
-		this.nombre = _nombre
-		this.servicios = servicios
-	}
+public class CGP extends PuntoDeInteresConServicios {
 
 	override String listaDeTags() {
 
@@ -25,29 +17,5 @@ public class CGP extends PuntoDeInteres {
 		this.direccion.comuna.poligono.isInside(coordenadasDestino)
 	}
 
-def void elNegocioEstaDisponibleEnUnMomento(DateTime unMomento , String nombreDeServicio) {
-		if (this.estaDisponible(unMomento, nombreDeServicio))
-			System::out.println("Esta Disponible " + this.nombre)
-		else
-			System::out.println("No esta Disponible " + this.nombre)
-	}
-	override boolean estaDisponible(DateTime unMomento) {
-		return algunServicioEstaDisponibleEn(unMomento)
-	}
-
-	def boolean estaDisponible(DateTime unMomento, String nombreDeServicio) {
-		return estaDisponibleElServicio(unMomento, nombreDeServicio)
-	}
-
-	def boolean algunServicioEstaDisponibleEn(DateTime unMomento) {
-		return servicios.exists[unServicio|unServicio.estaDisponible(unMomento)]
-	}
-
-	def boolean estaDisponibleElServicio(DateTime unMomento, String nombreDeServicio) {
-		return (buscarServicioDeNombre(nombreDeServicio).estaDisponible(unMomento))
-	}
-
-	def Servicio buscarServicioDeNombre(String nombreDeServicio) {
-		return (servicios.findFirst[unServicio|unServicio.nombre == nombreDeServicio])
-	}
+	
 }
