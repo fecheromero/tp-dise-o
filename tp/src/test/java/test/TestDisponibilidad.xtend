@@ -85,7 +85,7 @@ public class TestDisponibilidad {
 	@Test
 	def void testDisponibilidadParadaDeColectivoSabadoALaNoche() {
 		var DateTime fecha = new DateTime("2016-04-16T23:30")
-		Assert.assertEquals(linea7.estaDisponible(fecha), true)
+		Assert.assertEquals(linea7.estaDisponible(fecha), false)
 
 	}
 
