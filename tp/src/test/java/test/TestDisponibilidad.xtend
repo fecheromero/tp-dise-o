@@ -85,21 +85,21 @@ public class TestDisponibilidad {
 	@Test
 	def void testDisponibilidadParadaDeColectivoSabadoALaNoche() {
 		var DateTime fecha = new DateTime("2016-04-16T23:30")
-		Assert.assertEquals(linea7.estaDisponible(fecha), false)
+		Assert.assertTrue(linea7.estaDisponible(fecha))
 
 	}
 
 	@Test
 	def void testDisponibilidadParadaDeColectivoJuevesALaMañana() {
 		var DateTime fecha = new DateTime("2016-04-14T09:30")
-		Assert.assertEquals(linea7.estaDisponible(fecha), true)
+		Assert.assertTrue(linea7.estaDisponible(fecha))
 
 	}
 
 	@Test
 	def void testDisponibilidadAlgunServicioAbiertoJuevesEnCgpFlores() {
 		var DateTime fecha = new DateTime("2016-04-14T07:30")
-		Assert.assertEquals(cgpFlores.estaDisponible(fecha), true)
+		Assert.assertTrue(cgpFlores.estaDisponible(fecha))
 
 	}
 
@@ -120,35 +120,35 @@ public class TestDisponibilidad {
 	@Test
 	def void testDisponibilidadServicioRentasAbiertoMiercolesCgpFlores() {
 		var DateTime fecha = new DateTime("2016-04-13T17:30")
-		Assert.assertEquals(cgpFlores.estaDisponible(fecha, "Rentas"), true)
+		Assert.assertTrue(cgpFlores.estaDisponible(fecha, "Rentas"))
 
 	}
 
 	@Test
 	def void testDisponibilidadServicioRegistroCivilCerradoPorHoraCgpFlores() {
 		var DateTime fecha = new DateTime("2016-04-12T14:10")
-		Assert.assertEquals(cgpFlores.estaDisponible(fecha, "Registro Civil"), false)
+		Assert.assertFalse(cgpFlores.estaDisponible(fecha, "Registro Civil"))
 
 	}
 
 	@Test
 	def void testDisponibilidadServicioRegistroCivilCerradoPorSerSabadoCgpFlores() {
 		var DateTime fecha = new DateTime("2016-04-16T10:00")
-		Assert.assertEquals(cgpFlores.estaDisponible(fecha, "Registro Civil"), false)
+		Assert.assertFalse(cgpFlores.estaDisponible(fecha, "Registro Civil"))
 
 	}
 
 	@Test
 	def void testDisponibilidadSucursalBancoAbierto() {
 		var DateTime fecha = new DateTime("2016-04-15T13:30")
-		Assert.assertEquals(santander.estaDisponible(fecha), true)
+		Assert.assertTrue(santander.estaDisponible(fecha))
 
 	}
 
 	@Test
 	def void testDisponibilidadServicioCobranzasDeSucursalBancoFueraDeHorarioBancario() {
 		var DateTime fecha = new DateTime("2016-04-15T15:30")
-		Assert.assertEquals(santander.estaDisponible(fecha,"Cobranzas"), false)
+		Assert.assertFalse(santander.estaDisponible(fecha,"Cobranzas"))
 
 	}
 
@@ -162,28 +162,28 @@ public class TestDisponibilidad {
 	@Test
 	def void testDisponibilidadSucursalBancoCerradoPorDia() {
 		var DateTime fecha = new DateTime("2016-04-17T12:30")
-		Assert.assertEquals(santander.estaDisponible(fecha), false)
+		Assert.assertFalse(santander.estaDisponible(fecha))
 
 	}
 
 	@Test
 	def void testDisponibilidadLocalCarrouselMañanaDiaSabado() {
 		var DateTime fecha = new DateTime("2016-04-16T12:30")
-		Assert.assertEquals(carrousel.estaDisponible(fecha), true)
+		Assert.assertTrue(carrousel.estaDisponible(fecha))
 
 	}
 
 	@Test
 	def void testDisponibilidadLocalCarrouselMartesNocheDentroDeHorario() {
 		var DateTime fecha = new DateTime("2016-04-19T20:20")
-		Assert.assertEquals(carrousel.estaDisponible(fecha), true)
+		Assert.assertTrue(carrousel.estaDisponible(fecha))
 
 	}
 
 	@Test
 	def void testDisponibilidadLocalCarrouselDiaDomingo() {
 		var DateTime fecha = new DateTime("2016-04-17T18:30")
-		Assert.assertEquals(carrousel.estaDisponible(fecha), false)
+		Assert.assertFalse(carrousel.estaDisponible(fecha))
 
 	}
 }
