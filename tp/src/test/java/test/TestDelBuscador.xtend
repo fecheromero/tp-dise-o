@@ -18,6 +18,7 @@ import org.junit.Before
 import org.junit.Test
 import org.uqbar.geodds.Point
 import org.uqbar.geodds.Polygon
+import dominio.Horario.Dia
 
 public class TestDelBuscador {
 	Buscador buscador
@@ -36,7 +37,7 @@ public class TestDelBuscador {
 	HashSet<PuntoDeInteres> unSorteaditoDePuntos
 	HashSet<Servicio> servicios
 	Horario unHorario
-	HashSet<Integer> unosDias
+	HashSet<Dia> unosDias
 	HashSet<Turno> unosTurnos
 
 	@Before
@@ -48,8 +49,8 @@ public class TestDelBuscador {
 		string5 = "muebleria don pepito"
 		unosTurnos=new HashSet<Turno>
 		unosTurnos.add(new Turno(new LocalTime(0,10),new LocalTime(2,4)))
-		unosDias=new HashSet<Integer>
-		unosDias.add(1)
+		unosDias=new HashSet<Dia>
+		unosDias.add(Dia.LUN)
 		unHorario=new Horario(unosDias,unosTurnos)
 		servicios = new HashSet<Servicio>
 		servicios.add(new Servicio("asistencia Social",unHorario))

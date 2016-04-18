@@ -4,13 +4,31 @@ import org.joda.time.DateTime
 
 import java.util.HashSet
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.joda.time.Partial
+import org.joda.time.chrono.ISOChronology
+import org.joda.time.DateTimeFieldType
 
 @Accessors
 public class Horario {
-	HashSet<Integer> diasHabilesPoi
+	//HashSet<Integer> diasHabilesPoi
+	HashSet<Dia> diasHabilesPoi
+	public enum Dia {LUN,MAR,MIE,JUE,VIE,SAB,DOM}
 	HashSet<Turno> turnosDisponibles
-
-	new(HashSet<Integer> _diashabiles, HashSet<Turno> _turnos) {
+	
+	def int transformarANum(Dia unDia){
+		switch(unDia){
+			case LUN:1
+			case MAR:2
+			case MIE:3
+			case JUE:4
+			case VIE:5
+			case SAB:6
+			case DOM:7
+			}
+			
+	}
+	
+	new(HashSet<Dia> _diashabiles, HashSet<Turno> _turnos) {
 		this.diasHabilesPoi = _diashabiles
 		this.turnosDisponibles = _turnos
 	}
@@ -28,7 +46,7 @@ public class Horario {
 	}
 
 	def estaEnDiaHabil(DateTime unMomento) {
-		return this.diasHabilesPoi.contains(unMomento.getDayOfWeek())
+		return this.diasHabilesPoi.map[dia|transformarANum(dia)].exists[dia|dia==(unMomento.getDayOfWeek())]
 	}
 
 }

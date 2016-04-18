@@ -4,6 +4,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.HashSet
 import org.joda.time.DateTime
 import com.google.common.collect.Sets
+import dominio.Horario.Dia
 
 @Accessors
 public abstract class PuntoDeInteresConServicios extends PuntoDeInteres {
@@ -20,7 +21,7 @@ public abstract class PuntoDeInteresConServicios extends PuntoDeInteres {
 		return new Horario(juntarDiasDeServicios(servicios), juntarTurnosDeServicios(servicios))
 	}
 
-	def HashSet<Integer> juntarDiasDeServicios(HashSet<Servicio> servicios) {
+	def HashSet<Dia> juntarDiasDeServicios(HashSet<Servicio> servicios) {
 		return Sets.newHashSet(servicios.map[horario.diasHabilesPoi].flatten())
 	}
 

@@ -17,6 +17,7 @@ import org.uqbar.geodds.Point
 import org.uqbar.geodds.Polygon
 import java.util.HashSet
 import dominio.LibreriaEscolar
+import dominio.Horario.Dia
 
 public class TestDisponibilidad {
 	SucursalBanco santander
@@ -26,30 +27,30 @@ public class TestDisponibilidad {
 
 	@Before
 	def void setUp() {
-		var diasHabilesRentas = new HashSet<Integer>
-		diasHabilesRentas.addAll(1, 2, 3, 4)
+		var diasHabilesRentas = new HashSet<Dia>
+		diasHabilesRentas.addAll(Dia.LUN, Dia.MAR, Dia.MIE, Dia.JUE)
 		var turnoMañana = new Turno(new LocalTime(9, 0), new LocalTime(13, 0))
 		var turnoTarde = new Turno(new LocalTime(14, 0), new LocalTime(18, 0))
 		var turnosDisponiblesRentas = new HashSet<Turno>
 		turnosDisponiblesRentas.addAll(turnoMañana, turnoTarde)
 		var horarioRentas = new Horario(diasHabilesRentas, turnosDisponiblesRentas)
 
-		var diasHabilesRegistroCivil = new HashSet<Integer>
-		diasHabilesRegistroCivil.addAll(1, 2, 3, 4)
+		var diasHabilesRegistroCivil = new HashSet<Dia>
+		diasHabilesRegistroCivil.addAll(Dia.LUN, Dia.MAR, Dia.MIE, Dia.JUE)
 		var turnoRegistroCivil = new Turno(new LocalTime(7, 0), new LocalTime(12, 30))
 		var turnosDisponiblesRegistroCivil = new HashSet<Turno>
 		turnosDisponiblesRegistroCivil.add(turnoRegistroCivil)
 		var horarioRegistroCivil = new Horario(diasHabilesRegistroCivil, turnosDisponiblesRegistroCivil)
 
-		var diasHabilesCobranzas = new HashSet<Integer>
-		diasHabilesCobranzas.addAll(1, 2, 3, 4, 5)
+		var diasHabilesCobranzas = new HashSet<Dia>
+		diasHabilesCobranzas.addAll(Dia.LUN, Dia.MAR, Dia.MIE, Dia.JUE,Dia.MIE)
 		var turnoCobranzas = new Turno(new LocalTime(8, 0), new LocalTime(16, 0))
 		var turnosDisponiblesCobranzas = new HashSet<Turno>
 		turnosDisponiblesCobranzas.add(turnoCobranzas)
 		var horarioCobranzas = new Horario(diasHabilesCobranzas, turnosDisponiblesRentas)
 
-		var diasHabilesCarrousel = new HashSet<Integer>
-		diasHabilesCarrousel.addAll(1, 2, 3, 4, 5, 6)
+		var diasHabilesCarrousel = new HashSet<Dia>
+		diasHabilesCarrousel.addAll(Dia.LUN, Dia.MAR, Dia.MIE, Dia.JUE,Dia.VIE,Dia.SAB)
 		var turnoMañanaCarrousel = new Turno(new LocalTime(10, 0), new LocalTime(13, 0))
 		var turnoTardeCarrousel = new Turno(new LocalTime(17, 0), new LocalTime(20, 30))
 		var turnosDisponiblesCarrousel = new HashSet<Turno>

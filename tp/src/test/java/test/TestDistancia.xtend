@@ -16,6 +16,7 @@ import org.junit.Before
 import org.junit.Test
 import org.uqbar.geodds.Point
 import org.uqbar.geodds.Polygon
+import dominio.Horario.Dia
 
 public class TestDistancia {
 	Point unPunto
@@ -30,7 +31,7 @@ public class TestDistancia {
 	HashSet<Servicio> serviciosCgp1
 	HashSet<Servicio> serviciosCgp2
 	Horario unHorario
-	HashSet<Integer> unosDias
+	HashSet<Dia> unosDias
 	HashSet<Turno> unosTurnos
 
 	@Before
@@ -39,8 +40,8 @@ public class TestDistancia {
 		puntoParadaColectivo = new Point(1, 2)
 		unosTurnos = new HashSet<Turno>
 		unosTurnos.add(new Turno(new LocalTime(0, 10), new LocalTime(2, 4)))
-		unosDias = new HashSet<Integer>
-		unosDias.add(1)
+		unosDias = new HashSet<Dia>
+		unosDias.add(Dia.LUN)
 		unHorario = new Horario(unosDias, unosTurnos)
 		serviciosCgp1 = new HashSet<Servicio>
 		serviciosCgp1.addAll(new Servicio("asistencia Social", unHorario),
