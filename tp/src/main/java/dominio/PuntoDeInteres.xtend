@@ -5,15 +5,30 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.DateTime
 import excepciones.NoValidoException
 import dependencias.*
+import java.util.HashSet
+import com.google.common.collect.Sets
 
 @Accessors
 public abstract class PuntoDeInteres {
 	Direccion direccion
 	String nombre
 	Horario horario
+	HashSet<Servicio> servicios
+	HashSet<Dia> diasHabilesPoi
+
+	public enum Dia {
+		LUN,
+		MAR,
+		MIE,
+		JUE,
+		VIE,
+		SAB,
+		DOM
+	}
+
 	var double DISTANCIA_MAXIMA = 0.5
-	val instanciador=new Instanciador()
-	val tag=instanciador.instanciaTageador
+	val instanciador = new Instanciador()
+	val tag = instanciador.instanciaTageador
 
 	public def String listaDeTags() {
 		nombre.concat(" ").concat(direccion.listaDeTags())
@@ -22,24 +37,43 @@ public abstract class PuntoDeInteres {
 	def boolean estaCercaDe(Point coordenadasDestino) {
 		direccion.coordenadas.distance(coordenadasDestino) < DISTANCIA_MAXIMA
 	}
-	
-		def boolean estaDisponible(DateTime unMomento) {
-		return this.horario.esHabilElMomento(unMomento)
+
+	def boolean estaDisponible(DateTime unMomento, String nombreDeServicio) {
+		return estaDisponibleElServicio(unMomento, nombreDeServicio)
 	}
-	def void validate(){
-		
-		if(PuntoDeInteres.declaredFields.exists[field| field.accessible = true
-														field.get(this)==null
-			
-		]) throw new NoValidoException("El Poi no es valido")
-		else {this.direccion.validate()}
+
+//	def Horario horarioDeTodosSusServicios(HashSet<Servicio> servicios) {
+//		return new Horario(juntarDiasDeServicios(servicios), juntarTurnosDeServicios(servicios))
+//	}
+//
+//	def HashSet<Dia> juntarDiasDeServicios(HashSet<Servicio> servicios) {
+//		return Sets.newHashSet(servicios.map[horario.diasHabilesPoi].flatten())
+//	}
+
+	def HashSet<Turno> juntarTurnosDeServicios(HashSet<Servicio> servicios) {
+		return Sets.newHashSet(servicios.map[horario.turnosDisponibles].flatten())
+	}
+
+	def boolean estaDisponibleElServicio(DateTime unMomento, String nombreDeServicio) {
+		var horarioServicio = buscarServicioDeNombre(nombreDeServicio).horario
+		return horarioServicio.esHabilElMomento(unMomento)
+	}
+
+	def Servicio buscarServicioDeNombre(String nombreDeServicio) {
+		return (servicios.findFirst[unServicio|unServicio.nombre == nombreDeServicio])
+	}
+
+	def void validate() {
+
+		if (PuntoDeInteres.declaredFields.exists [ field |
+			field.accessible = true
+			field.get(this) == null
+
+		])
+			throw new NoValidoException("El Poi no es valido")
+		else {
+			this.direccion.validate()
 		}
-	/*def void elNegocioEstaDisponibleEnUnMomento(DateTime unMomento) {
-		if (this.estaDisponible(unMomento))
-			System::out.println("Esta Disponible " + this.nombre + " la fecha: "+ unMomento)
-		else
-			System::out.println("No esta Disponible " + this.nombre + " la fecha: "+ unMomento)
 	}
-*/
-		
+
 }

@@ -4,9 +4,9 @@ import org.joda.time.DateTime
 
 import java.util.HashSet
 import org.eclipse.xtend.lib.annotations.Accessors
-import org.joda.time.Partial
-import org.joda.time.chrono.ISOChronology
-import org.joda.time.DateTimeFieldType
+//import org.joda.time.Partial
+//import org.joda.time.chrono.ISOChronology
+//import org.joda.time.DateTimeFieldType
 
 @Accessors
 public class Horario {

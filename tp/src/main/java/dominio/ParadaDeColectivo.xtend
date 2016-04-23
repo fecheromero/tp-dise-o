@@ -12,7 +12,7 @@ public class ParadaDeColectivo extends PuntoDeInteres {
 		 DISTANCIA_MAXIMA=0.1
 	}
 
-	override estaDisponible(DateTime unMomento) {
+	override estaDisponible(DateTime unMomento,String nombreDeServicio){
 		return true
 	}
 
