@@ -19,6 +19,7 @@ import org.junit.Test
 import org.uqbar.geodds.Point
 import org.uqbar.geodds.Polygon
 import dominio.Horario.Dia
+import excepciones.NoValidoException
 
 public class TestDelBuscador {
 	Buscador buscador
@@ -101,4 +102,16 @@ public class TestDelBuscador {
 	def void pruebaDeBusquedaxRubroKioscoEnUnSorteaditoDePuntos() {
 		Assert.assertArrayEquals(buscador.topTenDePuntos("kiosco").take(1), #[unKiosco])
 	}
+	@Test(expected=NoValidoException)
+	def void pruebaDeExcepcionDeUnPuntoConUnCampoEnNull(){
+		val punto=new KioscoDiarios("elKiosquito",unHorario,null)
+		punto.validate()
+	}
+	@Test(expected=NoValidoException)
+	def void pruebaDeExcepcionesDeUnPuntoCompletoCuyaDireccionTieneUnCampoNull(){
+		val punto=new KioscoDiarios("elKiosquito",unHorario,new Direccion(null, "3333", null, new Point(1, 0), "bs as", "Buenos Aires",
+				almagro, "3333", "", "", ""))
+		punto.validate()
+	}
+
 }

@@ -14,10 +14,10 @@ class Comuna {
 		this.poligono = poligono
 	}
 	
-	def String listaDeTags(){
+	/*def String listaDeTags(){
 		var String lista
 		lista=nombre
-	}
+	}*/
 	
 	
 	
