@@ -3,13 +3,14 @@ package dominio
 import java.util.Collection
 import java.util.HashSet
 import org.eclipse.xtend.lib.annotations.Accessors
-import dependencias.Instanciador
 import dependencias.Levenshtein
+import excepciones.NoValidoException
+import java.util.List
+
 @Accessors
 public class Buscador {
 	val yo=this
-	val instanciador=new Instanciador()
-	var Levenshtein lev= instanciador.instanciaLevenshtein()
+	var Levenshtein lev= new Levenshtein()
 	static val palabrasInutiles=#["a","ante","cabe","con","contra","de","desde","en","entre","para","por","segun","sin","sobre","tras","durante","mediante","el","las","los","la"]
 	HashSet<PuntoDeInteres> puntos
 	def boolean esPalabraInutil(String str1)
@@ -46,6 +47,25 @@ public class Buscador {
 	}
 	def PuntoDeInteres[] topTenDePuntos(String str1){
 		this.ordenarPuntosSegunSemejanzaA(str1).take(10)
+	}
+	def void create(PuntoDeInteres unPunto){
+		unPunto.validate()
+		if(puntos.contains(unPunto)) throw new NoValidoException("El Punto ya existe")
+		else{puntos.add(unPunto)}
+	}
+	def void update(PuntoDeInteres unPunto){
+		delete(unPunto)
+		create(unPunto)
+	}
+	def void delete(PuntoDeInteres unPunto){
+		if(puntos.contains(unPunto))puntos.remove(unPunto)
+		else{throw new NoValidoException("El Punto no existe")}
+	}
+	def PuntoDeInteres searchBynd(int id){
+		puntos.get(id)
+	}
+	def List<PuntoDeInteres> search(String valor){
+		this.topTenDePuntos(valor)
 	}
 	}
 	

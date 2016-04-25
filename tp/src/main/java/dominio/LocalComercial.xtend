@@ -2,6 +2,7 @@ package dominio
 
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.DateTime
+import excepciones.NoValidoException
 
 @Accessors
 public abstract class LocalComercial extends PuntoDeInteres {
@@ -15,4 +16,17 @@ public abstract class LocalComercial extends PuntoDeInteres {
 	override estaDisponible(DateTime unMomento, String nombreDeServicio) {
 		return this.horario.esHabilElMomento(unMomento)
 	}
+	
+	override validate() {
+
+		if (PuntoDeInteres.declaredFields.filter[field|field.name!="servicios"].exists [ field |
+			field.accessible = true
+			field.get(this) == null
+
+		])	throw new NoValidoException("El Poi no es valido")
+		else {
+			this.direccion.validate()
+		}
+	
+}
 }

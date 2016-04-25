@@ -19,8 +19,7 @@ class Direccion {
 	String piso
 	String departamento
 	String unidad
-	Instanciador instanciador=new Instanciador()
-	Tageador tag=instanciador.instanciaTageador()
+	Tageador tag=new Tageador()
 	new(String callePrincipal, String numero, String[] entre, Point coordenadas, String localidad, String provincia, Comuna comuna, String codigoPostal, String piso, String departamento, String unidad){
 		this.callePrincipal = callePrincipal
 		this.numero = numero

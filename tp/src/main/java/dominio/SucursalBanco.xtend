@@ -5,11 +5,12 @@ import org.joda.time.LocalTime
 import java.util.HashSet
 import org.joda.time.DateTime
 import dominio.Horario.Dia
+import excepciones.NoValidoException
 
-class SucursalBanco extends PuntoDeInteres {
-	HashSet<Servicio> servicios
+	 class SucursalBanco extends PuntoDeInteres {
+	//HashSet<Servicio> servicios
 		
-	new(HashSet<Servicio> servicios, Direccion _direccion, String _nombre) {
+	 new(HashSet<Servicio> servicios, Direccion _direccion, String _nombre) {
 		this.nombre = _nombre
 		this.direccion = _direccion
 		this.servicios = servicios
@@ -18,16 +19,20 @@ class SucursalBanco extends PuntoDeInteres {
 		var turnoBanco = new Turno(new LocalTime(10, 0), new LocalTime(15, 0))
 		turnosDisponiblesBanco.add(turnoBanco)
 		diasHabilesBanco.addAll(Dia.LUN,Dia.MAR,Dia.MIE,Dia.JUE,Dia.VIE)
-		//this.horario = new Horario(diasHabilesBanco, turnosDisponiblesBanco)
+		this.horario = new Horario(diasHabilesBanco, turnosDisponiblesBanco)
 
 	}
-	override boolean estaDisponible(DateTime unMomento, String nombreDeServicio) {
-		return this.horario.esHabilElMomento(unMomento) && estaDisponibleElServicio(unMomento, nombreDeServicio)
-	}
-
+		override boolean estaDisponible(DateTime unMomento, String nombreDeServicio){
+		(if(nombreDeServicio=="") true
+		else {if(this.servicios.exists[servicio|servicio.nombre==nombreDeServicio]) this.servicios.findFirst[servicio|servicio.nombre==nombreDeServicio].estaDisponible(unMomento)		
+					else{throw new NoValidoException("No se encuentra el servicio")
+			}
+			
+		})&& super.estaDisponible(unMomento, nombreDeServicio)
+		}
 	override String listaDeTags() {
 
-		super.listaDeTags().concat(" ".concat(servicios.map[servicio|servicio.listaDeTags()].toString()))
+		super.listaDeTags().concat(" ".concat(servicios.map[servicio|servicio.nombre].fold("",[serv1,serv2|serv1.concat(serv2)])))
 	}
 
 }

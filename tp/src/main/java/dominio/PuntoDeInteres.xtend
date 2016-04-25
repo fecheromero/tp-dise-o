@@ -3,10 +3,12 @@ package dominio
 import org.uqbar.geodds.Point
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.DateTime
-import excepciones.NoValidoException
 import dependencias.*
 import java.util.HashSet
 import com.google.common.collect.Sets
+import dominio.Horario
+import excepciones.NoValidoException
+import dominio.Horario.Dia
 
 @Accessors
 public abstract class PuntoDeInteres {
@@ -14,22 +16,10 @@ public abstract class PuntoDeInteres {
 	String nombre
 	Horario horario
 	HashSet<Servicio> servicios
-	HashSet<Dia> diasHabilesPoi
-
-	public enum Dia {
-		LUN,
-		MAR,
-		MIE,
-		JUE,
-		VIE,
-		SAB,
-		DOM
-	}
+	//HashSet<Dia> diasHabilesPoi
 
 	var double DISTANCIA_MAXIMA = 0.5
-	val instanciador = new Instanciador()
-	val tag = instanciador.instanciaTageador
-
+	
 	public def String listaDeTags() {
 		nombre.concat(" ").concat(direccion.listaDeTags())
 	}
@@ -39,17 +29,17 @@ public abstract class PuntoDeInteres {
 	}
 
 	def boolean estaDisponible(DateTime unMomento, String nombreDeServicio) {
-		return estaDisponibleElServicio(unMomento, nombreDeServicio)
+		 return this.horario.esHabilElMomento(unMomento)
 	}
 
-//	def Horario horarioDeTodosSusServicios(HashSet<Servicio> servicios) {
-//		return new Horario(juntarDiasDeServicios(servicios), juntarTurnosDeServicios(servicios))
-//	}
-//
-//	def HashSet<Dia> juntarDiasDeServicios(HashSet<Servicio> servicios) {
-//		return Sets.newHashSet(servicios.map[horario.diasHabilesPoi].flatten())
-//	}
+	/*def Horario horarioDeTodosSusServicios(HashSet<Servicio> servicios) {
+		return new Horario(juntarDiasDeServicios(servicios), juntarTurnosDeServicios(servicios))
+	}*/
 
+	/*def HashSet<Dia> juntarDiasDeServicios(HashSet<Servicio> servicios) {
+		return Sets.newHashSet(Dia.values.filter[dia|servicios.exists[servicio|servicio.horario.diasHabilesPoi.contains(dia)]])
+	 //return Sets.newHashSet(servicios.map[horario.diasHabilesPoi].flatten())
+		 }
 	def HashSet<Turno> juntarTurnosDeServicios(HashSet<Servicio> servicios) {
 		return Sets.newHashSet(servicios.map[horario.turnosDisponibles].flatten())
 	}
@@ -61,7 +51,7 @@ public abstract class PuntoDeInteres {
 
 	def Servicio buscarServicioDeNombre(String nombreDeServicio) {
 		return (servicios.findFirst[unServicio|unServicio.nombre == nombreDeServicio])
-	}
+	}*/
 
 	def void validate() {
 
