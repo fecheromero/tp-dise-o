@@ -16,10 +16,9 @@ public abstract class PuntoDeInteres {
 	String nombre
 	Horario horario
 	HashSet<Servicio> servicios
-	//HashSet<Dia> diasHabilesPoi
 
 	var double DISTANCIA_MAXIMA = 0.5
-	
+
 	public def String listaDeTags() {
 		nombre.concat(" ").concat(direccion.listaDeTags())
 	}
@@ -29,29 +28,22 @@ public abstract class PuntoDeInteres {
 	}
 
 	def boolean estaDisponible(DateTime unMomento, String nombreDeServicio) {
-		 return this.horario.esHabilElMomento(unMomento)
+		return this.horario.esHabilElMomento(unMomento)
 	}
 
-	/*def Horario horarioDeTodosSusServicios(HashSet<Servicio> servicios) {
+	def Horario horarioDeTodosSusServicios(HashSet<Servicio> servicios) {
 		return new Horario(juntarDiasDeServicios(servicios), juntarTurnosDeServicios(servicios))
-	}*/
+	}
 
-	/*def HashSet<Dia> juntarDiasDeServicios(HashSet<Servicio> servicios) {
-		return Sets.newHashSet(Dia.values.filter[dia|servicios.exists[servicio|servicio.horario.diasHabilesPoi.contains(dia)]])
-	 //return Sets.newHashSet(servicios.map[horario.diasHabilesPoi].flatten())
-		 }
+	def HashSet<Dia> juntarDiasDeServicios(HashSet<Servicio> servicios) {
+		// return Sets.newHashSet(Dia.values.filter[dia|servicios.exists[servicio|servicio.horario.diasHabilesPoi.contains(dia)]])
+		return Sets.newHashSet(servicios.map[unServicio|unServicio.horario.diasHabilesPoi].flatten())
+	}
+
 	def HashSet<Turno> juntarTurnosDeServicios(HashSet<Servicio> servicios) {
-		return Sets.newHashSet(servicios.map[horario.turnosDisponibles].flatten())
+		return Sets.newHashSet(servicios.map[unServicio|unServicio.horario.turnosDisponibles].flatten())
 	}
 
-	def boolean estaDisponibleElServicio(DateTime unMomento, String nombreDeServicio) {
-		var horarioServicio = buscarServicioDeNombre(nombreDeServicio).horario
-		return horarioServicio.esHabilElMomento(unMomento)
-	}
-
-	def Servicio buscarServicioDeNombre(String nombreDeServicio) {
-		return (servicios.findFirst[unServicio|unServicio.nombre == nombreDeServicio])
-	}*/
 
 	def void validate() {
 

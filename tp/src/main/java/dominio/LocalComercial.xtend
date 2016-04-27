@@ -1,7 +1,6 @@
 package dominio
 
 import org.eclipse.xtend.lib.annotations.Accessors
-import org.joda.time.DateTime
 import excepciones.NoValidoException
 
 @Accessors
@@ -13,9 +12,6 @@ public abstract class LocalComercial extends PuntoDeInteres {
 		super.listaDeTags().concat(" ".concat(rubro))
 	}
 
-	override estaDisponible(DateTime unMomento, String nombreDeServicio) {
-		return this.horario.esHabilElMomento(unMomento)
-	}
 	
 	override validate() {
 

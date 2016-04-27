@@ -11,27 +11,37 @@ import excepciones.NoValidoException
 @Accessors
 public class CGP extends PuntoDeInteres {
 
-new(HashSet<Servicio> servicios, Direccion _direccion, String _nombre) {
+	new(HashSet<Servicio> servicios, Direccion _direccion, String _nombre) {
 		this.nombre = _nombre
 		this.direccion = _direccion
 		this.servicios = servicios
-		//this.horario = horarioDeTodosSusServicios(servicios)
+		this.horario = horarioDeTodosSusServicios(servicios)
 	}
+
 	override String listaDeTags() {
 
-		super.listaDeTags().concat(" ".concat(servicios.map[servicio|servicio.nombre].fold("",[serv1,serv2|serv1.concat(serv2)])))
+		super.listaDeTags().concat(" ".concat(servicios.map[servicio|servicio.nombre].fold("", [ serv1, serv2 |
+			serv1.concat(serv2)
+		])))
 	}
 
 	override boolean estaCercaDe(Point coordenadasDestino) {
 		this.direccion.comuna.poligono.isInside(coordenadasDestino)
 	}
-	override boolean estaDisponible(DateTime unMomento, String nombreDeServicio){
-		if(nombreDeServicio=="") true
-		else {if(this.servicios.exists[servicio|servicio.nombre==nombreDeServicio]) this.servicios.findFirst[servicio|servicio.nombre==nombreDeServicio].estaDisponible(unMomento)
-					else{throw new NoValidoException("No se encuentra el servicio")}
-			
+
+	override boolean estaDisponible(DateTime unMomento, String nombreDeServicio) {
+		if (nombreDeServicio == "")
+			super.estaDisponible(unMomento, nombreDeServicio)
+		else {
+			if (this.servicios.exists[servicio|servicio.nombre == nombreDeServicio])
+				this.servicios.findFirst [ servicio |
+					servicio.nombre == nombreDeServicio
+				].estaDisponible(unMomento)
+			else {
+				throw new NoValidoException("No se encuentra el servicio")
+			}
+
 		}
 	}
 
-	
 }

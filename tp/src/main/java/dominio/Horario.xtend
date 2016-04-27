@@ -10,7 +10,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors
 public class Horario {
-	//HashSet<Integer> diasHabilesPoi
+	
 	HashSet<Dia> diasHabilesPoi
 	public enum Dia {LUN,MAR,MIE,JUE,VIE,SAB,DOM}
 	HashSet<Turno> turnosDisponibles
