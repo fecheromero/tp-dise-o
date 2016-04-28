@@ -6,10 +6,10 @@ import excepciones.NoValidoException
 @Accessors
 public abstract class LocalComercial extends PuntoDeInteres {
 
-	var String rubro
+	Rubro rubro
 
 	override String listaDeTags() {
-		super.listaDeTags().concat(" ".concat(rubro))
+		super.listaDeTags().concat(" ".concat(rubro.nombre))
 	}
 
 	
