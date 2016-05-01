@@ -4,8 +4,8 @@ import dominio.CGP
 import dominio.Comuna
 import dominio.Direccion
 import dominio.Horario
-import dominio.KioscoDiarios
-import dominio.LibreriaEscolar
+import dominio.LocalComercial
+import dominio.Rubro
 import dominio.ParadaDeColectivo
 import dominio.Servicio
 import dominio.Turno
@@ -26,8 +26,8 @@ public class TestDistancia {
 	CGP otroCGP
 	Comuna once
 	ParadaDeColectivo _114
-	LibreriaEscolar unaLibreria
-	KioscoDiarios unKiosco
+	LocalComercial unaLibreria
+	LocalComercial unKiosco
 	HashSet<Servicio> serviciosCgp1
 	HashSet<Servicio> serviciosCgp2
 	Horario unHorario
@@ -61,12 +61,12 @@ public class TestDistancia {
 		_114 = new ParadaDeColectivo(
 			new Direccion("Mozart", "1919", #["Dellepiane", "Otra calle"], new Point(0, 1), "bs as", "Buenos Aires",
 				almagro, "1422", "", "", ""), "Parada colectivo 114")
-		unaLibreria = new LibreriaEscolar("libreria don Pepito", unHorario,
+		unaLibreria = new LocalComercial("libreria don Pepito",unHorario,
 			new Direccion("calle 848", "2114", #["893", "892"], new Point(6, 2), "bs as", "Buenos Aires", almagro,
-				"1881", "", "", ""))
-		unKiosco = new KioscoDiarios("El Kiosquito", unHorario,
+				"1881", "", "", ""), new Rubro("Libreria Comercial", 0.5))
+		unKiosco = new LocalComercial("lo de tucu",unHorario,
 			new Direccion("calle pepe", "3333", #["jorge", "roberto"], new Point(1, 0), "bs as", "Buenos Aires",
-				almagro, "3333", "", "", ""))
+				almagro, "3333", "", "", ""), new Rubro("Kiosko de Diarios", 0.2))
 
 	}
 
@@ -98,6 +98,6 @@ public class TestDistancia {
 
 	@Test
 	def void NoEstaCercaUnKioscoAUnPuntoAMasDe2Cuadras() {
-		Assert.assertEquals(unKiosco.estaCercaDe(new Point(1, 0.0019)), false)
+		Assert.assertEquals(unKiosco.estaCercaDe(new Point(1, 0.0019)), true)
 	}
 }

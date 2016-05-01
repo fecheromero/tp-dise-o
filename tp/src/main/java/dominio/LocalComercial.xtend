@@ -4,14 +4,21 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import excepciones.NoValidoException
 
 @Accessors
-public abstract class LocalComercial extends PuntoDeInteres {
+public class LocalComercial extends PuntoDeInteres {
 
 	Rubro rubro
 
 	override String listaDeTags() {
 		super.listaDeTags().concat(" ".concat(rubro.nombre))
 	}
-
+	
+	new(String _nombre, Horario _horario, Direccion _direccion, Rubro _rubro){
+		this.nombre = _nombre
+		this.horario= _horario
+		this.direccion=_direccion
+		rubro=_rubro 
+		
+	}
 	
 	override validate() {
 

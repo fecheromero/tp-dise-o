@@ -5,12 +5,12 @@ import dominio.CGP
 import dominio.Comuna
 import dominio.Direccion
 import dominio.Horario
-import dominio.KioscoDiarios
-import dominio.LibreriaEscolar
+import dominio.LocalComercial
 import dominio.ParadaDeColectivo
 import dominio.PuntoDeInteres
 import dominio.Servicio
 import dominio.Turno
+import dominio.Rubro
 import java.util.HashSet
 import org.joda.time.LocalTime
 import org.junit.Assert
@@ -33,8 +33,8 @@ public class TestDelBuscador {
 	Comuna lugano
 	CGP unCGP
 	ParadaDeColectivo _114
-	LibreriaEscolar unaLibreria
-	KioscoDiarios unKiosco
+	LocalComercial unaLibreria
+	LocalComercial unKiosco
 	HashSet<PuntoDeInteres> unSorteaditoDePuntos
 	HashSet<Servicio> servicios
 	Horario unHorario
@@ -61,12 +61,12 @@ public class TestDelBuscador {
 		_114 = new ParadaDeColectivo(
 			new Direccion("Mozart", "1919", #["Dellepiane", "Otra calle"], new Point(1, 2), "bs as", "Buenos Aires",
 				lugano, "1422", "", "", ""), "Parada colectivo 114")
-		unaLibreria = new LibreriaEscolar("libreria don Pepito",unHorario,
+		unaLibreria = new LocalComercial("libreria don Pepito",unHorario,
 			new Direccion("calle 848", "2114", #["893", "892"], new Point(6, 2), "bs as", "Buenos Aires", almagro,
-				"1881", "", "", ""))
-		unKiosco = new KioscoDiarios("lo de tucu",unHorario,
+				"1881", "", "", ""), new Rubro("Libreria Comercial", 0.5))
+		unKiosco = new LocalComercial("lo de tucu",unHorario,
 			new Direccion("calle pepe", "3333", #["jorge", "roberto"], new Point(1, 0), "bs as", "Buenos Aires",
-				almagro, "3333", "", "", ""))
+				almagro, "3333", "", "", ""), new Rubro("Kiosko de Diarios", 0.2))
 		unSorteaditoDePuntos = new HashSet<PuntoDeInteres>
 		unSorteaditoDePuntos.addAll(#[unaLibreria, _114, unCGP, unKiosco])
 		buscador = new Buscador()

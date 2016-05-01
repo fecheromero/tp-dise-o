@@ -21,7 +21,7 @@ import dominio.Horario.Dia
 
 public class TestDisponibilidad {
 	SucursalBanco santander
-	LibreriaEscolar carrousel
+	LocalComercial carrousel
 	ParadaDeColectivo linea7
 	CGP cgpFlores
 
@@ -56,6 +56,7 @@ public class TestDisponibilidad {
 		var turnosDisponiblesCarrousel = new HashSet<Turno>
 		turnosDisponiblesCarrousel.addAll(turnoMañanaCarrousel, turnoTardeCarrousel)
 		var horarioCarrousel = new Horario(diasHabilesCarrousel, turnosDisponiblesCarrousel)
+		var unRubro = new Rubro("Libreria Comercial", 0.2)
 
 		var almagro = new Comuna("once",
 			new Polygon(#[new Point(0, 0), new Point(0, 5), new Point(5, 5), new Point(5, 0)]))
@@ -79,7 +80,7 @@ public class TestDisponibilidad {
 
 		cgpFlores = new CGP(serviciosCGP, direccionLinea7, "CGP FLORES")
 
-		carrousel = new LibreriaEscolar("Libreria Carrousel", horarioCarrousel, direccionBanco)
+		carrousel = new LocalComercial("Libreria Carrousel", horarioCarrousel, direccionBanco, unRubro)
 
 	}
 

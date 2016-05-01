@@ -3,7 +3,7 @@ package dominio
 import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors
-class Rubro extends LocalComercial {
+class Rubro {
 	String nombre
 	var double DISTANCIA_MAXIMA 
 	
