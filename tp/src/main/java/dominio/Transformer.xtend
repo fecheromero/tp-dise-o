@@ -13,7 +13,7 @@ public class Transformer {
 	val int a= centro.getNumeroComuna()
  	val Set<String> set = new HashSet<String>(centro.serviciosDTO)
  	
- 	 unCGP=	new CGP(centro.serviciosDTO, centro.domicilio, centro.numeroComuna.toString)
+ 	 unCGP=	new CGP(centro.serviciosDTO, centro.domicilio, centro.getNumeroComuna.toString)
 	}
 	
 	
