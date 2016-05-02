@@ -25,11 +25,13 @@ class TestDeABMC {
 	Comuna almagro
 	Comuna lugano
 	CGP unCGP
-	
+	Repositorio repo
 	@Before
 	def void setUp(){
-		buscador=new Buscador
-		buscador.puntos=new HashSet<PuntoDeInteres>
+		repo=new Repositorio
+		repo.puntos=new HashSet<PuntoDeInteres>
+		buscador=new Buscador()
+		repo.buscador=buscador
 		unosTurnos=new HashSet<Turno>
 		unosTurnos.add(new Turno(new LocalTime(0,10),new LocalTime(2,4)))
 		unosDias=new HashSet<Dia>
@@ -63,49 +65,49 @@ class TestDeABMC {
 	}
 	@Test
 	def void testDeCreacionDePuntos(){
-		buscador.create(_114)
-		Assert.assertEquals(buscador.puntos.size,1)
+		repo.create(_114)
+		Assert.assertEquals(repo.puntos.size,1)
 	} 
 	@Test(expected=NoValidoException)
 	def void TestCreacionTiraErrorConUnPuntoIncompleto(){
 		unaLibreria.nombre=null
-		buscador.create(unaLibreria)
+		repo.create(unaLibreria)
 		
 	}
 	@Test(expected=NoValidoException)
 	def void NoSePuedeAgregarUnPuntoYaExistente(){
-		buscador.create(_114)
-		buscador.create(_114)
+		repo.create(_114)
+		repo.create(_114)
 	}
 	@Test
 	def void TesteliminacionDeUnPunto(){
-		buscador.create(_114)
-		Assert.assertEquals(buscador.puntos.size,1)
-		buscador.delete(_114)
-		Assert.assertEquals(buscador.puntos.size,0)
+		repo.create(_114)
+		Assert.assertEquals(repo.puntos.size,1)
+		repo.delete(_114)
+		Assert.assertEquals(repo.puntos.size,0)
 		
 	}
 	@Test(expected=NoValidoException)
 	def void TesteliminacionDeUnPuntoQueNoExisteTiraExcepcion(){
-		buscador.delete(_114)
+		repo.delete(_114)
 	}
 	@Test
 	def void TestUpdateDeUnPunto(){
-		buscador.create(_114)
+		repo.create(_114)
 		_114.nombre="nombreDeBondi"
-		buscador.update(_114)
-		Assert.assertEquals(buscador.puntos.get(0).nombre,"nombreDeBondi")
+		repo.update(_114)
+		Assert.assertEquals(repo.puntos.get(0).nombre,"nombreDeBondi")
 	}
 	@Test(expected=NoValidoException)
 	def void TestUpdateIntentaUpdatearUnPuntoQueNoExiste(){
-		buscador.update(_114)
+		repo.update(_114)
 	}
 	@Test
 	def void TestBuscarPorId(){
-		buscador.create(_114)
-		buscador.create(unaLibreria)
-		Assert.assertEquals(buscador.searchBynd(1),_114)
-		Assert.assertEquals(buscador.searchBynd(0),unaLibreria)
-		
+		repo.create(_114)
+		repo.create(unaLibreria)
+		Assert.assertEquals(repo.searchBynd(0),_114)
+		Assert.assertEquals(repo.searchBynd(1),unaLibreria)
+	
 	}
 	}

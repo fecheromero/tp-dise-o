@@ -70,7 +70,7 @@ public class TestDelBuscador {
 		unSorteaditoDePuntos = new HashSet<PuntoDeInteres>
 		unSorteaditoDePuntos.addAll(#[unaLibreria, _114, unCGP, unKiosco])
 		buscador = new Buscador()
-		buscador.puntos = unSorteaditoDePuntos
+	
 		
 
 	}
@@ -89,18 +89,18 @@ public class TestDelBuscador {
 
 	@Test
 	def void pruebaDeBusquedaLibreriaDonPepitoEnUnSoreaditoDePuntos() {
-		Assert.assertArrayEquals(buscador.topTenDePuntos("libreria don Pepito").take(1), #[unaLibreria])
+		Assert.assertArrayEquals(buscador.mostrarPrimeros("libreria don Pepito",unSorteaditoDePuntos,10).take(1), #[unaLibreria])
 	}
 
 	@Test
 	def void pruebaDeBusquedaParadaDel114EnUnSorteaditoDePuntos() {
-		Assert.assertArrayEquals(buscador.topTenDePuntos("114").take(1), #[_114])
+		Assert.assertArrayEquals(buscador.mostrarPrimeros("114",unSorteaditoDePuntos,10).take(1), #[_114])
 
 	}
 
 	@Test
 	def void pruebaDeBusquedaxRubroKioscoEnUnSorteaditoDePuntos() {
-		Assert.assertArrayEquals(buscador.topTenDePuntos("kiosco").take(1), #[unKiosco])
+		Assert.assertArrayEquals(buscador.mostrarPrimeros("kiosco",unSorteaditoDePuntos,10).take(1), #[unKiosco])
 	}
 
 
