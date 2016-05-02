@@ -15,7 +15,6 @@ import excepciones.NoValidoException
 class TestDeABMC {
 	Buscador buscador
 	ParadaDeColectivo _114
-	Rubro unRubro
 	LocalComercial unaLibreria
 	LocalComercial unKiosco
 	HashSet<PuntoDeInteres> unSorteaditoDePuntos
@@ -53,7 +52,7 @@ class TestDeABMC {
 	}
 		@Test(expected=NoValidoException)
 	def void pruebaDeExcepcionDeUnPuntoConUnCampoEnNull(){
-		val punto=new LocalComercial("elKiosquito",unHorario,null,unRubro)
+		val punto=new LocalComercial("elKiosquito",unHorario,null,new Rubro("Kiosko de Diarios", 0.2))
 		punto.validate()
 	}
 	@Test(expected=NoValidoException)
