@@ -15,7 +15,7 @@ class Direccion {
 	String localidad
 	String provincia
 	Comuna comuna
-	String  codigoPostal
+	String codigoPostal
 	String piso
 	String departamento
 	String unidad
