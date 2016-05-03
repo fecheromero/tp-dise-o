@@ -1,203 +1,171 @@
 package test
 
 import dominio.CGP
-import dominio.Horario
 import dominio.ParadaDeColectivo
-import dominio.Servicio
 import dominio.SucursalBanco
-import dominio.Turno
 import org.joda.time.DateTime
-import org.joda.time.LocalTime
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
-import dominio.Direccion
-import dominio.Comuna
-import org.uqbar.geodds.Point
-import org.uqbar.geodds.Polygon
-import java.util.HashSet
-import dominio.*
-import dominio.Horario.Dia
+import dominio.LocalComercial
 
 public class TestDisponibilidad {
 	SucursalBanco santander
 	LocalComercial carrousel
 	ParadaDeColectivo linea7
 	CGP cgpFlores
+	DateTime diaDomingoMañana
+	DateTime diaSabadoMañana
+	DateTime diaJuevesMañana
+	DateTime diaViernesMediodia
+	DateTime diaViernesTarde
+	SucursalBancoFixture bancoFixture
+	ParadaColectivoFixture paradaFixture
+	CGPFixture cgpFixture
+	LibreriaFixture libreriaFixture
 
 	@Before
 	def void setUp() {
-		var diasHabilesRentas = new HashSet<Dia>
-		diasHabilesRentas.addAll(Dia.LUN, Dia.MAR, Dia.MIE, Dia.JUE)
-		var turnoMañana = new Turno(new LocalTime(9, 0), new LocalTime(13, 0))
-		var turnoTarde = new Turno(new LocalTime(14, 0), new LocalTime(18, 0))
-		var turnosDisponiblesRentas = new HashSet<Turno>
-		turnosDisponiblesRentas.addAll(turnoMañana, turnoTarde)
-		var horarioRentas = new Horario(diasHabilesRentas, turnosDisponiblesRentas)
+		
+		bancoFixture = new SucursalBancoFixture
+		paradaFixture = new ParadaColectivoFixture
+		cgpFixture = new CGPFixture
+		libreriaFixture = new LibreriaFixture
 
-		var diasHabilesRegistroCivil = new HashSet<Dia>
-		diasHabilesRegistroCivil.addAll(Dia.LUN, Dia.MAR, Dia.MIE, Dia.JUE)
-		var turnoRegistroCivil = new Turno(new LocalTime(7, 0), new LocalTime(12, 30))
-		var turnosDisponiblesRegistroCivil = new HashSet<Turno>
-		turnosDisponiblesRegistroCivil.add(turnoRegistroCivil)
-		var horarioRegistroCivil = new Horario(diasHabilesRegistroCivil, turnosDisponiblesRegistroCivil)
+		santander = bancoFixture.obtenerBanco
 
-		var diasHabilesCobranzas = new HashSet<Dia>
-		diasHabilesCobranzas.addAll(Dia.LUN, Dia.MAR, Dia.MIE, Dia.JUE, Dia.MIE)
-		var turnoCobranzas = new Turno(new LocalTime(8, 0), new LocalTime(16, 0))
-		var turnosDisponiblesCobranzas = new HashSet<Turno>
-		turnosDisponiblesCobranzas.add(turnoCobranzas)
-		var horarioCobranzas = new Horario(diasHabilesCobranzas, turnosDisponiblesRentas)
+		linea7 = paradaFixture.obtenerParadaColectivo
 
-		var diasHabilesCarrousel = new HashSet<Dia>
-		diasHabilesCarrousel.addAll(Dia.LUN, Dia.MAR, Dia.MIE, Dia.JUE, Dia.VIE, Dia.SAB)
-		var turnoMañanaCarrousel = new Turno(new LocalTime(10, 0), new LocalTime(13, 0))
-		var turnoTardeCarrousel = new Turno(new LocalTime(17, 0), new LocalTime(20, 30))
-		var turnosDisponiblesCarrousel = new HashSet<Turno>
-		turnosDisponiblesCarrousel.addAll(turnoMañanaCarrousel, turnoTardeCarrousel)
-		var horarioCarrousel = new Horario(diasHabilesCarrousel, turnosDisponiblesCarrousel)
-		var unRubro = new Rubro("Libreria Comercial", 0.2)
+		cgpFlores = cgpFixture.obtenerCGPFlores
 
-		var almagro = new Comuna("once",
-			new Polygon(#[new Point(0, 0), new Point(0, 5), new Point(5, 5), new Point(5, 0)]))
-
-		var direccionBanco = new Direccion("calle pepe", "3333", #["jorge", "roberto"], new Point(1, 0), "bs as",
-			"Buenos Aires", almagro, "3333", "", "", "")
-		var direccionLinea7 = new Direccion("calle Rivadavia", "7654", #["jorge", "roberto"], new Point(1, 0), "bs as",
-			"Buenos Aires", almagro, "3333", "", "", "")
-
-		var registroCivil = new Servicio("Registro Civil", horarioRegistroCivil)
-		var rentas = new Servicio("Rentas", horarioRentas)
-		var cobranzas = new Servicio("Cobranzas", horarioCobranzas)
-		var serviciosCGP = new HashSet<Servicio>
-		serviciosCGP.addAll(rentas, registroCivil)
-		var serviciosBanco = new HashSet<Servicio>
-		serviciosBanco.addAll(rentas, cobranzas)
-
-		santander = new SucursalBanco(serviciosBanco, direccionBanco, "santander rio 8")
-
-		linea7 = new ParadaDeColectivo(direccionLinea7, "linea 7")
-
-		cgpFlores = new CGP(serviciosCGP, direccionLinea7, "CGP FLORES")
-
-		carrousel = new LocalComercial("Libreria Carrousel", horarioCarrousel, direccionBanco, unRubro)
+		carrousel = libreriaFixture.obtenerCarroussel
+		
+		diaDomingoMañana = new DateTime("2016-04-17T09:30")
+		
+		diaSabadoMañana = new DateTime("2016-04-16T12:30")
+		
+		diaJuevesMañana = new DateTime("2016-04-14T11:00")
+		
+		diaViernesMediodia = new DateTime("2016-04-15T13:30")
+		
+		diaViernesTarde = new DateTime("2016-04-15T15:30")
 
 	}
 
-	@Test
-	def void testDisponibilidadParadaDeColectivoSabadoALaNoche() {
-		var DateTime fecha = new DateTime("2016-04-16T23:30")
-		Assert.assertTrue(linea7.estaDisponible(fecha, ""))
+	@Test // SE LO CAMBIO POR SABADO MAÑANA PARA APROVECHAR LA FECHA DE OTROS TESTS
+	def void testDisponibilidadParadaDeColectivoSabadoALaMañana() {
+//		var DateTime fecha = new DateTime("2016-04-16T12:30")
+		Assert.assertTrue(linea7.estaDisponible(diaSabadoMañana, ""))
 
 	}
 
-	@Test
+	@Test // LISTO
 	def void testDisponibilidadParadaDeColectivoJuevesALaMañana() {
-		var DateTime fecha = new DateTime("2016-04-14T09:30")
-		Assert.assertTrue(linea7.estaDisponible(fecha, ""))
+//		var DateTime fecha = new DateTime("2016-04-14T11:00")
+		Assert.assertTrue(linea7.estaDisponible(diaJuevesMañana, ""))
 
 	}
 
-	@Test
+	@Test // LISTO
 	def void testDisponibilidadAlgunServicioAbiertoJuevesEnCgpFlores() {
-		var DateTime fecha = new DateTime("2016-04-14T07:30")
-		Assert.assertTrue(cgpFlores.estaDisponible(fecha, ""))
+//		var DateTime fecha = new DateTime("2016-04-14T11:00")
+		Assert.assertTrue(cgpFlores.estaDisponible(diaJuevesMañana, ""))
 
 	}
 
 	@Test
 	def void testDisponibilidadNoHayServiciosAbiertosCgpFloresPorHoraDeAlmuerzo() {
-		var DateTime fecha = new DateTime("2016-04-14T13:30")
-		Assert.assertFalse(cgpFlores.estaDisponible(fecha, ""))
+//		var DateTime fecha = new DateTime("2016-04-15T13:30")
+		Assert.assertFalse(cgpFlores.estaDisponible(diaViernesMediodia, ""))
 
 	}
 
-	@Test
+	@Test // LISTO
 	def void testDisponibilidadNoHayServiciosAbiertosCgpFloresPorSerDomingo() {
-		var DateTime fecha = new DateTime("2016-04-17T09:30")
-		Assert.assertFalse(cgpFlores.estaDisponible(fecha, ""))
+//		var DateTime fecha = new DateTime("2016-04-17T09:30")
+		Assert.assertFalse(cgpFlores.estaDisponible(diaDomingoMañana, ""))
 	}
 
-	@Test
-	def void testDisponibilidadServicioRentasAbiertoMiercolesCgpFlores() {
-		var DateTime fecha = new DateTime("2016-04-13T17:30")
-		Assert.assertTrue(cgpFlores.estaDisponible(fecha, "Rentas"))
+	@Test // SE LO CAMBIO POR JUEVES PARA APROVECHAR OTROS HORARIOS
+	def void testDisponibilidadServicioRentasAbiertoJuevesCgpFlores() {
+//		var DateTime fecha = new DateTime("2016-04-13T17:30")
+		Assert.assertTrue(cgpFlores.estaDisponible(diaJuevesMañana, "Rentas"))
 
 	}
 
 	@Test
 	def void testDisponibilidadServicioRegistroCivilCerradoPorHoraCgpFlores() {
-		var DateTime fecha = new DateTime("2016-04-12T14:10")
-		Assert.assertFalse(cgpFlores.estaDisponible(fecha, "Registro Civil"))
+//		var DateTime fecha = new DateTime("2016-04-15T13:30")
+		Assert.assertFalse(cgpFlores.estaDisponible(diaViernesMediodia, "Registro Civil"))
 
 	}
 
-	@Test
+	@Test // LISTO
 	def void testDisponibilidadServicioRegistroCivilCerradoPorSerSabadoCgpFlores() {
-		var DateTime fecha = new DateTime("2016-04-16T10:00")
-		Assert.assertFalse(cgpFlores.estaDisponible(fecha, "Registro Civil"))
+//		var DateTime fecha = new DateTime("2016-04-16T12:30")
+		Assert.assertFalse(cgpFlores.estaDisponible(diaSabadoMañana, "Registro Civil"))
 
 	}
 
 	@Test
 	def void testDisponibilidadSucursalBancoAbierto() {
-		var DateTime fecha = new DateTime("2016-04-15T13:30")
-		Assert.assertTrue(santander.estaDisponible(fecha, ""))
+//		var DateTime fecha = new DateTime("2016-04-15T13:30")
+		Assert.assertTrue(santander.estaDisponible(diaViernesMediodia, ""))
 
 	}
 
 	@Test
 	def void testDisponibilidadServicioCobranzasDeSucursalBancoFueraDeHorarioBancario() {
-		var DateTime fecha = new DateTime("2016-04-15T15:30")
-		Assert.assertFalse(santander.estaDisponible(fecha, "Cobranzas"))
+//		var DateTime fecha = new DateTime("2016-04-15T15:30")
+		Assert.assertFalse(santander.estaDisponible(diaViernesTarde, "Cobranzas"))
 	}
 
 	@Test
 	def void testDisponibilidadServicioRentasDeSucursalBancoDentroDeHorarioDelServicio() {
-		var DateTime fecha = new DateTime("2016-04-28T14:30")
-		Assert.assertTrue(santander.estaDisponible(fecha, "Rentas"))
+//		var DateTime fecha = new DateTime("2016-04-28T14:30")
+		Assert.assertTrue(santander.estaDisponible(diaJuevesMañana, "Rentas"))
 
 	}
 
 	@Test
 	def void testDisponibilidadServicioRentasDeSucursalBancoFueraDeHorarioDelServicio() {
-		var DateTime fecha = new DateTime("2016-04-27T13:30")
-		Assert.assertFalse(santander.estaDisponible(fecha, "Rentas"))
+//		var DateTime fecha = new DateTime("2016-04-27T13:30")
+		Assert.assertFalse(santander.estaDisponible(diaViernesMediodia, "Rentas"))
 
 	}
 
 	@Test
 	def void testDisponibilidadSucursalBancoCerradoPorHora() {
-		var DateTime fecha = new DateTime("2016-04-15T15:30")
-		Assert.assertFalse(santander.estaDisponible(fecha, ""))
+//		var DateTime fecha = new DateTime("2016-04-15T15:30")
+		Assert.assertFalse(santander.estaDisponible(diaViernesTarde, ""))
 
 	}
 
 	@Test
-	def void testDisponibilidadSucursalBancoCerradoPorDia() {
-		var DateTime fecha = new DateTime("2016-04-17T12:30")
-		Assert.assertFalse(santander.estaDisponible(fecha, ""))
+	def void testDisponibilidadSucursalBancoCerradoPorDiaDomingo() {
+//		var DateTime fecha = new DateTime("2016-04-17T09:30")
+		Assert.assertFalse(santander.estaDisponible(diaDomingoMañana, ""))
 
 	}
 
-	@Test
+	@Test // LISTO
 	def void testDisponibilidadLocalCarrouselMañanaDiaSabado() {
-		var DateTime fecha = new DateTime("2016-04-16T12:30")
-		Assert.assertTrue(carrousel.estaDisponible(fecha, ""))
+//		var DateTime fecha = new DateTime("2016-04-16T12:30")
+		Assert.assertTrue(carrousel.estaDisponible(diaSabadoMañana, ""))
 
 	}
 
 	@Test
-	def void testDisponibilidadLocalCarrouselMartesNocheDentroDeHorario() {
-		var DateTime fecha = new DateTime("2016-04-19T20:20")
-		Assert.assertTrue(carrousel.estaDisponible(fecha, ""))
+	def void testDisponibilidadLocalCarrouselJuevesMañanaDentroDeHorario() {
+//		var DateTime fecha = new DateTime("2016-04-14T11:00")
+		Assert.assertTrue(carrousel.estaDisponible(diaJuevesMañana, ""))
 
 	}
 
-	@Test
+	@Test // LISTO
 	def void testDisponibilidadLocalCarrouselDiaDomingo() {
-		var DateTime fecha = new DateTime("2016-04-17T18:30")
-		Assert.assertFalse(carrousel.estaDisponible(fecha, ""))
+//		var DateTime fecha = new DateTime("2016-04-17T09:30")
+		Assert.assertFalse(carrousel.estaDisponible(diaDomingoMañana, ""))
 
 	}
 }
