@@ -1,8 +1,8 @@
 package dominio
 
-import java.awt.Point
 import java.util.ArrayList
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.geodds.Point
 
 @Accessors
 public class CentroDTO {

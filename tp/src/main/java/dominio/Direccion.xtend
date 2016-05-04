@@ -1,9 +1,9 @@
 package dominio
 
-import org.uqbar.geodds.Point
 import org.eclipse.xtend.lib.annotations.Accessors
 import excepciones.NoValidoException
 import dependencias.*
+import org.uqbar.geodds.Point
 
 @Accessors
 class Direccion {
