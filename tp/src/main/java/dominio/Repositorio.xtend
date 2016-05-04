@@ -14,7 +14,6 @@ class Repositorio {
 	def void setServicioDTO(ServicioExterno servicio){
 		servicioExt=servicio
 	}
-	
 	def void create(PuntoDeInteres unPunto){
 		unPunto.validate()
 		if(puntos.contains(unPunto)) throw new NoValidoException("El Punto ya existe")
