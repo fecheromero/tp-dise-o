@@ -24,11 +24,14 @@
       <scope>test</scope>
     </dependency>
 
+<<<<<<< HEAD
 	<dependency>
 		<groupId>com.google.code.gson</groupId>
 		<artifactId>gson</artifactId>
 		<version>2.2.2</version>
 	</dependency>
+=======
+>>>>>>> development
 
 
 </dependencies>

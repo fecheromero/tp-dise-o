@@ -25,6 +25,7 @@ class TestDeABMC {
 	Comuna almagro
 	Comuna lugano
 	CGP unCGP
+<<<<<<< HEAD
 	Repositorio repo
 	@Before
 	def void setUp(){
@@ -32,6 +33,13 @@ class TestDeABMC {
 		repo.puntos=new HashSet<PuntoDeInteres>
 		buscador=new Buscador()
 		repo.buscador=buscador
+=======
+	
+	@Before
+	def void setUp(){
+		buscador=new Buscador
+		buscador.puntos=new HashSet<PuntoDeInteres>
+>>>>>>> development
 		unosTurnos=new HashSet<Turno>
 		unosTurnos.add(new Turno(new LocalTime(0,10),new LocalTime(2,4)))
 		unosDias=new HashSet<Dia>
@@ -65,17 +73,27 @@ class TestDeABMC {
 	}
 	@Test
 	def void testDeCreacionDePuntos(){
+<<<<<<< HEAD
 		repo.create(_114)
 		Assert.assertEquals(repo.puntos.size,1)
+=======
+		buscador.create(_114)
+		Assert.assertEquals(buscador.puntos.size,1)
+>>>>>>> development
 	} 
 	@Test(expected=NoValidoException)
 	def void TestCreacionTiraErrorConUnPuntoIncompleto(){
 		unaLibreria.nombre=null
+<<<<<<< HEAD
 		repo.create(unaLibreria)
+=======
+		buscador.create(unaLibreria)
+>>>>>>> development
 		
 	}
 	@Test(expected=NoValidoException)
 	def void NoSePuedeAgregarUnPuntoYaExistente(){
+<<<<<<< HEAD
 		repo.create(_114)
 		repo.create(_114)
 	}
@@ -85,10 +103,22 @@ class TestDeABMC {
 		Assert.assertEquals(repo.puntos.size,1)
 		repo.delete(_114)
 		Assert.assertEquals(repo.puntos.size,0)
+=======
+		buscador.create(_114)
+		buscador.create(_114)
+	}
+	@Test
+	def void TesteliminacionDeUnPunto(){
+		buscador.create(_114)
+		Assert.assertEquals(buscador.puntos.size,1)
+		buscador.delete(_114)
+		Assert.assertEquals(buscador.puntos.size,0)
+>>>>>>> development
 		
 	}
 	@Test(expected=NoValidoException)
 	def void TesteliminacionDeUnPuntoQueNoExisteTiraExcepcion(){
+<<<<<<< HEAD
 		repo.delete(_114)
 	}
 	@Test
@@ -109,5 +139,27 @@ class TestDeABMC {
 		Assert.assertEquals(repo.searchBynd(0),_114)
 		Assert.assertEquals(repo.searchBynd(1),unaLibreria)
 	
+=======
+		buscador.delete(_114)
+	}
+	@Test
+	def void TestUpdateDeUnPunto(){
+		buscador.create(_114)
+		_114.nombre="nombreDeBondi"
+		buscador.update(_114)
+		Assert.assertEquals(buscador.puntos.get(0).nombre,"nombreDeBondi")
+	}
+	@Test(expected=NoValidoException)
+	def void TestUpdateIntentaUpdatearUnPuntoQueNoExiste(){
+		buscador.update(_114)
+	}
+	@Test
+	def void TestBuscarPorId(){
+		buscador.create(_114)
+		buscador.create(unaLibreria)
+		Assert.assertEquals(buscador.searchBynd(1),_114)
+		Assert.assertEquals(buscador.searchBynd(0),unaLibreria)
+		
+>>>>>>> development
 	}
 	}
