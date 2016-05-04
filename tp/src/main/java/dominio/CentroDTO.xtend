@@ -1,13 +1,8 @@
 package dominio
 
-import java.util.List
-import org.eclipse.xtend.lib.annotations.Accessors
-import java.util.HashSet
+import java.awt.Point
 import java.util.ArrayList
-<<<<<<< HEAD
-=======
-import org.uqbar.geodds.Point
->>>>>>> development
+import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors
 public class CentroDTO {
@@ -17,8 +12,5 @@ public class CentroDTO {
 	String domicilio
 	String telefono
 	ArrayList<ServicioDTO> serviciosDTO
-<<<<<<< HEAD
-=======
 	Point coordenadas
->>>>>>> development
 }
