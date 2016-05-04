@@ -4,6 +4,7 @@ import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.HashSet
 import java.util.ArrayList
+import org.uqbar.geodds.Point
 
 @Accessors
 public class CentroDTO {
@@ -13,4 +14,5 @@ public class CentroDTO {
 	String domicilio
 	String telefono
 	ArrayList<ServicioDTO> serviciosDTO
+	Point coordenadas
 }
