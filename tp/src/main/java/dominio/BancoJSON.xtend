@@ -7,8 +7,8 @@ import java.util.ArrayList
 @Accessors
 public class BancoJSON {
 	String banco
-	BigDecimal x
-	BigDecimal y
+	int x
+	int y
 	String sucursal
 	String gerente
 	ArrayList<String> servicios

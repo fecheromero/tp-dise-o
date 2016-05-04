@@ -18,8 +18,8 @@ class SucursalBanco extends PuntoDeInteres {
 		turnosDisponiblesBanco.add(turnoBanco)
 		diasHabilesBanco.addAll(Dia.LUN, Dia.MAR, Dia.MIE, Dia.JUE, Dia.VIE)
 		this.horario = new Horario(diasHabilesBanco, turnosDisponiblesBanco)
-
 	}
+
 
 	override boolean estaDisponible(DateTime unMomento, String nombreDeServicio) {
 		(if (nombreDeServicio == "")
@@ -36,7 +36,7 @@ class SucursalBanco extends PuntoDeInteres {
 
 	override String listaDeTags() {
 
-		super.listaDeTags().concat(" ".concat(servicios.map[servicio|servicio.nombre].fold("", [serv1,serv2|
+		super.listaDeTags().concat(" ".concat(servicios.map[servicio|servicio.nombre].fold("", [ serv1, serv2 |
 			serv1.concat(serv2)
 		])))
 	}
