@@ -73,10 +73,6 @@ public class TestDistancia {
 		Assert.assertFalse(unaLibreria.estaCercaDe(unPunto))
 	}
 
-	
-	/* ESTE TEST ESTABA MAL, POR LO MENOS EN EL PULL QUE HICE YO, EL TEST SE LLAMABA "NoEstaCercaUnKioscoAUnPuntoAMasDe2Cuadras"
-	 * PERO EN REALIDAD PROBABA QUE SI ESTABA CERCA, LO MODIFIQUE PARA QUE SEA COHERENTE CON EL NOMBRE
-	 */
 	@Test
 	def void NoEstaCercaUnKioscoAUnPuntoAMasDe2Cuadras() {
 		Assert.assertFalse(unKiosco.estaCercaDe(unPunto))

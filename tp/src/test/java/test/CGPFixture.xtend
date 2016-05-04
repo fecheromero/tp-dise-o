@@ -16,7 +16,6 @@ import org.eclipse.xtend.lib.annotations.Accessors
 @Accessors
 class CGPFixture {
 		
-//	Comuna almagro
 	CGP unCGP
 	HashSet<Servicio> servicios
 	Horario unHorario
@@ -46,8 +45,6 @@ class CGPFixture {
 		
 		almagro = new Comuna("once",new Polygon(#[new Point(0, 0), new Point(0, 5), new Point(5, 5), new Point(5, 0)]))		
 		
-//		var cgp = this.obtenerCGP(almagro)
-		
 		var diasHabilesRentas = new HashSet<Dia>
 		diasHabilesRentas.addAll(Dia.LUN, Dia.MAR, Dia.MIE, Dia.JUE)
 		var turnoMañana = new Turno(new LocalTime(9, 0), new LocalTime(13, 0))
@@ -76,8 +73,4 @@ class CGPFixture {
 		
 		}
 
-	def void setServicios(HashSet<Servicio> servicios){
-		
-		this.servicios = servicios
-	}
 }
