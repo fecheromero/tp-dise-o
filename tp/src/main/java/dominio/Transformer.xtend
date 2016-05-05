@@ -19,7 +19,7 @@ public class Transformer {
 	def CGP centroACGP(CentroDTO centro) {
 		val lista = centro.serviciosDTO.map[unServicio|this.servicioDtoAServicio(unServicio)]
 		val servicios = new HashSet<Servicio>(lista)
-		val cgp = new CGP(servicios, this.direccionDeCentroDTO(centro), "")
+		val cgp = new CGP(servicios, this.direccionDeCentroDTO(centro), "CGP"+centro.numeroComuna.toString)
 		return cgp
 	}
 
@@ -72,7 +72,7 @@ public class Transformer {
 		return dias
 	}
 
-	static def HashSet<SucursalBanco> transformarDeJSONaClaseBanco(String listaDeBancosEnJson) {
+	 def HashSet<SucursalBanco> transformarDeJSONaClaseBanco(String listaDeBancosEnJson) {
 
 		var HashSet<BancoJSON> bancosExternos
 		var Gson gson = new Gson()

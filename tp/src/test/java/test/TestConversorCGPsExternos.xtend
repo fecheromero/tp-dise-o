@@ -7,8 +7,6 @@ import org.junit.Before
 import java.util.ArrayList
 import org.uqbar.geodds.Point
 import org.junit.Test
-import dominio.Repositorio
-import dominio.ServicioExterno
 import dominio.Transformer
 import dominio.Direccion
 import dominio.Comuna
@@ -19,11 +17,10 @@ import dominio.Horario
 import dominio.Turno
 import org.joda.time.LocalTime
 import org.junit.Assert
-import com.google.common.collect.Sets
 import dominio.Horario.Dia
 import java.util.HashSet
 
-class TestCGPsExternos {
+class TestConversorCGPsExternos {
 
 	StubServicioExterno servicioExt
 
@@ -70,26 +67,43 @@ class TestCGPsExternos {
 	}
 
 	
-//	def void testTransformarCentroACGP() {
-//		val direccion = new Direccion("Junin 521", "", #["", ""], new Point(432, 967), "Balvanera,SanCristobal", "",new Comuna("", new Polygon(#[new Point(0, 0), new Point(0, 0)])), "", "", "", "")
-//		
-//		val cgp1 = new CGP(servicios, direccion, "")
-//		trafo.centroACGP(centro1)
-//	}
-//	
-//	def Servicio testServicioDTOAServicio(){
-//		
-//	}
+	@Test
+	def void testCentroACGP(){
+		var	almagro = new Comuna("", new Polygon(#[new Point(0, 0), new Point(0, 0)]))		
+		
+		var diasHabilesRentas = new HashSet<Dia>
+		diasHabilesRentas.addAll(Dia.LUN, Dia.MAR)
+		var turnoMañana = new Turno(new LocalTime(9, 0), new LocalTime(18, 0))
+		var turnosDisponiblesRentas = new HashSet<Turno>
+		turnosDisponiblesRentas.addAll(turnoMañana)
+		var horarioRentas = new Horario(diasHabilesRentas, turnosDisponiblesRentas)
 
+		var diasHabilesTesoreria = new HashSet<Dia>
+		diasHabilesTesoreria.addAll(Dia.LUN, Dia.MAR)
+		var turnoTesoreria = new Turno(new LocalTime(9, 0), new LocalTime(18, 0))
+		var turnosDisponiblesTesoreria = new HashSet<Turno>
+		turnosDisponiblesTesoreria.add(turnoTesoreria)
+		var horarioTesoreria = new Horario(diasHabilesTesoreria, turnosDisponiblesTesoreria)
+		
+		var tesoreria = new Servicio("Registro Civil", horarioTesoreria)
+		var rentas = new Servicio("Rentas", horarioRentas)
+		
+		var serviciosCGP = new HashSet<Servicio>
+		serviciosCGP.addAll(rentas, tesoreria)
+		
+		var cgpFlores = new CGP(serviciosCGP, new Direccion("Junin 521", "", #["", ""], new Point(100, 300), "Balvanera,SanCristobal","", almagro, "", "", "", ""), "CGP3")
+		var cgpExt=trafo.centroACGP(centro1)
+		Assert.assertEquals(cgpExt.nombre,cgpFlores.nombre)	
+	}
+		
 	@Test
 	def void testRangoAHorario(){
 				
-		val dias= new HashSet<Dia>
+		var dias= new HashSet<Dia>
 		dias.addAll(Dia.LUN,Dia.MAR)
-		val turnos=new HashSet<Turno>
+		var turnos=new HashSet<Turno>
 		turnos.addAll(new Turno(new LocalTime(9,0),new LocalTime(18,0)))
-		val horario1=new Horario(dias, turnos)
 		val horarioExterno=trafo.horarioServicioDTO(servicio1)		
-		Assert.assertEquals(#[Dia.LUN,Dia.MAR],horarioExterno.diasHabilesPoi)
+		Assert.assertTrue(dias==horarioExterno.diasHabilesPoi)
 	}
 }
