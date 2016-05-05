@@ -13,4 +13,13 @@ public class CentroDTO {
 	String telefono
 	ArrayList<ServicioDTO> serviciosDTO
 	Point coordenadas
+	new(String director,Integer comuna, String direccion,String zonas,String tel,Point punto,ArrayList<ServicioDTO> servicios){
+		nombreDirector=director
+		numeroComuna=comuna
+		zonasIncluidas=zonas
+		telefono=tel
+		coordenadas=punto
+		serviciosDTO=servicios
+		domicilio=direccion
+	}
 }
