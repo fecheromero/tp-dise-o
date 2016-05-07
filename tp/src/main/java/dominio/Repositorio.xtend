@@ -5,11 +5,11 @@ import java.util.HashSet
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.ArrayList
+import interfazAServiciosExternos.*
 
 @Accessors
 class Repositorio {
 	ServicioExterno servicioExtCGP
-	ServicioExternoBancos servicioExtBanco
 	HashSet<PuntoDeInteres> puntos
 	Buscador buscador=new Buscador()
 	Transformer transformer = new Transformer()
@@ -47,7 +47,7 @@ class Repositorio {
 	def List<PuntoDeInteres> search(String valor){
 		buscador.mostrarPrimeros(valor,puntos,10)
 	}
-
+/*
 	def void actualizarRepositorio(String criterio){
 		val List<CentroDTO> listaCentroDTO = servicioExtCGP.buscar(criterio)
 		val listaCGPs = listaCentroDTO.map[dto | transformer.centroACGP(dto)]
@@ -56,7 +56,7 @@ class Repositorio {
 		val HashSet<SucursalBanco> listaBancos = transformer.transformarDeJSONaClaseBanco(servicioExtBanco.buscar(criterio))
 		listaBancos.forEach[banco | this.createOrUpdate(banco)]
 	}
-
+ */
 
 
 }

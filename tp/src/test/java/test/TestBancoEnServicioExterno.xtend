@@ -1,4 +1,4 @@
-package test
+/*package test
 
 import dominio.Transformer
 import dominio.SucursalBanco
@@ -87,3 +87,4 @@ def void setUp() {
 	}
 
 }
+*/

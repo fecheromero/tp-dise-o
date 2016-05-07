@@ -1,11 +1,10 @@
-package dominio
+package interfazAServiciosExternos
 
-import org.eclipse.xtend.lib.annotations.Accessors
-import java.math.BigDecimal
 import java.util.ArrayList
+import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors
-public class BancoJSON {
+public class stubBancoJSON {
 	String banco
 	double x
 	double y

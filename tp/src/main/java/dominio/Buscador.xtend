@@ -1,11 +1,9 @@
 package dominio
 
+import dependencias.Levenshtein
 import java.util.Collection
 import java.util.HashSet
 import org.eclipse.xtend.lib.annotations.Accessors
-import dependencias.Levenshtein
-import excepciones.NoValidoException
-import java.util.List
 
 @Accessors
 public class Buscador {

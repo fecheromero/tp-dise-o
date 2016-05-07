@@ -1,11 +1,11 @@
 package test
 
-import dominio.ServicioExterno
 import java.util.ArrayList
 import dominio.CentroDTO
 import com.google.common.collect.Lists
-
-class StubServicioExterno implements ServicioExterno {
+import interfazAServiciosExternos.ServicioExterno
+/*
+class StubServicioExterno extends ServicioExterno {
 	ArrayList<CentroDTO> listaCentros
 	
 	override buscar(String zona) {
@@ -15,4 +15,4 @@ class StubServicioExterno implements ServicioExterno {
 	def void agregarCentroDTO(CentroDTO centro){
 		listaCentros.add(centro)
 	}
-}
+} */

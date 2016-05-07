@@ -1,4 +1,4 @@
-package test
+/*package test
 
 import dominio.CentroDTO
 import dominio.ServicioDTO
@@ -107,3 +107,4 @@ class TestConversorCGPsExternos {
 		Assert.assertTrue(dias==horarioExterno.diasHabilesPoi)
 	}
 }
+*/

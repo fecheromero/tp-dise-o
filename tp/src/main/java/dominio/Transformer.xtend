@@ -8,18 +8,13 @@ import java.util.ArrayList
 import org.uqbar.geodds.Polygon
 import org.uqbar.geodds.Point
 
-import java.lang.reflect.Type
-import com.google.gson.Gson
-import com.google.common.collect.Sets
-import com.google.gson.reflect.TypeToken
-
 @Accessors
 public class Transformer {
 
 	def CGP centroACGP(CentroDTO centro) {
 		val lista = centro.serviciosDTO.map[unServicio|this.servicioDtoAServicio(unServicio)]
 		val servicios = new HashSet<Servicio>(lista)
-		val cgp = new CGP(servicios, this.direccionDeCentroDTO(centro), "CGP"+centro.numeroComuna.toString)
+		val cgp = new CGP(servicios, this.direccionDeCentroDTO(centro), "CGP" + centro.numeroComuna.toString)
 		return cgp
 	}
 
@@ -71,46 +66,4 @@ public class Transformer {
 
 		return dias
 	}
-
-	 def HashSet<SucursalBanco> transformarDeJSONaClaseBanco(String listaDeBancosEnJson) {
-
-		var HashSet<BancoJSON> bancosExternos
-		var Gson gson = new Gson()
-		var Type tipoListaDeBancosJson = new TypeToken<ArrayList<BancoJSON>>() {
-		}.getType()
-		bancosExternos = new HashSet<BancoJSON>(gson.fromJson(listaDeBancosEnJson, tipoListaDeBancosJson))
-		return Sets.newHashSet(bancosExternos.map[unBancoExterno|pasarDeBancoJsonASucBanco(unBancoExterno)])
-	}
-
-	static def SucursalBanco pasarDeBancoJsonASucBanco(BancoJSON unBancoExterno) {
-		var listaServicios = unBancoExterno.servicios.map[unServicio|servicioJSONAServicio(unServicio)]
-		var servicios = new HashSet<Servicio>(listaServicios)
-		return new SucursalBanco(servicios, direccionDeBanco(unBancoExterno),
-			unBancoExterno.banco + "" + unBancoExterno.sucursal)
-	}
-
-	// Modelado de la direccion de BancoJSON a SucursalBanco
-	static def Direccion direccionDeBanco(BancoJSON unBancoExterno) {
-		var Point coordenadas = new Point(unBancoExterno.x, unBancoExterno.y)
-		var direccion = new Direccion("", "", #["", ""], coordenadas, "", "",
-			new Comuna("", new Polygon(#[new Point(0, 0), new Point(0, 0)])), "", "", "", "")
-		return direccion
-	}
-
-	static def Horario horarioBancario() {
-		var turnosDisponiblesBanco = new HashSet<Turno>
-		var diasHabilesBanco = new HashSet<Dia>
-		var turnoBanco = new Turno(new LocalTime(10, 0), new LocalTime(15, 0))
-		turnosDisponiblesBanco.add(turnoBanco)
-		diasHabilesBanco.addAll(Dia.LUN, Dia.MAR, Dia.MIE, Dia.JUE, Dia.VIE)
-		return new Horario(diasHabilesBanco, turnosDisponiblesBanco)
-
-	}
-
-	// Modelado del servicio
-	static def Servicio servicioJSONAServicio(String servicioJSON) {
-		var Servicio servicio = new Servicio(servicioJSON, horarioBancario())
-		return servicio
-	}
-
 }
