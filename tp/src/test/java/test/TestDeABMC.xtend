@@ -1,7 +1,7 @@
 package test
 
 import dominio.*
-import dominio.Horario.Dia
+import dominio.Dia
 import java.util.HashSet
 import org.junit.Before
 import org.uqbar.geodds.Point

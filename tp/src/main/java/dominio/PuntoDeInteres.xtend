@@ -8,7 +8,7 @@ import java.util.HashSet
 import com.google.common.collect.Sets
 import dominio.Horario
 import excepciones.NoValidoException
-import dominio.Horario.Dia
+import dominio.Dia
 
 @Accessors
 public abstract class PuntoDeInteres {

@@ -4,7 +4,7 @@ import dominio.CGP
 import dominio.Comuna
 import dominio.Direccion
 import dominio.Horario
-import dominio.Horario.Dia
+import dominio.Dia
 import dominio.Servicio
 import dominio.Turno
 import java.util.HashSet

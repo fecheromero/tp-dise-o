@@ -3,7 +3,7 @@ package dominio
 import org.joda.time.LocalTime
 import java.util.HashSet
 import org.joda.time.DateTime
-import dominio.Horario.Dia
+import dominio.Dia
 import excepciones.NoValidoException
 
 class SucursalBanco extends PuntoDeInteres {

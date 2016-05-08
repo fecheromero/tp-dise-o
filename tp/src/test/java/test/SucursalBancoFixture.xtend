@@ -2,7 +2,7 @@ package test
 
 import java.util.HashSet
 import dominio.SucursalBanco
-import dominio.Horario.Dia
+import dominio.Dia
 import dominio.Turno
 import org.joda.time.LocalTime
 import dominio.Horario

@@ -3,7 +3,7 @@ package dominio
 import java.util.HashSet
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.LocalTime
-import dominio.Horario.Dia
+import dominio.Dia
 import java.util.ArrayList
 import org.uqbar.geodds.Polygon
 import org.uqbar.geodds.Point
