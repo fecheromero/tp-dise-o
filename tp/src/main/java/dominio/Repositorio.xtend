@@ -12,8 +12,13 @@ import java.util.List
 class Repositorio {
 	ServicioExterno servicioExtCGP
 	HashSet<PuntoDeInteres> puntos
-	Buscador buscador=new Buscador()
-
+	Buscador buscador=Buscador.getInstance
+	private static Repositorio uno=new Repositorio()
+		private new( ){}
+		def public static Repositorio getInstance(){
+			uno
+		}
+	
 
 	def void setServicioDTO(ServicioExterno servicio){
 		servicioExtCGP=servicio

@@ -9,9 +9,14 @@ import dominio.pois.PuntoDeInteres
 @Accessors
 public class Buscador {
 	val yo=this
-	var Levenshtein lev= new Levenshtein()
+	var Levenshtein lev= Levenshtein.getInstance
 	static val palabrasInutiles=#["a","ante","cabe","con","contra","de","desde","en","entre","para","por","segun","sin","sobre","tras","durante","mediante","el","las","los","la"]
-
+	private static Buscador uno=new Buscador()
+		private new( ){}
+		def public static Buscador getInstance(){
+			uno
+		}
+	
 	HashSet<PuntoDeInteres> puntos
 
 	def boolean esPalabraInutil(String str1)

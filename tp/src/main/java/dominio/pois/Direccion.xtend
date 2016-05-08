@@ -18,7 +18,7 @@ class Direccion {
 	String piso
 	String departamento
 	String unidad
-	Tageador tag = new Tageador()
+	Tageador tag =Tageador.getInstance
 
 	new(String callePrincipal, String numero, String[] entre, Point coordenadas, String localidad, String provincia,
 		Comuna comuna, String codigoPostal, String piso, String departamento, String unidad) {

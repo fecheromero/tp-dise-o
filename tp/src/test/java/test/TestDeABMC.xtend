@@ -39,9 +39,9 @@ class TestDeABMC {
 
 	@Before
 	def void setUp(){
-		repo=new Repositorio
+		repo=Repositorio.getInstance
 		repo.puntos=new HashSet<PuntoDeInteres>
-		buscador=new Buscador()
+		buscador=Buscador.getInstance
 		repo.buscador=buscador
 		unosTurnos=new HashSet<Turno>
 		unosTurnos.add(new Turno(new LocalTime(0,10),new LocalTime(2,4)))
