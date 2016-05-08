@@ -1,16 +1,32 @@
-package dominio
+package interfazAServiciosExternos
 
+import dominio.CGP
+import dominio.Comuna
+import dominio.Direccion
+import dominio.Horario
+import dominio.Horario.Dia
+import dominio.Servicio
+import dominio.Turno
+import java.util.ArrayList
 import java.util.HashSet
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.LocalTime
-import dominio.Horario.Dia
-import java.util.ArrayList
-import org.uqbar.geodds.Polygon
 import org.uqbar.geodds.Point
+import org.uqbar.geodds.Polygon
 
 @Accessors
-public class Transformer {
+public class AdapterCGP extends ServicioExterno{
+	ArrayList<CentroDTO> listaDeCentros
 
+	override buscar(String palabraClave) {
+		return this.centrosACGPs()
+	}
+	
+	def HashSet<CGP> centrosACGPs(){
+		val arrayCGPs = listaDeCentros.map[unCentro|this.centroACGP(unCentro)]
+		val listaCGPs = new HashSet<CGP>(arrayCGPs)
+		return listaCGPs
+	}
 	def CGP centroACGP(CentroDTO centro) {
 		val lista = centro.serviciosDTO.map[unServicio|this.servicioDtoAServicio(unServicio)]
 		val servicios = new HashSet<Servicio>(lista)
@@ -66,4 +82,6 @@ public class Transformer {
 
 		return dias
 	}
+	
+	
 }

@@ -1,4 +1,4 @@
-package dominio
+package interfazAServiciosExternos
 
 import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.ArrayList
