@@ -1,14 +1,14 @@
 package test
 
 import java.util.HashSet
-import dominio.LocalComercial
-import dominio.Horario
-import dominio.Horario.Dia
-import dominio.Turno
-import dominio.Direccion
-import dominio.Rubro
+import dominio.locales.LocalComercial
+import dominio.tiempo.Horario
+import dominio.tiempo.Horario.Dia
+import dominio.tiempo.Turno
+import dominio.pois.Direccion
+import dominio.locales.Rubro
 import org.uqbar.geodds.Point
-import dominio.Comuna
+import dominio.pois.Comuna
 import org.uqbar.geodds.Polygon
 import org.joda.time.LocalTime
 

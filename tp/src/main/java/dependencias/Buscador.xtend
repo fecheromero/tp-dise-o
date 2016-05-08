@@ -1,9 +1,10 @@
-package dominio
+package dependencias
 
 import dependencias.Levenshtein
 import java.util.Collection
 import java.util.HashSet
 import org.eclipse.xtend.lib.annotations.Accessors
+import dominio.pois.PuntoDeInteres
 
 @Accessors
 public class Buscador {

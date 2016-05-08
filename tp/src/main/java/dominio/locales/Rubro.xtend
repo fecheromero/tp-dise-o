@@ -1,4 +1,4 @@
-package dominio
+package dominio.locales
 
 import org.eclipse.xtend.lib.annotations.Accessors
 

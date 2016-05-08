@@ -1,12 +1,12 @@
 package test
 
 import dominio.CGP
-import dominio.Comuna
-import dominio.Direccion
-import dominio.Horario
-import dominio.Horario.Dia
-import dominio.Servicio
-import dominio.Turno
+import dominio.pois.Comuna
+import dominio.pois.Direccion
+import dominio.tiempo.Horario
+import dominio.tiempo.Horario.Dia
+import dominio.pois.Servicio
+import dominio.tiempo.Turno
 import java.util.HashSet
 import org.joda.time.LocalTime
 import org.uqbar.geodds.Polygon

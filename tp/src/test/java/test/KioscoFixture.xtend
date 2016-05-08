@@ -1,16 +1,16 @@
 package test
 
-import dominio.Comuna
+import dominio.pois.Comuna
 import java.util.HashSet
-import dominio.Turno
-import dominio.Horario.Dia
-import dominio.Horario
-import dominio.LocalComercial
+import dominio.tiempo.Turno
+import dominio.tiempo.Horario.Dia
+import dominio.tiempo.Horario
+import dominio.locales.LocalComercial
 import org.uqbar.geodds.Polygon
 import org.uqbar.geodds.Point
 import org.joda.time.LocalTime
-import dominio.Direccion
-import dominio.Rubro
+import dominio.pois.Direccion
+import dominio.locales.Rubro
 
 class KioscoFixture {
 	

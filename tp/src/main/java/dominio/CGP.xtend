@@ -4,9 +4,12 @@ import org.uqbar.geodds.Point
 
 import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.HashSet
-import dominio.Servicio
+import dominio.pois.Servicio
 import org.joda.time.DateTime
 import excepciones.NoValidoException
+import dominio.pois.PuntoDeInteres
+import dominio.pois.Direccion
+
 
 @Accessors
 public class CGP extends PuntoDeInteres {

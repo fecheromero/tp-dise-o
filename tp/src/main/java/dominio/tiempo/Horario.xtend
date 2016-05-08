@@ -1,4 +1,4 @@
-package dominio
+package dominio.tiempo
 
 import org.joda.time.DateTime
 

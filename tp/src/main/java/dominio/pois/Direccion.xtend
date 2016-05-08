@@ -1,4 +1,4 @@
-package dominio
+package dominio.pois
 
 import org.eclipse.xtend.lib.annotations.Accessors
 import excepciones.NoValidoException

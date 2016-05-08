@@ -6,6 +6,9 @@ import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.ArrayList
 import interfazAServiciosExternos.*
+import dominio.pois.PuntoDeInteres
+import dependencias.Buscador
+
 
 @Accessors
 class Repositorio {

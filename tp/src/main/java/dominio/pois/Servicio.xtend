@@ -1,7 +1,8 @@
-package dominio
+package dominio.pois
 
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.DateTime
+import dominio.tiempo.Horario
 
 @Accessors
 class Servicio {

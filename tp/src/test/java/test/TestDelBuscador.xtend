@@ -1,15 +1,15 @@
 package test
 
-import dominio.Buscador
+import dependencias.Buscador
 import dominio.CGP
-import dominio.LocalComercial
+import dominio.locales.LocalComercial
 import dominio.ParadaDeColectivo
-import dominio.PuntoDeInteres
+import dominio.pois.PuntoDeInteres
 import java.util.HashSet
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
-import dominio.Comuna
+import dominio.pois.Comuna
 import org.uqbar.geodds.Polygon
 import org.uqbar.geodds.Point
 

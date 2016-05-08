@@ -2,15 +2,15 @@ package test
 
 import java.util.HashSet
 import dominio.SucursalBanco
-import dominio.Horario.Dia
-import dominio.Turno
+import dominio.tiempo.Horario.Dia
+import dominio.tiempo.Turno
 import org.joda.time.LocalTime
-import dominio.Horario
-import dominio.Comuna
+import dominio.tiempo.Horario
+import dominio.pois.Comuna
 import org.uqbar.geodds.Polygon
 import org.uqbar.geodds.Point
-import dominio.Direccion
-import dominio.Servicio
+import dominio.pois.Direccion
+import dominio.pois.Servicio
 
 class SucursalBancoFixture {
 	

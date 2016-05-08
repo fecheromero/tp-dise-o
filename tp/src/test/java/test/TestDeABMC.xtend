@@ -1,7 +1,7 @@
 package test
 
 import dominio.*
-import dominio.Horario.Dia
+import dominio.tiempo.Horario.Dia
 import java.util.HashSet
 import org.junit.Before
 import org.uqbar.geodds.Point
@@ -11,6 +11,11 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import excepciones.NoValidoException
+import dependencias.Buscador
+import dominio.locales.LocalComercial
+import dominio.tiempo.*
+import dominio.pois.*
+import dominio.locales.*
 
 class TestDeABMC {
 	Buscador buscador

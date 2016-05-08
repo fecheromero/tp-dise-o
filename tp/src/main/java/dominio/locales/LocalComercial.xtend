@@ -1,7 +1,10 @@
-package dominio
+package dominio.locales
 
 import org.eclipse.xtend.lib.annotations.Accessors
 import excepciones.NoValidoException
+import dominio.tiempo.Horario 
+import dominio.pois.PuntoDeInteres
+import dominio.pois.Direccion
 
 @Accessors
 public class LocalComercial extends PuntoDeInteres {

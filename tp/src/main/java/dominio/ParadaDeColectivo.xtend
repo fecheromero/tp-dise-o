@@ -3,7 +3,8 @@ package dominio
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.DateTime
 import excepciones.NoValidoException
-
+import dominio.pois.PuntoDeInteres
+import dominio.pois.Direccion
 @Accessors
 public class ParadaDeColectivo extends PuntoDeInteres {
 	

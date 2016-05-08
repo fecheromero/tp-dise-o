@@ -2,8 +2,8 @@ package test
 
 import dominio.ParadaDeColectivo
 import org.uqbar.geodds.Point
-import dominio.Direccion
-import dominio.Comuna
+import dominio.pois.Direccion
+import dominio.pois.Comuna
 import org.uqbar.geodds.Polygon
 
 class ParadaColectivoFixture {

@@ -1,7 +1,7 @@
 package interfazAServiciosExternos
 
 import java.util.ArrayList
-import dominio.PuntoDeInteres
+import dominio.pois.PuntoDeInteres
 
 public abstract class ServicioExterno {
 	def  buscar(String palabraClave){}

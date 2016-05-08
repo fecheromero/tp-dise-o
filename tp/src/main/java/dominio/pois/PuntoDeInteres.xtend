@@ -1,4 +1,4 @@
-package dominio
+package dominio.pois
 
 import org.uqbar.geodds.Point
 import org.eclipse.xtend.lib.annotations.Accessors
@@ -6,9 +6,11 @@ import org.joda.time.DateTime
 import dependencias.*
 import java.util.HashSet
 import com.google.common.collect.Sets
-import dominio.Horario
 import excepciones.NoValidoException
-import dominio.Horario.Dia
+import dominio.tiempo.Horario
+import dominio.tiempo.Turno
+import dominio.tiempo.Horario.Dia
+import dominio.pois.Servicio
 
 @Accessors
 public abstract class PuntoDeInteres {

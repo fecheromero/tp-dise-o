@@ -1,8 +1,8 @@
 package test
 
 import dominio.CGP
-import dominio.Comuna
-import dominio.LocalComercial
+import dominio.pois.Comuna
+import dominio.locales.LocalComercial
 import dominio.ParadaDeColectivo
 import org.junit.Assert
 import org.junit.Before

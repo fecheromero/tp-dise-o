@@ -3,8 +3,14 @@ package dominio
 import org.joda.time.LocalTime
 import java.util.HashSet
 import org.joda.time.DateTime
-import dominio.Horario.Dia
+import dominio.tiempo.Horario.Dia
 import excepciones.NoValidoException
+import dominio.tiempo.Turno
+import dominio.tiempo.Horario
+import dominio.pois.PuntoDeInteres
+import dominio.pois.Servicio
+import dominio.pois.Direccion
+
 
 class SucursalBanco extends PuntoDeInteres {
 

@@ -1,4 +1,4 @@
-package dominio
+package dominio.tiempo
 
 import org.joda.time.LocalTime
 import org.eclipse.xtend.lib.annotations.Accessors
