@@ -1,8 +1,8 @@
 package dominio.pois
 
-import org.eclipse.xtend.lib.annotations.Accessors
+import dependencias.Tageador
 import excepciones.NoValidoException
-import dependencias.*
+import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.geodds.Point
 
 @Accessors

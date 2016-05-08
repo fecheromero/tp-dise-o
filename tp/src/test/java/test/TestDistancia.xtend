@@ -1,9 +1,9 @@
 package test
 
-import dominio.CGP
+import dominio.pois.CGP
 import dominio.pois.Comuna
 import dominio.locales.LocalComercial
-import dominio.ParadaDeColectivo
+import dominio.pois.ParadaDeColectivo
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test

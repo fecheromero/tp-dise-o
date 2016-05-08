@@ -1,20 +1,19 @@
 package dominio
 
-import excepciones.NoValidoException
-import java.util.HashSet
-import java.util.List
-import org.eclipse.xtend.lib.annotations.Accessors
-import java.util.ArrayList
-import interfazAServiciosExternos.*
-import dominio.pois.PuntoDeInteres
 import dependencias.Buscador
-
+import excepciones.NoValidoException
+import interfazAServiciosExternos.ServicioExterno
+import java.util.HashSet
+import org.eclipse.xtend.lib.annotations.Accessors
+import java.util.List
 
 @Accessors
 class Repositorio {
 	ServicioExterno servicioExtCGP
 	HashSet<PuntoDeInteres> puntos
 	Buscador buscador=new Buscador()
+
+
 	def void setServicioDTO(ServicioExterno servicio){
 		servicioExtCGP=servicio
 	}
@@ -45,9 +44,9 @@ class Repositorio {
 	def PuntoDeInteres searchBynd(int id){
 		puntos.get(id)
 	}
-	def List<PuntoDeInteres> search(String valor){
-		buscador.mostrarPrimeros(valor,puntos,10)
-	}
+//	def List<PuntoDeInteres> search(String valor){
+//		buscador.mostrarPrimeros(valor,puntos,10)
+//	}
 /*
 	def void actualizarRepositorio(String criterio){
 		val List<CentroDTO> listaCentroDTO = servicioExtCGP.buscar(criterio)

@@ -1,9 +1,7 @@
 package test
 
 import dependencias.Buscador
-import dominio.CGP
 import dominio.locales.LocalComercial
-import dominio.ParadaDeColectivo
 import dominio.pois.PuntoDeInteres
 import java.util.HashSet
 import org.junit.Assert
@@ -12,6 +10,8 @@ import org.junit.Test
 import dominio.pois.Comuna
 import org.uqbar.geodds.Polygon
 import org.uqbar.geodds.Point
+import dominio.pois.ParadaDeColectivo
+import dominio.pois.CGP
 
 public class TestDelBuscador {
 	Buscador buscador

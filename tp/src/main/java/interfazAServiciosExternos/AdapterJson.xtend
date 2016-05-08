@@ -3,27 +3,33 @@ package interfazAServiciosExternos
 import com.eclipsesource.json.Json
 import com.eclipsesource.json.JsonArray
 import com.eclipsesource.json.JsonValue
-import com.google.common.collect.Lists
-import com.google.common.collect.Sets
-import dominio.pois.Comuna
-import dominio.pois.Direccion
-import dominio.tiempo.Horario
-import dominio.tiempo.Dia
-import dominio.pois.PuntoDeInteres
-import dominio.pois.Servicio
-import dominio.SucursalBanco
-import dominio.tiempo.Turno
+import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.ArrayList
+import dominio.pois.SucursalBanco
+import com.google.common.collect.Lists
 import java.util.HashSet
-import org.joda.time.LocalTime
+import dominio.pois.Servicio
+import com.google.common.collect.Sets
+import dominio.pois.Direccion
 import org.uqbar.geodds.Point
 import org.uqbar.geodds.Polygon
+import dominio.pois.Comuna
+import dominio.tiempo.Turno
+import org.joda.time.LocalTime
+import dominio.tiempo.Dia
+import dominio.tiempo.Horario
 
+@Accessors
 public class AdapterJson extends ServicioExterno {
-	override ArrayList<PuntoDeInteres> buscar(String zona) {
+	String listaDeBancosEnJson
+	new(String listaDeBancosEnJson){
+		this.listaDeBancosEnJson = listaDeBancosEnJson
+	}
+	override ArrayList<SucursalBanco> buscar(String zona) {
+		return this.transformarDeJSONaClaseBanco()
 	}
 
-	def ArrayList<SucursalBanco> transformarDeJSONaClaseBanco(String listaDeBancosEnJson) {
+	def ArrayList<SucursalBanco> transformarDeJSONaClaseBanco() {
 
 		var JsonArray listaJson = Json.parse(listaDeBancosEnJson).asArray()
 		return Lists.newArrayList(listaJson.map[unBancoJson|convertirASucursalBanco(unBancoJson)])

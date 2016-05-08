@@ -1,4 +1,4 @@
-package dominio
+package dominio.pois
 
 import org.joda.time.LocalTime
 import java.util.HashSet

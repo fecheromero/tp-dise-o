@@ -1,24 +1,26 @@
 package test
-
-import dominio.*
+/* 
+import dependencias.Buscador
+import dominio.Comuna
+import dominio.Direccion
+import dominio.Horario
+import dominio.LocalComercial
+import dominio.PuntoDeInteres
+import dominio.Repositorio
+import dominio.Rubro
+import dominio.Servicio
+import dominio.Turno
+import dominio.pois.CGP
+import dominio.pois.ParadaDeColectivo
 import dominio.tiempo.Dia
+import excepciones.NoValidoException
 import java.util.HashSet
-import org.junit.Before
-import org.uqbar.geodds.Point
-import org.uqbar.geodds.Polygon
 import org.joda.time.LocalTime
 import org.junit.Assert
+import org.junit.Before
 import org.junit.Test
-import excepciones.NoValidoException
-import dominio.locales.LocalComercial
-import dominio.pois.Servicio
-import dependencias.Buscador
-import dominio.tiempo.Horario
-import dominio.tiempo.Turno
-import dominio.pois.Comuna
-import dominio.pois.PuntoDeInteres
-import dominio.pois.Direccion
-import dominio.locales.Rubro
+import org.uqbar.geodds.Point
+import org.uqbar.geodds.Polygon
 
 class TestDeABMC {
 	Buscador buscador
@@ -34,6 +36,7 @@ class TestDeABMC {
 	CGP unCGP
 
 	Repositorio repo
+
 	@Before
 	def void setUp(){
 		repo=new Repositorio
@@ -123,3 +126,4 @@ class TestDeABMC {
 
 	}
 	}
+	*/

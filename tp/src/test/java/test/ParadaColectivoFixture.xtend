@@ -1,6 +1,6 @@
 package test
 
-import dominio.ParadaDeColectivo
+import dominio.pois.ParadaDeColectivo
 import org.uqbar.geodds.Point
 import dominio.pois.Direccion
 import dominio.pois.Comuna

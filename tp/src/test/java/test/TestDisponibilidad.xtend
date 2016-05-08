@@ -1,8 +1,8 @@
 package test
 
-import dominio.CGP
-import dominio.ParadaDeColectivo
-import dominio.SucursalBanco
+import dominio.pois.CGP
+import dominio.pois.ParadaDeColectivo
+import dominio.pois.SucursalBanco
 import org.joda.time.DateTime
 import org.junit.Assert
 import org.junit.Before

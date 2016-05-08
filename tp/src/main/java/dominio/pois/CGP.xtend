@@ -1,4 +1,4 @@
-package dominio
+package dominio.pois
 
 import org.uqbar.geodds.Point
 

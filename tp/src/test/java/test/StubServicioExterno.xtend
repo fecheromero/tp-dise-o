@@ -1,9 +1,9 @@
 package test
 
 import java.util.ArrayList
+import interfazAServiciosExternos.ServicioExterno
 import stubs.CentroDTO
 import com.google.common.collect.Lists
-import interfazAServiciosExternos.ServicioExterno
 
 class StubServicioExterno extends ServicioExterno {
 	ArrayList<CentroDTO> listaCentros

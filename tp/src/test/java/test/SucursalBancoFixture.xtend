@@ -1,8 +1,7 @@
 package test
 
 import java.util.HashSet
-import dominio.SucursalBanco
-import dominio.tiempo.Dia
+
 import dominio.tiempo.Turno
 import org.joda.time.LocalTime
 import dominio.tiempo.Horario
@@ -11,6 +10,8 @@ import org.uqbar.geodds.Polygon
 import org.uqbar.geodds.Point
 import dominio.pois.Direccion
 import dominio.pois.Servicio
+import dominio.pois.SucursalBanco
+import dominio.tiempo.Dia
 
 class SucursalBancoFixture {
 	

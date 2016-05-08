@@ -1,6 +1,6 @@
 package test
 
-import dominio.CGP
+import dominio.pois.CGP
 import dominio.pois.Comuna
 import dominio.pois.Direccion
 import dominio.tiempo.Horario
