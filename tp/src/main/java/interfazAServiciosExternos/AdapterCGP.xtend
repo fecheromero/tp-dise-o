@@ -13,6 +13,9 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.LocalTime
 import org.uqbar.geodds.Point
 import org.uqbar.geodds.Polygon
+import stubs.CentroDTO
+import stubs.ServicioDTO
+import stubs.RangoServicioDTO
 
 @Accessors
 public class AdapterCGP extends ServicioExterno{

@@ -1,4 +1,4 @@
-package interfazAServiciosExternos
+package stubs
 
 import java.util.ArrayList
 import org.eclipse.xtend.lib.annotations.Accessors

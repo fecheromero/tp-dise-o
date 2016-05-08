@@ -1,10 +1,10 @@
 package test
 
 import java.util.ArrayList
-import dominio.CentroDTO
+import stubs.CentroDTO
 import com.google.common.collect.Lists
 import interfazAServiciosExternos.ServicioExterno
-/*
+
 class StubServicioExterno extends ServicioExterno {
 	ArrayList<CentroDTO> listaCentros
 	
@@ -15,4 +15,4 @@ class StubServicioExterno extends ServicioExterno {
 	def void agregarCentroDTO(CentroDTO centro){
 		listaCentros.add(centro)
 	}
-} */
+} 
