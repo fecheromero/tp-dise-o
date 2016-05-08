@@ -1,6 +1,7 @@
 package dominio
 
 import dependencias.Buscador
+import dominio.pois.PuntoDeInteres
 import excepciones.NoValidoException
 import interfazAServiciosExternos.ServicioExterno
 import java.util.HashSet
@@ -44,9 +45,9 @@ class Repositorio {
 	def PuntoDeInteres searchBynd(int id){
 		puntos.get(id)
 	}
-//	def List<PuntoDeInteres> search(String valor){
-//		buscador.mostrarPrimeros(valor,puntos,10)
-//	}
+	def List<PuntoDeInteres> search(String valor){
+		buscador.mostrarPrimeros(valor,puntos,10)
+	}
 /*
 	def void actualizarRepositorio(String criterio){
 		val List<CentroDTO> listaCentroDTO = servicioExtCGP.buscar(criterio)

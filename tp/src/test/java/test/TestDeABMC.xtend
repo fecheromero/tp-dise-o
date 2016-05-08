@@ -1,26 +1,26 @@
 package test
-/* 
+
 import dependencias.Buscador
-import dominio.Comuna
-import dominio.Direccion
-import dominio.Horario
-import dominio.LocalComercial
-import dominio.PuntoDeInteres
-import dominio.Repositorio
-import dominio.Rubro
-import dominio.Servicio
-import dominio.Turno
-import dominio.pois.CGP
 import dominio.pois.ParadaDeColectivo
-import dominio.tiempo.Dia
-import excepciones.NoValidoException
+import dominio.locales.LocalComercial
 import java.util.HashSet
-import org.joda.time.LocalTime
-import org.junit.Assert
+import dominio.pois.Servicio
+import dominio.tiempo.Horario
+import dominio.tiempo.Turno
+import dominio.tiempo.Dia
+import dominio.pois.Comuna
+import dominio.pois.CGP
+import dominio.Repositorio
 import org.junit.Before
+import dominio.pois.PuntoDeInteres
+import org.joda.time.LocalTime
 import org.junit.Test
-import org.uqbar.geodds.Point
+import excepciones.NoValidoException
+import org.junit.Assert
+import dominio.pois.Direccion
 import org.uqbar.geodds.Polygon
+import org.uqbar.geodds.Point
+import dominio.locales.Rubro
 
 class TestDeABMC {
 	Buscador buscador
@@ -126,4 +126,4 @@ class TestDeABMC {
 
 	}
 	}
-	*/
+	
