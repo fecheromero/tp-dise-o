@@ -4,7 +4,7 @@ import java.util.ArrayList
 import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors
-public class stubBancoJSON {
+public class StubBancoJSON {
 	String banco
 	double x
 	double y

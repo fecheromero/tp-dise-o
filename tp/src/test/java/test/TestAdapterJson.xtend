@@ -7,6 +7,7 @@ import java.util.ArrayList
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
+import stubs.StubBancoJSON
 
 public class TestAdapterJson {
 	StubBancoJSON bancoExt1
@@ -61,22 +62,7 @@ public class TestAdapterJson {
 		Assert.assertEquals(1, listaDeBancos2.size)
 		
 		System::out.println(listaDeBancos2.get(0).nombre)
-////		
-//		//var HashSet<SucursalBanco> sucursales = Sets.newHashSet(bancosExternos.map[unBancoExterno|pasarDeBancoJsonASucBanco(unBancoExterno)])
-////		
-//		var listaServicios = unaSucursalExt.servicios.map[unServicio|Transformer.servicioJSONAServicio(unServicio)]
-////		var ArrayList<String> servisExt  =unaSucursalExt.servicios
-////		var String unServExt = servisExt.get(0)
-////		
-//		
-//		var servicios = new HashSet<Servicio>(listaServicios)
-//		var Servicio servi = servicios.get(0)
-////		var Horario hor = Transformer.horarioBancario()
-//		//var Servicio servicio = new Servicio(unServExt,hor )
-////		var SucursalBanco sucu = new SucursalBanco(servicios, transformador.direccionDeBanco(unaSucursalExt),
-////			unaSucursalExt.banco + "" + unaSucursalExt.sucursal)
-////		var String nombre = new String(gson.fromJson(json,))
-//		// 
+
 	}
 
 }

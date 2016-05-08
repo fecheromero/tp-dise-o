@@ -1,4 +1,4 @@
-package test
+package stubs
 
 import java.util.ArrayList
 import interfazAServiciosExternos.ServicioExterno
