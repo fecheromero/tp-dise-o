@@ -1,21 +1,24 @@
 package test
 
 import dominio.*
-import dominio.tiempo.Horario.Dia
+import dominio.tiempo.Dia
 import java.util.HashSet
 import org.junit.Before
 import org.uqbar.geodds.Point
 import org.uqbar.geodds.Polygon
 import org.joda.time.LocalTime
 import org.junit.Assert
-import org.junit.Before
 import org.junit.Test
 import excepciones.NoValidoException
-import dependencias.Buscador
 import dominio.locales.LocalComercial
-import dominio.tiempo.*
-import dominio.pois.*
-import dominio.locales.*
+import dominio.pois.Servicio
+import dependencias.Buscador
+import dominio.tiempo.Horario
+import dominio.tiempo.Turno
+import dominio.pois.Comuna
+import dominio.pois.PuntoDeInteres
+import dominio.pois.Direccion
+import dominio.locales.Rubro
 
 class TestDeABMC {
 	Buscador buscador

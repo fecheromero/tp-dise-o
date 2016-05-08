@@ -3,7 +3,7 @@ package test
 import java.util.HashSet
 import dominio.locales.LocalComercial
 import dominio.tiempo.Horario
-import dominio.tiempo.Horario.Dia
+import dominio.tiempo.Dia
 import dominio.tiempo.Turno
 import dominio.pois.Direccion
 import dominio.locales.Rubro

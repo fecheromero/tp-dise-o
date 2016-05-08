@@ -3,7 +3,7 @@ package test
 import dominio.pois.Comuna
 import java.util.HashSet
 import dominio.tiempo.Turno
-import dominio.tiempo.Horario.Dia
+import dominio.tiempo.Dia
 import dominio.tiempo.Horario
 import dominio.locales.LocalComercial
 import org.uqbar.geodds.Polygon

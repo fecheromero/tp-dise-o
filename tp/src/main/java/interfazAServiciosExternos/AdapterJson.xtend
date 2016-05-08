@@ -8,7 +8,7 @@ import com.google.common.collect.Sets
 import dominio.pois.Comuna
 import dominio.pois.Direccion
 import dominio.tiempo.Horario
-import dominio.tiempo.Horario.Dia
+import dominio.tiempo.Dia
 import dominio.pois.PuntoDeInteres
 import dominio.pois.Servicio
 import dominio.SucursalBanco

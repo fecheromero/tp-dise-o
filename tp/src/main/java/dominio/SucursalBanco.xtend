@@ -3,7 +3,7 @@ package dominio
 import org.joda.time.LocalTime
 import java.util.HashSet
 import org.joda.time.DateTime
-import dominio.tiempo.Horario.Dia
+import dominio.tiempo.Dia
 import excepciones.NoValidoException
 import dominio.tiempo.Turno
 import dominio.tiempo.Horario

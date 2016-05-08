@@ -9,7 +9,7 @@ import com.google.common.collect.Sets
 import excepciones.NoValidoException
 import dominio.tiempo.Horario
 import dominio.tiempo.Turno
-import dominio.tiempo.Horario.Dia
+import dominio.tiempo.Dia
 import dominio.pois.Servicio
 
 @Accessors

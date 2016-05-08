@@ -15,8 +15,6 @@ class Repositorio {
 	ServicioExterno servicioExtCGP
 	HashSet<PuntoDeInteres> puntos
 	Buscador buscador=new Buscador()
-	Transformer transformer = new Transformer()
-	
 	def void setServicioDTO(ServicioExterno servicio){
 		servicioExtCGP=servicio
 	}

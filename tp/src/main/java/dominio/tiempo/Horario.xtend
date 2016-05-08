@@ -12,21 +12,10 @@ import org.eclipse.xtend.lib.annotations.Accessors
 public class Horario {
 	
 	HashSet<Dia> diasHabilesPoi
-	public enum Dia {LUN,MAR,MIE,JUE,VIE,SAB,DOM}
+
 	HashSet<Turno> turnosDisponibles
 	
-	def int transformarANum(Dia unDia){
-		switch(unDia){
-			case LUN:1
-			case MAR:2
-			case MIE:3
-			case JUE:4
-			case VIE:5
-			case SAB:6
-			case DOM:7
-			}
 			
-	}
 	
 	new(HashSet<Dia> _diashabiles, HashSet<Turno> _turnos) {
 		this.diasHabilesPoi = _diashabiles
@@ -46,7 +35,7 @@ public class Horario {
 	}
 
 	def estaEnDiaHabil(DateTime unMomento) {
-		return this.diasHabilesPoi.map[dia|transformarANum(dia)].exists[dia|dia==(unMomento.getDayOfWeek())]
+		return this.diasHabilesPoi.map[dia|dia.num].exists[dia|dia==(unMomento.getDayOfWeek())]
 	}
 
 }
