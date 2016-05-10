@@ -12,38 +12,36 @@ import java.util.List
 class Repositorio {
 	ServicioExterno servicioExtCGP
 	HashSet<PuntoDeInteres> puntos
-	Buscador buscador=new Buscador()
-
+	Buscador buscador=Buscador.getInstance
+	private static Repositorio uno=new Repositorio()
+		private new( ){}
+		def public static Repositorio getInstance(){
+			uno
+		}
+	
 
 	def void setServicioDTO(ServicioExterno servicio){
 		servicioExtCGP=servicio
 	}
 	def void create(PuntoDeInteres unPunto){
 		unPunto.validate()
-		if(puntos.contains(unPunto)) throw new NoValidoException("El Punto ya existe")
-		else{puntos.add(unPunto)}
+		if(searchBynd(unPunto.id)!=null) throw new NoValidoException("El Punto ya existe")
+		else{puntos.add(unPunto)
+		}
 	}
 	def void update(PuntoDeInteres unPunto){
+		unPunto.validate
 		delete(unPunto)
 		create(unPunto)
 	}
 	def void delete(PuntoDeInteres unPunto){
-		if(puntos.contains(unPunto))puntos.remove(unPunto)
+		if(searchBynd(unPunto.id)!=null)puntos.remove(searchBynd(unPunto.id))
 		else{throw new NoValidoException("El Punto no existe")}
 	}
 	
-	def void createOrUpdate(PuntoDeInteres unPunto){
 		
-		try{
-			this.create(unPunto)
-		}catch (NoValidoException e){
-			this.update(unPunto)		
-		}
-		
-		
-	}
 	def PuntoDeInteres searchBynd(int id){
-		puntos.get(id)
+		puntos.findFirst[punto| punto.id==id]
 	}
 	def List<PuntoDeInteres> search(String valor){
 		buscador.mostrarPrimeros(valor,puntos,10)

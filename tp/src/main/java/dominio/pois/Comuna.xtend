@@ -2,11 +2,15 @@ package dominio.pois
 
 import org.uqbar.geodds.Polygon
 import org.eclipse.xtend.lib.annotations.Accessors
+import dependencias.ValidableObject
+import dependencias.Validable
 
 @Accessors
 
-class Comuna {
+class Comuna extends ValidableObject {
+	@Validable
 	String nombre
+	@Validable
 	Polygon poligono
 	
 	new(String nombre, Polygon poligono){

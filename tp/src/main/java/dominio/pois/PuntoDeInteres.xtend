@@ -5,14 +5,18 @@ import dominio.tiempo.Horario
 import java.util.HashSet
 import org.uqbar.geodds.Point
 import org.joda.time.DateTime
-import excepciones.NoValidoException
 import dominio.tiempo.Turno
 import dominio.tiempo.Dia
 import com.google.common.collect.Sets
+import dependencias.ValidableObject
+import dependencias.Validable
 
 @Accessors
-public abstract class PuntoDeInteres {
+public abstract class PuntoDeInteres extends ValidableObject {
+	private int id
+	@Validable
 	Direccion direccion
+	@Validable
 	String nombre
 	Horario horario
 	HashSet<Servicio> servicios
@@ -43,9 +47,9 @@ public abstract class PuntoDeInteres {
 	def HashSet<Turno> juntarTurnosDeServicios(HashSet<Servicio> servicios) {
 		return Sets.newHashSet(servicios.map[unServicio|unServicio.horario.turnosDisponibles].flatten())
 	}
+	
 
-
-	def void validate() {
+	/*def void validate() {
 
 		if (PuntoDeInteres.declaredFields.exists [ field |
 			field.accessible = true
@@ -56,6 +60,6 @@ public abstract class PuntoDeInteres {
 		else {
 			this.direccion.validate()
 		}
-	}
+	}*/
 
 }

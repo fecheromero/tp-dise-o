@@ -2,9 +2,10 @@ package dominio.pois
 
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.DateTime
-import excepciones.NoValidoException
 import dominio.pois.PuntoDeInteres
 import dominio.pois.Direccion
+import dependencias.Identificador
+
 @Accessors
 public class ParadaDeColectivo extends PuntoDeInteres {
 	
@@ -12,12 +13,14 @@ public class ParadaDeColectivo extends PuntoDeInteres {
 		this.direccion = _direccion
 		this.nombre = _nombre
 		 DISTANCIA_MAXIMA=0.1
+		this.id=Identificador.getInstance.nextId
+		
 	}
 
 	override estaDisponible(DateTime unMomento,String nombreDeServicio){
 		return true
 	}
-	override validate() {
+	/*override validate() {
 
 		if (PuntoDeInteres.declaredFields.filter[field|field.name!="servicios" && field.name!="horario"].exists [ field |
 			field.accessible = true
@@ -29,5 +32,5 @@ public class ParadaDeColectivo extends PuntoDeInteres {
 		}
 
 
-}
+}*/
 }

@@ -56,7 +56,7 @@ public class TestDelBuscador {
 		unSorteaditoDePuntos = new HashSet<PuntoDeInteres>
 		unSorteaditoDePuntos.addAll(#[unaLibreria, _114, unCGP, unKiosco])
 		
-		buscador = new Buscador()
+		buscador = Buscador.getInstance
 		buscador.puntos = unSorteaditoDePuntos
 		
 

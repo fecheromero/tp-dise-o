@@ -9,17 +9,21 @@ import org.joda.time.DateTime
 import excepciones.NoValidoException
 import dominio.pois.PuntoDeInteres
 import dominio.pois.Direccion
-
+import dependencias.Validable
+import dependencias.Identificador
 
 @Accessors
 public class CGP extends PuntoDeInteres {
-
+	@Validable
+	HashSet<Servicio> servicios
 	new(HashSet<Servicio> servicios, Direccion _direccion, String _nombre) {
 		this.nombre = _nombre
 		this.direccion = _direccion
 		this.servicios = servicios
 		this.horario = horarioDeTodosSusServicios(servicios)
+		this.id=Identificador.getInstance.nextId
 	}
+	
 
 	override String listaDeTags() {
 
