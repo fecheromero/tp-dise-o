@@ -21,6 +21,9 @@ import dominio.pois.Direccion
 import org.uqbar.geodds.Polygon
 import org.uqbar.geodds.Point
 import dominio.locales.Rubro
+import dependencias.ValidableObject
+import java.lang.reflect.InvocationTargetException
+import dependencias.Identificador
 
 class TestDeABMC {
 	Buscador buscador
@@ -39,6 +42,7 @@ class TestDeABMC {
 
 	@Before
 	def void setUp(){
+		Identificador.getInstance.reset
 		repo=Repositorio.getInstance
 		repo.puntos=new HashSet<PuntoDeInteres>
 		buscador=Buscador.getInstance
@@ -76,7 +80,6 @@ class TestDeABMC {
 	}
 	@Test
 	def void testDeCreacionDePuntos(){
-
 		repo.create(_114)
 		Assert.assertEquals(repo.puntos.size,1)
 
@@ -120,10 +123,22 @@ class TestDeABMC {
 	def void TestBuscarPorId(){
 		repo.create(_114)
 		repo.create(unaLibreria)
-		Assert.assertEquals(repo.searchBynd(0),_114)
-		Assert.assertEquals(repo.searchBynd(1),unaLibreria)
+		Assert.assertEquals(_114.id,2)
+		Assert.assertEquals(unaLibreria.id,3)
 	
 
 	}
+	
+	@Test(expected=NoValidoException)
+	def void testWrapeoFeo(){
+		_114.nombre=null
+			try {ParadaDeColectivo.getMethod("validate",null).invoke(_114,null)
+									 } catch(InvocationTargetException e) {throw e.cause}
+	}
+	@Test
+	def void TestHierarchy(){
+		Assert.assertArrayEquals(_114.hierarchy(),#[ParadaDeColectivo,PuntoDeInteres])
+	}
+
 	}
 	

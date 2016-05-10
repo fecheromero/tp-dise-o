@@ -63,25 +63,6 @@ public class Buscador {
 	def PuntoDeInteres[] topTenDePuntos(String str1){
 		this.ordenarPuntosSegunSemejanzaA(str1).take(10)
 	}
-//	def void create(PuntoDeInteres unPunto){
-//		unPunto.validate()
-//		if(puntos.contains(unPunto)) throw new NoValidoException("El Punto ya existe")
-//		else{puntos.add(unPunto)}
-//	}
-//	def void update(PuntoDeInteres unPunto){
-//		delete(unPunto)
-//		create(unPunto)
-//	}
-//	def void delete(PuntoDeInteres unPunto){
-//		if(puntos.contains(unPunto))puntos.remove(unPunto)
-//		else{throw new NoValidoException("El Punto no existe")}
-//	}
-//	def PuntoDeInteres searchBynd(int id){
-//		puntos.get(id)
-//	}
-//	def List<PuntoDeInteres> search(String valor){
-//		this.topTenDePuntos(valor)
-//	}
 
 	}
 	
