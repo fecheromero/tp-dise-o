@@ -18,14 +18,14 @@ import stubs.ServicioDTO
 import stubs.RangoServicioDTO
 
 @Accessors
-public class AdapterCGP extends ServicioExterno{
-	ArrayList<CentroDTO> listaDeCentros
+public class AdapterCGP {
+	/*  ArrayList<CentroDTO> listaDeCentros
 
 	override buscar(String palabraClave) {
 		return this.centrosACGPs()
 	}
-	
-	def HashSet<CGP> centrosACGPs(){
+	*/
+	def HashSet<CGP> centrosACGPs(ArrayList<CentroDTO> listaDeCentros){
 		val arrayCGPs = listaDeCentros.map[unCentro|this.centroACGP(unCentro)]
 		val listaCGPs = new HashSet<CGP>(arrayCGPs)
 		return listaCGPs

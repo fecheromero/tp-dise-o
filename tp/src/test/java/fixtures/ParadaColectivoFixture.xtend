@@ -1,4 +1,4 @@
-package test
+package fixtures
 
 import dominio.pois.ParadaDeColectivo
 import org.uqbar.geodds.Point

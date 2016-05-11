@@ -12,6 +12,10 @@ import org.uqbar.geodds.Polygon
 import org.uqbar.geodds.Point
 import dominio.pois.ParadaDeColectivo
 import dominio.pois.CGP
+import fixtures.CGPFixture
+import fixtures.ParadaColectivoFixture
+import fixtures.LibreriaFixture
+import fixtures.KioscoFixture
 
 public class TestDelBuscador {
 	Buscador buscador

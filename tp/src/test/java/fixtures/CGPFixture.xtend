@@ -1,4 +1,4 @@
-package test
+package fixtures
 
 import dominio.pois.CGP
 import dominio.pois.Comuna
@@ -74,3 +74,4 @@ class CGPFixture {
 		}
 
 }
+					

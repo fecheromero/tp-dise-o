@@ -8,6 +8,10 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import dominio.locales.LocalComercial
+import fixtures.SucursalBancoFixture
+import fixtures.ParadaColectivoFixture
+import fixtures.LibreriaFixture
+import fixtures.CGPFixture
 
 public class TestDisponibilidad {
 	SucursalBanco santander

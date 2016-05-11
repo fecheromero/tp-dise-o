@@ -3,14 +3,14 @@ package dominio
 import dependencias.Buscador
 import dominio.pois.PuntoDeInteres
 import excepciones.NoValidoException
-import interfazAServiciosExternos.ServicioExterno
 import java.util.HashSet
 import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.List
+import interfazAServiciosExternos.InterfazCGP
 
 @Accessors
 class Repositorio {
-	ServicioExterno servicioExtCGP
+	InterfazCGP servicioExtCGP
 	HashSet<PuntoDeInteres> puntos
 	Buscador buscador=Buscador.getInstance
 	private static Repositorio uno=new Repositorio()
@@ -20,7 +20,7 @@ class Repositorio {
 		}
 	
 
-	def void setServicioDTO(ServicioExterno servicio){
+	def void setServicioDTO(InterfazCGP servicio){
 		servicioExtCGP=servicio
 	}
 	def void create(PuntoDeInteres unPunto){

@@ -20,18 +20,18 @@ import dominio.tiempo.Dia
 import dominio.tiempo.Horario
 
 @Accessors
-public class AdapterJson extends ServicioExterno {
-	String listaDeBancosEnJson
+public class AdapterJson {
+	/*String listaDeBancosEnJson
 	new(String listaDeBancosEnJson){
 		this.listaDeBancosEnJson = listaDeBancosEnJson
 	}
-	override ArrayList<SucursalBanco> buscar(String zona) {
+	override ArrayList<SucursalBanco> buscar(String Json) {
 		return this.transformarDeJSONaClaseBanco()
 	}
+*/
+	def ArrayList<SucursalBanco> transformarDeJSONaClaseBanco(String json) {
 
-	def ArrayList<SucursalBanco> transformarDeJSONaClaseBanco() {
-
-		var JsonArray listaJson = Json.parse(listaDeBancosEnJson).asArray()
+		var JsonArray listaJson = Json.parse(json).asArray()
 		return Lists.newArrayList(listaJson.map[unBancoJson|convertirASucursalBanco(unBancoJson)])
 
 	}

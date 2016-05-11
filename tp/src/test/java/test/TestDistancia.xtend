@@ -9,6 +9,10 @@ import org.junit.Before
 import org.junit.Test
 import org.uqbar.geodds.Point
 import org.uqbar.geodds.Polygon
+import fixtures.ParadaColectivoFixture
+import fixtures.CGPFixture
+import fixtures.KioscoFixture
+import fixtures.LibreriaFixture
 
 public class TestDistancia {
 	Point unPunto
