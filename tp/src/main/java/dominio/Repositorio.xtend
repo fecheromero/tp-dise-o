@@ -9,9 +9,9 @@ import java.util.List
 import interfazAServiciosExternos.InterfazCGP
 
 @Accessors
-class Repositorio {
+class Repositorio implements OrigenDePois {
 	InterfazCGP servicioExtCGP
-	HashSet<PuntoDeInteres> puntos
+	List<PuntoDeInteres> puntos
 	Buscador buscador=Buscador.getInstance
 	private static Repositorio uno=new Repositorio()
 		private new( ){}
@@ -43,7 +43,7 @@ class Repositorio {
 	def PuntoDeInteres searchBynd(int id){
 		puntos.findFirst[punto| punto.id==id]
 	}
-	def List<PuntoDeInteres> search(String valor){
+	def override List<PuntoDeInteres> buscar(String valor){
 		buscador.mostrarPrimeros(valor,puntos,10)
 	}
 /*

@@ -18,9 +18,12 @@ import dominio.tiempo.Turno
 import org.joda.time.LocalTime
 import dominio.tiempo.Dia
 import dominio.tiempo.Horario
+import dominio.OrigenDePois
+import dominio.pois.PuntoDeInteres
+import java.util.List
 
 @Accessors
-public class AdapterJson {
+public class AdapterJson implements OrigenDePois{
 	/*String listaDeBancosEnJson
 	new(String listaDeBancosEnJson){
 		this.listaDeBancosEnJson = listaDeBancosEnJson
@@ -28,8 +31,8 @@ public class AdapterJson {
 	override ArrayList<SucursalBanco> buscar(String Json) {
 		return this.transformarDeJSONaClaseBanco()
 	}
-*/
-	def ArrayList<SucursalBanco> transformarDeJSONaClaseBanco(String json) {
+*/	InterfazBanco origen
+	def List<PuntoDeInteres> transformarDeJSONaClaseBanco(String json) {
 
 		var JsonArray listaJson = Json.parse(json).asArray()
 		return Lists.newArrayList(listaJson.map[unBancoJson|convertirASucursalBanco(unBancoJson)])
@@ -74,5 +77,7 @@ public class AdapterJson {
 		return new Horario(diasHabilesBanco, turnosDisponiblesBanco)
 
 	}
-
+		def override buscar(String str){
+		transformarDeJSONaClaseBanco(origen.buscar(str))
+	}
 }

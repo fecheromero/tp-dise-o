@@ -5,6 +5,8 @@ import java.util.Collection
 import java.util.HashSet
 import org.eclipse.xtend.lib.annotations.Accessors
 import dominio.pois.PuntoDeInteres
+import java.util.Set
+import java.util.List
 
 @Accessors
 public class Buscador {
@@ -17,8 +19,6 @@ public class Buscador {
 			uno
 		}
 	
-	HashSet<PuntoDeInteres> puntos
-
 	def boolean esPalabraInutil(String str1)
 	{palabrasInutiles.exists[it==str1]}
 	def String masParecido(String str1, String str2, String str3) {
@@ -52,17 +52,15 @@ public class Buscador {
 	def Collection<PuntoDeInteres> ordenarPuntosSegunSemejanzaA(String str1,HashSet<PuntoDeInteres> puntos){
 		puntos.filter[this.separarPalabras(it.listaDeTags()).exists[this.sonParecidas(str1,it)]].sort[p1,p2|if(yo.puntajeTotalDelPunto(p1,str1)>yo.puntajeTotalDelPunto(p2,str1)) 1 else -1]
 	}
-	def PuntoDeInteres[] mostrarPrimeros(String str1,HashSet<PuntoDeInteres> puntos, int cant){
+	def PuntoDeInteres[] mostrarPrimeros(String str1,List<PuntoDeInteres> puntos, int cant){
 		this.ordenarPuntosSegunSemejanzaA(str1, puntos).take(cant)
 	}
 	
 
-	def Collection<PuntoDeInteres> ordenarPuntosSegunSemejanzaA(String str1){
+	def Collection<PuntoDeInteres> ordenarPuntosSegunSemejanzaA(String str1, List<PuntoDeInteres> puntos){
 		puntos.filter[this.separarPalabras(it.listaDeTags()).exists[this.sonParecidas(str1,it)]].sort[p1,p2|if(yo.puntajeTotalDelPunto(p1,str1)>yo.puntajeTotalDelPunto(p2,str1)) 1 else -1]
 	}
-	def PuntoDeInteres[] topTenDePuntos(String str1){
-		this.ordenarPuntosSegunSemejanzaA(str1).take(10)
-	}
+	
 
 	}
 	

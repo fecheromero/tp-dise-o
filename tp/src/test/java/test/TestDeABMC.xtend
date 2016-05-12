@@ -23,6 +23,8 @@ import org.uqbar.geodds.Point
 import dominio.locales.Rubro
 import dependencias.Identificador
 import dependencias.Validable
+import java.util.List
+import java.util.ArrayList
 
 class TestDeABMC {
 	Buscador buscador
@@ -44,9 +46,7 @@ class TestDeABMC {
 	def void setUp(){
 		Identificador.getInstance.reset
 		repo=Repositorio.getInstance
-		repo.puntos=new HashSet<PuntoDeInteres>
-		buscador=Buscador.getInstance
-		repo.buscador=buscador
+		repo.puntos=new ArrayList<PuntoDeInteres>
 		unosTurnos=new HashSet<Turno>
 		unosTurnos.add(new Turno(new LocalTime(0,10),new LocalTime(2,4)))
 		unosDias=new HashSet<Dia>

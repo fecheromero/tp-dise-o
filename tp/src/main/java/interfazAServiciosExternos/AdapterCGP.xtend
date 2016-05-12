@@ -16,14 +16,16 @@ import org.uqbar.geodds.Polygon
 import stubs.CentroDTO
 import stubs.ServicioDTO
 import stubs.RangoServicioDTO
+import dominio.OrigenDePois
+import dominio.pois.PuntoDeInteres
+import java.util.List
 
 @Accessors
-public class AdapterCGP {
-	
-	def HashSet<CGP> centrosACGPs(ArrayList<CentroDTO> listaDeCentros){
-		val arrayCGPs = listaDeCentros.map[unCentro|this.centroACGP(unCentro)]
-		val listaCGPs = new HashSet<CGP>(arrayCGPs)
-		return listaCGPs
+public class AdapterCGP implements OrigenDePois {
+	 InterfazCGP origen
+	def List<PuntoDeInteres> centrosACGPs(ArrayList<CentroDTO> listaDeCentros){
+		val arrayCGPs = listaDeCentros.map[unCentro|this.centroACGP(unCentro) as PuntoDeInteres]
+		return arrayCGPs
 	}
 	def CGP centroACGP(CentroDTO centro) {
 		val lista = centro.serviciosDTO.map[unServicio|this.servicioDtoAServicio(unServicio)]
@@ -81,5 +83,8 @@ public class AdapterCGP {
 		return dias
 	}
 	
+	def override buscar(String str){
+		centrosACGPs(origen.buscar(str)) 
+	}
 	
 }

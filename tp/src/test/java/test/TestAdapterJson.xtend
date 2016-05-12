@@ -8,6 +8,8 @@ import org.junit.Before
 import org.junit.Test
 import stubs.StubServicioExternoBanco
 import fixtures.FixtureBancoJson
+import java.util.List
+import dominio.pois.PuntoDeInteres
 
 public class TestAdapterJson {
 
@@ -29,9 +31,9 @@ public class TestAdapterJson {
 	@Test
 	def void debeTransformarJsonASucursalBanco() {
 		var AdapterJson adapterJson = new AdapterJson
-		var ArrayList<SucursalBanco> listaDeBancos = adapterJson.transformarDeJSONaClaseBanco(json1)
+		var List<PuntoDeInteres> listaDeBancos = adapterJson.transformarDeJSONaClaseBanco(json1)
 		Assert.assertEquals(1, listaDeBancos.size)
-		var ArrayList<SucursalBanco> listaDeBancos2 = adapterJson.transformarDeJSONaClaseBanco(json3)
+		var List<PuntoDeInteres> listaDeBancos2 = adapterJson.transformarDeJSONaClaseBanco(json3)
 		Assert.assertEquals(3, listaDeBancos2.size)
 		
 	}
