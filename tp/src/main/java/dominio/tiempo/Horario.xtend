@@ -4,15 +4,18 @@ import org.joda.time.DateTime
 
 import java.util.HashSet
 import org.eclipse.xtend.lib.annotations.Accessors
+import dependencias.Validator
+import dependencias.Validable
+
 //import org.joda.time.Partial
 //import org.joda.time.chrono.ISOChronology
 //import org.joda.time.DateTimeFieldType
 
 @Accessors
-public class Horario {
-	
+public class Horario implements Validator {
+	@Validable
 	HashSet<Dia> diasHabilesPoi
-
+	@Validable
 	HashSet<Turno> turnosDisponibles
 	
 			

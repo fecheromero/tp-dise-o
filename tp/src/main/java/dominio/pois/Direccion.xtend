@@ -4,10 +4,10 @@ import dependencias.Tageador
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.geodds.Point
 import dependencias.Validable
-import dependencias.ValidableObject
+import dependencias.Validator
 
 @Accessors
-class Direccion extends ValidableObject {
+class Direccion implements Validator {
 	@Validable
 	String callePrincipal
 	@Validable

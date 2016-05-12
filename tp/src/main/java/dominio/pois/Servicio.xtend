@@ -3,11 +3,11 @@ package dominio.pois
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.DateTime
 import dominio.tiempo.Horario
-import dependencias.ValidableObject
 import dependencias.Validable
+import dependencias.Validator
 
 @Accessors
-class Servicio extends ValidableObject {
+class Servicio implements Validator {
 	@Validable
 	String nombre
 	@Validable

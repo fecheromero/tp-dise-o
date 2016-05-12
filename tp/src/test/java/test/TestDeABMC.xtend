@@ -21,9 +21,8 @@ import dominio.pois.Direccion
 import org.uqbar.geodds.Polygon
 import org.uqbar.geodds.Point
 import dominio.locales.Rubro
-import dependencias.ValidableObject
-import java.lang.reflect.InvocationTargetException
 import dependencias.Identificador
+import dependencias.Validable
 
 class TestDeABMC {
 	Buscador buscador
@@ -37,6 +36,7 @@ class TestDeABMC {
 	Comuna almagro
 	Comuna lugano
 	CGP unCGP
+	
 
 	Repositorio repo
 
@@ -128,17 +128,29 @@ class TestDeABMC {
 	
 
 	}
-	
 	@Test(expected=NoValidoException)
-	def void testWrapeoFeo(){
-		_114.nombre=null
-			try {ParadaDeColectivo.getMethod("validate",null).invoke(_114,null)
-									 } catch(InvocationTargetException e) {throw e.cause}
+	def void TestValidarUnCGPConServicioIncompleto(){
+		unCGP.servicios.add(null)
+		unCGP.validate()
 	}
+	@Test(expected=NoValidoException)
+	def void TestValidarUNCgpConSolo1ServicioInvalido(){
+		unCGP.servicios.add(new Servicio("servicioInvalido",null))
+		unCGP.validate()
+	}
+	
+	// TestDelValidator
 	@Test
 	def void TestHierarchy(){
 		Assert.assertArrayEquals(_114.hierarchy(),#[ParadaDeColectivo,PuntoDeInteres])
 	}
-
+	@Test
+	def void TestFields(){
+		Assert.assertEquals(_114.fieldsOfHierarchy().toArray.size,6)
+	}
+	@Test
+	def void TestFilterFields(){
+		Assert.assertEquals(_114.fieldsAnnotationFilter(Validable,_114.fieldsOfHierarchy).toArray.size,2)
+	}
 	}
 	

@@ -8,11 +8,11 @@ import org.joda.time.DateTime
 import dominio.tiempo.Turno
 import dominio.tiempo.Dia
 import com.google.common.collect.Sets
-import dependencias.ValidableObject
 import dependencias.Validable
+import dependencias.Validator
 
 @Accessors
-public abstract class PuntoDeInteres extends ValidableObject {
+public abstract class PuntoDeInteres implements Validator {
 	private int id
 	@Validable
 	Direccion direccion

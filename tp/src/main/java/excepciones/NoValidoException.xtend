@@ -1,6 +1,7 @@
 package excepciones
 
-class NoValidoException extends Exception {
+
+class NoValidoException extends RuntimeException {
 	new(String msg){
 		super(msg)
 	}

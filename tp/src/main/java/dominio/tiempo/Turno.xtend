@@ -2,10 +2,14 @@ package dominio.tiempo
 
 import org.joda.time.LocalTime
 import org.eclipse.xtend.lib.annotations.Accessors
+import dependencias.Validator
+import dependencias.Validable
 
 @Accessors
-class Turno {
+class Turno implements Validator {
+	@Validable
 	LocalTime horaInicio
+	@Validable
 	LocalTime horaFin
 	new(LocalTime _horaInicio,LocalTime _horaFin){
 		this.horaInicio=_horaInicio

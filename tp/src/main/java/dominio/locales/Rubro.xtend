@@ -1,9 +1,12 @@
 package dominio.locales
 
 import org.eclipse.xtend.lib.annotations.Accessors
+import dependencias.Validator
+import dependencias.Validable
 
 @Accessors
-class Rubro {
+class Rubro implements Validator {
+	@Validable
 	String nombre
 	var double DISTANCIA_MAXIMA 
 	
