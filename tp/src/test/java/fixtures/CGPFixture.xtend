@@ -72,6 +72,33 @@ class CGPFixture {
 		return cgpFlores
 		
 		}
+	def CGP obtenerCGPAlmagro(){
+				var	almagro = new Comuna("", new Polygon(#[new Point(0, 0), new Point(0, 0)]))		
+		
+		var diasHabilesRentas = new HashSet<Dia>
+		diasHabilesRentas.addAll(Dia.LUN, Dia.MAR)
+		var turnoMañana = new Turno(new LocalTime(9, 0), new LocalTime(18, 0))
+		var turnosDisponiblesRentas = new HashSet<Turno>
+		turnosDisponiblesRentas.addAll(turnoMañana)
+		var horarioRentas = new Horario(diasHabilesRentas, turnosDisponiblesRentas)
+
+		var diasHabilesTesoreria = new HashSet<Dia>
+		diasHabilesTesoreria.addAll(Dia.LUN, Dia.MAR)
+		var turnoTesoreria = new Turno(new LocalTime(9, 0), new LocalTime(18, 0))
+		var turnosDisponiblesTesoreria = new HashSet<Turno>
+		turnosDisponiblesTesoreria.add(turnoTesoreria)
+		var horarioTesoreria = new Horario(diasHabilesTesoreria, turnosDisponiblesTesoreria)
+		
+		var tesoreria = new Servicio("Registro Civil", horarioTesoreria)
+		var rentas = new Servicio("Rentas", horarioRentas)
+		
+		var serviciosCGP = new HashSet<Servicio>
+		serviciosCGP.addAll(rentas, tesoreria)
+		
+		var cgpAlmagro = new CGP(serviciosCGP, new Direccion("Junin 521", "", #["", ""], new Point(100, 300), "Balvanera,SanCristobal","", almagro, "", "", "", ""), "CGP3")
+		
+		return cgpAlmagro	
+	}
 
 }
 					

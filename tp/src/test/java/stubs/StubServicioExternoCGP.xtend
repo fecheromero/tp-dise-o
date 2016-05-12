@@ -1,7 +1,6 @@
 package stubs
 
 import interfazAServiciosExternos.InterfazCGP
-import interfazAServiciosExternos.CentroDTO
 import java.util.ArrayList
 import com.google.common.collect.Lists
 
