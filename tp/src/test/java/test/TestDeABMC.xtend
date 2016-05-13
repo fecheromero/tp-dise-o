@@ -1,23 +1,36 @@
 package test
 
-import dominio.*
-import dominio.Dia
+import dependencias.Buscador
+import dominio.pois.ParadaDeColectivo
+import dominio.locales.LocalComercial
 import java.util.HashSet
+import dominio.pois.Servicio
+import dominio.tiempo.Horario
+import dominio.tiempo.Turno
+import dominio.tiempo.Dia
+import dominio.pois.Comuna
+import dominio.pois.CGP
+import dominio.Repositorio
 import org.junit.Before
-import org.uqbar.geodds.Point
-import org.uqbar.geodds.Polygon
+import dominio.pois.PuntoDeInteres
 import org.joda.time.LocalTime
-import org.junit.Assert
-import org.junit.Before
 import org.junit.Test
 import excepciones.NoValidoException
+import org.junit.Assert
+import dominio.pois.Direccion
+import org.uqbar.geodds.Polygon
+import org.uqbar.geodds.Point
+import dominio.locales.Rubro
+import dependencias.Identificador
+import dependencias.Validable
+import java.util.List
+import java.util.ArrayList
 
 class TestDeABMC {
 	Buscador buscador
 	ParadaDeColectivo _114
 	LocalComercial unaLibreria
 	LocalComercial unKiosco
-	HashSet<PuntoDeInteres> unSorteaditoDePuntos
 	HashSet<Servicio> servicios
 	Horario unHorario
 	HashSet<Dia> unosDias
@@ -25,13 +38,15 @@ class TestDeABMC {
 	Comuna almagro
 	Comuna lugano
 	CGP unCGP
+	
+
 	Repositorio repo
+
 	@Before
 	def void setUp(){
-		repo=new Repositorio
-		repo.puntos=new HashSet<PuntoDeInteres>
-		buscador=new Buscador()
-		repo.buscador=buscador
+		Identificador.getInstance.reset
+		repo=Repositorio.getInstance
+		repo.puntos=new ArrayList<PuntoDeInteres>
 		unosTurnos=new HashSet<Turno>
 		unosTurnos.add(new Turno(new LocalTime(0,10),new LocalTime(2,4)))
 		unosDias=new HashSet<Dia>
@@ -67,11 +82,13 @@ class TestDeABMC {
 	def void testDeCreacionDePuntos(){
 		repo.create(_114)
 		Assert.assertEquals(repo.puntos.size,1)
+
 	} 
 	@Test(expected=NoValidoException)
 	def void TestCreacionTiraErrorConUnPuntoIncompleto(){
 		unaLibreria.nombre=null
 		repo.create(unaLibreria)
+
 		
 	}
 	@Test(expected=NoValidoException)
@@ -106,8 +123,34 @@ class TestDeABMC {
 	def void TestBuscarPorId(){
 		repo.create(_114)
 		repo.create(unaLibreria)
-		Assert.assertEquals(repo.searchBynd(0),_114)
-		Assert.assertEquals(repo.searchBynd(1),unaLibreria)
+		Assert.assertEquals(_114.id,2)
+		Assert.assertEquals(unaLibreria.id,3)
 	
+
+	}
+	@Test(expected=NoValidoException)
+	def void TestValidarUnCGPConServicioIncompleto(){
+		unCGP.servicios.add(null)
+		unCGP.validate()
+	}
+	@Test(expected=NoValidoException)
+	def void TestValidarUNCgpConSolo1ServicioInvalido(){
+		unCGP.servicios.add(new Servicio("servicioInvalido",null))
+		unCGP.validate()
+	}
+	
+	// TestDelValidator
+	@Test
+	def void TestHierarchy(){
+		Assert.assertArrayEquals(_114.hierarchy(),#[ParadaDeColectivo,PuntoDeInteres])
+	}
+	@Test
+	def void TestFields(){
+		Assert.assertEquals(_114.fieldsOfHierarchy().toArray.size,6)
+	}
+	@Test
+	def void TestFilterFields(){
+		Assert.assertEquals(_114.fieldsAnnotationFilter(Validable,_114.fieldsOfHierarchy).toArray.size,2)
 	}
 	}
+	

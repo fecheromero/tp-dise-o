@@ -1,6 +1,12 @@
 package dependencias
 
 class Tageador {
+	private static Tageador uno=new Tageador()
+		private new( ){}
+		def public static Tageador getInstance(){
+			uno
+		}
+	
 	def String tagear(Object obj){
 		var String lista=""
 		var listaDeCampos=obj.class.declaredFields

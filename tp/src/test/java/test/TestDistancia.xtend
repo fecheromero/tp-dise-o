@@ -1,14 +1,18 @@
 package test
 
-import dominio.CGP
-import dominio.Comuna
-import dominio.LocalComercial
-import dominio.ParadaDeColectivo
+import dominio.pois.CGP
+import dominio.pois.Comuna
+import dominio.locales.LocalComercial
+import dominio.pois.ParadaDeColectivo
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.uqbar.geodds.Point
 import org.uqbar.geodds.Polygon
+import fixtures.ParadaColectivoFixture
+import fixtures.CGPFixture
+import fixtures.KioscoFixture
+import fixtures.LibreriaFixture
 
 public class TestDistancia {
 	Point unPunto

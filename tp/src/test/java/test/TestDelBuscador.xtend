@@ -1,17 +1,23 @@
 package test
 
-import dominio.Buscador
-import dominio.CGP
-import dominio.LocalComercial
-import dominio.ParadaDeColectivo
-import dominio.PuntoDeInteres
+import dependencias.Buscador
+import dominio.locales.LocalComercial
+import dominio.pois.PuntoDeInteres
 import java.util.HashSet
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
-import dominio.Comuna
+import dominio.pois.Comuna
 import org.uqbar.geodds.Polygon
 import org.uqbar.geodds.Point
+import dominio.pois.ParadaDeColectivo
+import dominio.pois.CGP
+import fixtures.CGPFixture
+import fixtures.ParadaColectivoFixture
+import fixtures.LibreriaFixture
+import fixtures.KioscoFixture
+import java.util.List
+import java.util.ArrayList
 
 public class TestDelBuscador {
 	Buscador buscador
@@ -25,7 +31,7 @@ public class TestDelBuscador {
 	ParadaDeColectivo _114
 	LocalComercial unaLibreria
 	LocalComercial unKiosco
-	HashSet<PuntoDeInteres> unSorteaditoDePuntos
+	List<PuntoDeInteres> unSorteaditoDePuntos
 	CGPFixture cgpFixture
 	ParadaColectivoFixture paradaFixture
 	LibreriaFixture libreriaFixture
@@ -53,11 +59,10 @@ public class TestDelBuscador {
 		
 		unKiosco = kioscoFixture.obtenerKiosco
 		
-		unSorteaditoDePuntos = new HashSet<PuntoDeInteres>
+		unSorteaditoDePuntos = new ArrayList<PuntoDeInteres>
 		unSorteaditoDePuntos.addAll(#[unaLibreria, _114, unCGP, unKiosco])
 		
-		buscador = new Buscador()
-	
+		buscador = Buscador.getInstance
 		
 
 	}
@@ -76,12 +81,12 @@ public class TestDelBuscador {
 
 	@Test
 	def void pruebaDeBusquedaLibreriaDonPepitoEnUnSoreaditoDePuntos() {
-		Assert.assertArrayEquals(buscador.mostrarPrimeros("libreria don Pepito",unSorteaditoDePuntos,10).take(1), #[unaLibreria])
+		Assert.assertArrayEquals(buscador.mostrarPrimeros("libreria don Pepito", unSorteaditoDePuntos, 10).take(1), #[unaLibreria])
 	}
 
 	@Test
 	def void pruebaDeBusquedaParadaDel114EnUnSorteaditoDePuntos() {
-		Assert.assertArrayEquals(buscador.mostrarPrimeros("114",unSorteaditoDePuntos,10).take(1), #[_114])
+		Assert.assertArrayEquals(buscador.mostrarPrimeros("114", unSorteaditoDePuntos,10).take(1), #[_114])
 
 	}
 

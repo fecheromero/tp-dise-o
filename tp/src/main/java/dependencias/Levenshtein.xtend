@@ -1,6 +1,12 @@
 package dependencias
 
 class Levenshtein {
+		private static Levenshtein uno=new Levenshtein()
+		private new( ){}
+		def public static Levenshtein getInstance(){
+			uno
+		}
+		
 	def int minimum(int a, int b, int c) {
 		if (a <= b && a <= c) {
 			return a;
