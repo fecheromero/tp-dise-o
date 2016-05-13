@@ -1,4 +1,5 @@
 package dominio
+
 import dependencias.Buscador
 import dominio.pois.PuntoDeInteres
 import excepciones.NoValidoException
@@ -59,3 +60,4 @@ class Repositorio implements OrigenDePois {
 
 
 }
+

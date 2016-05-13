@@ -82,11 +82,13 @@ class TestDeABMC {
 	def void testDeCreacionDePuntos(){
 		repo.create(_114)
 		Assert.assertEquals(repo.puntos.size,1)
+
 	} 
 	@Test(expected=NoValidoException)
 	def void TestCreacionTiraErrorConUnPuntoIncompleto(){
 		unaLibreria.nombre=null
 		repo.create(unaLibreria)
+
 		
 	}
 	@Test(expected=NoValidoException)
