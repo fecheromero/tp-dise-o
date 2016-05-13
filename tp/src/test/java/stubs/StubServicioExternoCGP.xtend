@@ -8,7 +8,7 @@ public class StubServicioExternoCGP implements InterfazCGP {
 	ArrayList<CentroDTO> listaCentros = new ArrayList<CentroDTO>
 	
 	override ArrayList<CentroDTO> buscar(String zona) {
-		return Lists.newArrayList(listaCentros.filter[unCentro|unCentro.domicilio==zona])
+		return listaCentros
 	}
 	
 	def void agregarCentroDTO(CentroDTO centro){

@@ -5,18 +5,58 @@ import org.junit.Before
 import dominio.Repositorio
 import fixtures.LibreriaFixture
 import fixtures.ParadaColectivoFixture
+import stubs.StubServicioExternoCGP
+import fixtures.CentroDTOFixture
+import interfazAServiciosExternos.AdapterCGP
+import interfazAServiciosExternos.AdapterJson
+import stubs.StubServicioExternoBanco
+import fixtures.FixtureBancoJson
+import org.junit.Test
+import org.junit.Assert
+import dominio.locales.LocalComercial
+import dominio.pois.ParadaDeColectivo
 
 class TestBusqueda {
 	Busqueda busqueda
 	Repositorio repo
+	StubServicioExternoCGP stubServExtCGP
+	StubServicioExternoBanco stubServExtBanco
+	AdapterCGP adapterCGP
+	AdapterJson adapterJson
+	LocalComercial libreria
+	ParadaDeColectivo _114
 	@Before
 	def void SetUp(){
-		
-		repo.create(new LibreriaFixture().obtenerLibreria)
-		repo.create(new ParadaColectivoFixture().obtenerParadaColectivo)
+		repo=Repositorio.getInstance
+		libreria=new LibreriaFixture().obtenerLibreria
+		repo.create(libreria)
+		_114=new ParadaColectivoFixture().obtenerParadaColectivo
+		repo.create(_114)
+		stubServExtCGP=new StubServicioExternoCGP
+		stubServExtCGP.agregarCentroDTO(new CentroDTOFixture().centro1)
+		stubServExtCGP.agregarCentroDTO(new CentroDTOFixture().centro2)
+		adapterCGP=new AdapterCGP()
+		adapterCGP.origen = stubServExtCGP
+		stubServExtBanco=new StubServicioExternoBanco
+		stubServExtBanco.agregarBancoJson(new FixtureBancoJson().obtenerBancoJson1)
+		stubServExtBanco.agregarBancoJson(new FixtureBancoJson().obtenerBancoJson2)
+		adapterJson=new AdapterJson
+		adapterJson.origen = stubServExtBanco
+		busqueda=new Busqueda()
 		busqueda.agregarOrigen(repo)
-		//Falta crear una interfaz de cada una con algun que otro punto para probar esto.
-		//despues de crearlas hay que asignarlas a adapters y meter los adapters como Origenes en la busqueda.
-		//Con eso se puede testear ya la busqueda generalizada.
-	}
+		busqueda.agregarOrigen(adapterCGP)
+		busqueda.agregarOrigen(adapterJson)
+		}
+		@Test
+		def void buscarUnObjetoDelRepoLocal(){
+			Assert.assertSame(busqueda.buscar("libreria").head.nombre, "libreria don Pepito")
+		}
+		@Test
+		def void buscarUnObjetoDeLaInterfazDeCGPs(){
+			Assert.assertEquals(busqueda.buscar("Rivadavia 4577").head.direccion.callePrincipal,"Rivadavia 4577")
+		}
+		@Test
+		def void buscarUnObjetoDeLaInterfazDeBancos(){
+			Assert.assertEquals(busqueda.buscar("Banco de la plaza").head.nombre,"Banco de la Plaza Avellaneda")
+		}
 	}

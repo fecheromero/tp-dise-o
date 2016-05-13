@@ -7,11 +7,12 @@ import java.util.HashSet
 import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.List
 import interfazAServiciosExternos.InterfazCGP
+import java.util.ArrayList
 
 @Accessors
 class Repositorio implements OrigenDePois {
 	InterfazCGP servicioExtCGP
-	List<PuntoDeInteres> puntos
+	List<PuntoDeInteres> puntos=new ArrayList<PuntoDeInteres>
 	Buscador buscador=Buscador.getInstance
 	private static Repositorio uno=new Repositorio()
 		private new( ){}
