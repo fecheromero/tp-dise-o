@@ -1,5 +1,6 @@
 package dominio
 
+
 import dominio.pois.PuntoDeInteres
 import java.util.List
 import java.util.HashSet

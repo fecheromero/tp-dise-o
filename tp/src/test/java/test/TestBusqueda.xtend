@@ -1,20 +1,20 @@
 package test
 
-import dominio.Busqueda
+import org.junit.Before
 import dominio.Repositorio
-import dominio.locales.LocalComercial
-import dominio.pois.ParadaDeColectivo
-import fixtures.CentroDTOFixture
-import fixtures.FixtureBancoJson
 import fixtures.LibreriaFixture
 import fixtures.ParadaColectivoFixture
+import stubs.StubServicioExternoCGP
+import fixtures.CentroDTOFixture
 import interfazAServiciosExternos.AdapterCGP
 import interfazAServiciosExternos.AdapterJson
-import org.junit.Assert
-import org.junit.Before
-import org.junit.Test
 import stubs.StubServicioExternoBanco
-import stubs.StubServicioExternoCGP
+import fixtures.FixtureBancoJson
+import org.junit.Test
+import org.junit.Assert
+import dominio.locales.LocalComercial
+import dominio.pois.ParadaDeColectivo
+import dominio.Busqueda
 import dominio.PerfilesDeUsuario.Consulta
 
 class TestBusqueda {
@@ -61,5 +61,5 @@ class TestBusqueda {
 		@Test
 		def void buscarUnObjetoDeLaInterfazDeBancos(){
 			Assert.assertEquals(busqueda.buscar("Banco de la plaza",terminalAbasto).head.nombre,"Banco de la Plaza Avellaneda")
-		}
+}
 	}

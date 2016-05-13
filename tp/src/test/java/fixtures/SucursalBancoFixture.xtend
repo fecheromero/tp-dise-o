@@ -1,6 +1,7 @@
 package fixtures
 
 import java.util.HashSet
+
 import dominio.tiempo.Turno
 import org.joda.time.LocalTime
 import dominio.tiempo.Horario
