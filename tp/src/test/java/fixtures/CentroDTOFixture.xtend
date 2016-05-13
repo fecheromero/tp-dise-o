@@ -49,7 +49,7 @@ class CentroDTOFixture {
 		
 		var servicios2 = new ArrayList<ServicioDTO>(#[servicio3, servicio4])
 		
-		centro2 = new CentroDTO("Elmo Coso", 3, "Rivadavia 4577", "Almagro,Pch", "49375470/87", new Point(432, 967),
+		centro2 = new CentroDTO("Elmo Coso", 4, "Rivadavia 4577", "Almagro,Pch", "49375470/87", new Point(432, 967),
 			servicios2)
 
 		return centro2

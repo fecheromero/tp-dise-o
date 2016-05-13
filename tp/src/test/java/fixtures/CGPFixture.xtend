@@ -89,7 +89,7 @@ class CGPFixture {
 		turnosDisponiblesTesoreria.add(turnoTesoreria)
 		var horarioTesoreria = new Horario(diasHabilesTesoreria, turnosDisponiblesTesoreria)
 		
-		var tesoreria = new Servicio("Registro Civil", horarioTesoreria)
+		var tesoreria = new Servicio("Tesoreria", horarioTesoreria)
 		var rentas = new Servicio("Rentas", horarioRentas)
 		
 		var serviciosCGP = new HashSet<Servicio>
@@ -100,5 +100,33 @@ class CGPFixture {
 		return cgpAlmagro	
 	}
 
+	def CGP obtenerCGPBoedo(){
+		
+		var	boedo = new Comuna("", new Polygon(#[new Point(0, 0), new Point(0, 0)]))		
+		
+		var diasHabilesAtencionCiudadana = new HashSet<Dia>
+		diasHabilesAtencionCiudadana.addAll(Dia.MIE, Dia.JUE)
+		var turnoMañana = new Turno(new LocalTime(10, 0), new LocalTime(18, 0))
+		var turnosDisponiblesAtencionCiudadana = new HashSet<Turno>
+		turnosDisponiblesAtencionCiudadana.addAll(turnoMañana)
+		var horarioRentas = new Horario(diasHabilesAtencionCiudadana, turnosDisponiblesAtencionCiudadana)
+
+		var diasHabilesRegistroCivil = new HashSet<Dia>
+		diasHabilesRegistroCivil.addAll(Dia.MIE, Dia.JUE)
+		var turnoRegistroCivil = new Turno(new LocalTime(10, 0), new LocalTime(18, 0))
+		var turnosDisponiblesRegistroCivil = new HashSet<Turno>
+		turnosDisponiblesRegistroCivil.add(turnoRegistroCivil)
+		var horarioRegistroCivil = new Horario(diasHabilesRegistroCivil, turnosDisponiblesRegistroCivil)
+		
+		var registroCivil = new Servicio("Registro Civil", horarioRegistroCivil)
+		var atencionCiudadana = new Servicio("Atencion Ciudadana", horarioRentas)
+		
+		var serviciosCGP = new HashSet<Servicio>
+		serviciosCGP.addAll(atencionCiudadana, registroCivil)
+		
+		var cgpBoedo = new CGP(serviciosCGP, new Direccion("Rivadavia 4577", "", #["", ""], new Point(432, 967), "Almagro,Pch","", boedo, "", "", "", ""), "CGP4")
+		
+		return cgpBoedo
+	}
 }
 					
