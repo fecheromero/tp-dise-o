@@ -1,5 +1,5 @@
 package interfazAServiciosExternos
 
  interface InterfazBanco {
-	def String buscar(String palabraClave){}
+	def String buscar(String palabraClave)
 }

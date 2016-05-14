@@ -1,15 +1,13 @@
 package test
 
-import dominio.pois.SucursalBanco
+import dominio.pois.PuntoDeInteres
+import fixtures.FixtureBancoJson
 import interfazAServiciosExternos.AdapterJson
-import java.util.ArrayList
+import java.util.List
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import stubs.StubServicioExternoBanco
-import fixtures.FixtureBancoJson
-import java.util.List
-import dominio.pois.PuntoDeInteres
 
 public class TestAdapterJson {
 

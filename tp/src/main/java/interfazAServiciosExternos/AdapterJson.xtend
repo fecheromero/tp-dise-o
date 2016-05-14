@@ -3,24 +3,23 @@ package interfazAServiciosExternos
 import com.eclipsesource.json.Json
 import com.eclipsesource.json.JsonArray
 import com.eclipsesource.json.JsonValue
-import org.eclipse.xtend.lib.annotations.Accessors
-import java.util.ArrayList
-import dominio.pois.SucursalBanco
 import com.google.common.collect.Lists
-import java.util.HashSet
-import dominio.pois.Servicio
 import com.google.common.collect.Sets
-import dominio.pois.Direccion
-import org.uqbar.geodds.Point
-import org.uqbar.geodds.Polygon
+import dominio.OrigenDePois
 import dominio.pois.Comuna
-import dominio.tiempo.Turno
-import org.joda.time.LocalTime
+import dominio.pois.Direccion
+import dominio.pois.PuntoDeInteres
+import dominio.pois.Servicio
+import dominio.pois.SucursalBanco
 import dominio.tiempo.Dia
 import dominio.tiempo.Horario
-import dominio.OrigenDePois
-import dominio.pois.PuntoDeInteres
+import dominio.tiempo.Turno
+import java.util.HashSet
 import java.util.List
+import org.eclipse.xtend.lib.annotations.Accessors
+import org.joda.time.LocalTime
+import org.uqbar.geodds.Point
+import org.uqbar.geodds.Polygon
 
 @Accessors
 public class AdapterJson implements OrigenDePois{
