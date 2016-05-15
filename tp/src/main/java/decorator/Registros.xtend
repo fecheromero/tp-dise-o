@@ -2,7 +2,9 @@ package decorator
 
 import java.util.ArrayList
 import java.util.List
+import org.eclipse.xtend.lib.annotations.Accessors
 
+@Accessors
 class Registros {
 	List<RegistroDeBusqueda> registros=new ArrayList<RegistroDeBusqueda>
 		private static Registros uno=new Registros()
@@ -16,4 +18,8 @@ class Registros {
 		def void delete(RegistroDeBusqueda reg){
 			registros.dropWhile[elem| elem==reg]
 		}
+		
+  		def void reset(){
+  			registros=new ArrayList<RegistroDeBusqueda>
+  		}
 }

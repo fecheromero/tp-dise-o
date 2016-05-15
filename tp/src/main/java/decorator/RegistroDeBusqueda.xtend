@@ -11,7 +11,7 @@ class RegistroDeBusqueda {
   		long demora
   		new (String _fecha, String _fraseBuscada, int CantDeResultados, Terminal _terminal, long _demora){
   			fecha=_fecha
-  			fraseBuscada=fraseBuscada
+  			fraseBuscada=_fraseBuscada
   			cantDeResultados=CantDeResultados
   			terminal=_terminal
   			 demora=_demora

@@ -6,7 +6,7 @@ import dominio.Busqueda
 
 class RegistrarBusqueda implements InterfazDeBusqueda {
 	Registros registros=Registros.getInstance
-	String fecha=new SimpleDateFormat("dd/mm/yyyy").format(new Date())
+	String fecha
 	InterfazDeBusqueda sig
 	new(){
 		sig=new Busqueda()
@@ -19,6 +19,7 @@ class RegistrarBusqueda implements InterfazDeBusqueda {
 	}
 	def  override buscar(String str,Terminal terminal){
 		sig.buscar(str,terminal)
+		fecha=new SimpleDateFormat("dd/MM/yyyy").format(new Date())
 		registros.create(new RegistroDeBusqueda(fecha,str,terminal.rdo.size,terminal,terminal.tardanza))	
 		}
 	}

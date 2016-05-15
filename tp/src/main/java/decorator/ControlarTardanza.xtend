@@ -6,8 +6,10 @@ class ControlarTardanza implements InterfazDeBusqueda {
 	int tardanzaMax
 	Administrador admin
 	InterfazDeBusqueda sig
-	new(){
+	new(int tard,Administrador _admin){
 		sig=new Busqueda()
+		tardanzaMax=tard
+		admin=_admin
 	}
 	def override sig(){
 			sig
@@ -16,11 +18,11 @@ class ControlarTardanza implements InterfazDeBusqueda {
 		sig=_sig
 	}
 	def override buscar(String str,Terminal terminal){
+		sig.buscar(str,terminal)
 	if(terminal.tardanza>tardanzaMax){
 		sendMail(admin)
 	}	
 	}
 	def void sendMail(Administrador admin){
-		
 	}
 	}

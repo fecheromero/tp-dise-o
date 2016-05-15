@@ -5,15 +5,19 @@ import java.util.List
 import java.util.ArrayList
 import dominio.pois.PuntoDeInteres
 import org.eclipse.xtend.lib.annotations.Accessors
+import java.lang.reflect.Type
+import excepciones.NoValidoException
 
 @Accessors
-class Terminal {
+class Terminal extends PerfilDeUsuario {
  	List<PuntoDeInteres> rdo
  	InterfazDeBusqueda buscador
- 	new(){
-		buscador=new Busqueda()
-	}
+ 	String nombre
  	long tardanza
+ 	new(String _nombre,Busqueda busqueda){
+		buscador=busqueda
+		nombre=_nombre
+	}
  		def void reset(){
  			rdo=null
  			tardanza=0
@@ -23,16 +27,49 @@ class Terminal {
  			buscador.buscar(str,this)
  			rdo
  		}
- 		/*def void agregarAccion(String str){
+ 		def void habilitarAccion(String str){
  			var InterfazDeBusqueda accion=Acciones.getInstance().accion(str)
- 			var InterfazDeBusqueda iterador=buscador 
- 			while(iterador.sig!=accion&&iterador.sig!=null){
+ 				if(accion==null){throw new NoValidoException("No se encontro la accion a habilitar")}
+ 			var InterfazDeBusqueda iterador=buscador
+ 			var InterfazDeBusqueda ant=null
+ 			while(( iterador!=null && iterador.class!=accion.class)){ 				
+ 				ant=iterador
  				iterador=iterador.sig()
- 			}		
- 			if(iterador==null)
+ 				
+ 				
+ 			}		 		
+ 			if(iterador==null){
+  				accion.sig(buscador)
+ 				buscador=accion
+ 			}
+ 			else{if(ant==null){
+ 				accion.sig(buscador.sig)
+ 				buscador=accion}
+ 					else{accion.sig(iterador.sig)
+ 					ant.sig=accion
+ 				}
+ 			}
+ 				
+ 			}
  	
+ 		def void deshabilitarAccion(String str){
+ 			var InterfazDeBusqueda accion=Acciones.getInstance().accion(str)
+ 			 				if(accion==null){throw new NoValidoException("No se encontro la accion a deshabilitar")}
+ 			
+ 			var InterfazDeBusqueda iterador=buscador
+ 			var InterfazDeBusqueda ant=null
+ 			while(iterador!=null&&iterador.class!=accion.class ){
+ 				ant=iterador
+ 				iterador=iterador.sig
+ 			}
+ 			if(iterador.class==accion.class){
+ 				if(buscador!=iterador){ant.sig=iterador.sig}
+ 				else{buscador=buscador.sig}
+ 			}
+ 			
+ 			
  		}
- 		def void quitarAccion(String str){}
- 		*/
- 		//Me faltan estos 2 metodos para habilitar/deshabilitar las acciones
-	}
+ 	
+ 	
+ 	
+ 	}
