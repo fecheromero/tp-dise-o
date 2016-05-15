@@ -2,6 +2,7 @@ package observer
 
 import org.joda.time.LocalDate
 import org.eclipse.xtend.lib.annotations.Accessors
+import dominio.PerfilesDeUsuario.PerfilDeUsuario
 
 @Accessors
 class ResultadosPorBusqueda {
@@ -9,11 +10,12 @@ class ResultadosPorBusqueda {
 	int cantidadDeResultados
 	Double tiempoDeEjecucion
 	LocalDate fechaDeConsulta
-	
-	new(String unaPalabra,Integer resultados,Double tiempo, LocalDate fecha){
+	PerfilDeUsuario usuario
+	new(String unaPalabra,Integer resultados,Double tiempo, LocalDate fecha,PerfilDeUsuario usr){
 		palabra=unaPalabra
 		cantidadDeResultados=resultados
 		tiempoDeEjecucion=tiempo
 		fechaDeConsulta= fecha
+		usuario=usr
 	}
 }

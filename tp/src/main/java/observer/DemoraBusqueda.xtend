@@ -1,6 +1,7 @@
 package observer
 
 import dominio.PerfilesDeUsuario.Administrador
+import dominio.PerfilesDeUsuario.PerfilDeUsuario
 
 class DemoraBusqueda implements BusquedaObserver{
 	
@@ -24,6 +25,9 @@ class DemoraBusqueda implements BusquedaObserver{
 	}
 	
 	override cantidadDeResultados(Integer cantidad) {
+	}
+	
+	override ejecutadoPor(PerfilDeUsuario usuario) {
 	}
 	
 	

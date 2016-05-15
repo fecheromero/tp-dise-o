@@ -15,6 +15,7 @@ import org.junit.Test
 import org.junit.Assert
 import dominio.locales.LocalComercial
 import dominio.pois.ParadaDeColectivo
+import dominio.PerfilesDeUsuario.Consulta
 
 class TestBusqueda {
 	Busqueda busqueda
@@ -25,6 +26,7 @@ class TestBusqueda {
 	AdapterJson adapterJson
 	LocalComercial libreria
 	ParadaDeColectivo _114
+	Consulta terminal
 	@Before
 	def void SetUp(){
 		repo=Repositorio.getInstance
@@ -49,14 +51,14 @@ class TestBusqueda {
 		}
 		@Test
 		def void buscarUnObjetoDelRepoLocal(){
-			Assert.assertSame(busqueda.buscar("libreria").head.nombre, "libreria don Pepito")
+			Assert.assertSame(busqueda.buscar("libreria",terminal).head.nombre, "libreria don Pepito")
 		}
 		@Test
 		def void buscarUnObjetoDeLaInterfazDeCGPs(){
-			Assert.assertEquals(busqueda.buscar("Rivadavia 4577").head.direccion.callePrincipal,"Rivadavia 4577")
+			Assert.assertEquals(busqueda.buscar("Rivadavia 4577",terminal).head.direccion.callePrincipal,"Rivadavia 4577")
 		}
 		@Test
 		def void buscarUnObjetoDeLaInterfazDeBancos(){
-			Assert.assertEquals(busqueda.buscar("Banco de la plaza").head.nombre,"Banco de la Plaza Avellaneda")
+			Assert.assertEquals(busqueda.buscar("Banco de la plaza",terminal).head.nombre,"Banco de la Plaza Avellaneda")
 		}
 	}
