@@ -2,11 +2,14 @@ package observer
 
 import dominio.PerfilesDeUsuario.Administrador
 import dominio.PerfilesDeUsuario.PerfilDeUsuario
+import org.eclipse.xtend.lib.annotations.Accessors
 
+@Accessors
 class DemoraBusqueda implements BusquedaObserver{
 	
 	Administrador admin
 	double tiempoDeEspera
+	MailSender mailSender
 	
 	new(Administrador adm, double tiempo){
 		admin=adm
@@ -15,15 +18,9 @@ class DemoraBusqueda implements BusquedaObserver{
 	override buscar(String frase) {
 		}
 	
-	
-		
-	def void mandarMailA(Administrador adm){
-		
-	}
-	
 	override tiempoDeEjecucion(Long tiempo) {
-		if(tiempo>tiempoDeEspera){
-			mandarMailA(admin)
+		if(tiempo/1000>tiempoDeEspera){
+			mailSender.send(admin)
 		}
 	}
 	
