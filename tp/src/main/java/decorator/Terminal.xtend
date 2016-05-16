@@ -12,7 +12,7 @@ import excepciones.NoValidoException
 class Terminal extends PerfilDeUsuario {
  	List<PuntoDeInteres> rdo
  	InterfazDeBusqueda buscador
- 	String nombre
+ 	public String nombre
  	long tardanza
  	new(String _nombre,Busqueda busqueda){
 		buscador=busqueda

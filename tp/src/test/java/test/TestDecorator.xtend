@@ -35,7 +35,6 @@ import excepciones.SendAdminException
 class TestDecorator {
 	Busqueda busqueda
 	Terminal terminal1
-	Terminal terminal2
 	Acciones acciones
 	Registros registros
 	Repositorio repo
@@ -46,6 +45,7 @@ class TestDecorator {
 	StubServicioExternoBanco stubServExtBanco
 	AdapterJson adapterJson
 	Administrador administrador
+	Terminal terminal2
 	@Before
 	def void setUp(){
 			repo=Repositorio.instance
@@ -68,6 +68,7 @@ class TestDecorator {
 		busqueda.agregarOrigen(adapterCGP)
 		busqueda.agregarOrigen(adapterJson)
 		terminal1=new Terminal("terminal1",busqueda)
+		terminal2=new Terminal("terminal2",busqueda)
 		acciones=Acciones.getInstance
 		acciones.reset
 		acciones.agregar("Controlar tardanza", new ControlarTardanza(2,administrador))
@@ -77,6 +78,8 @@ class TestDecorator {
 		administrador=new Administrador()
 		terminal1.habilitarAccion("Registrar busqueda")
 		terminal1.habilitarAccion("Controlar tardanza")
+		terminal2.habilitarAccion("Registrar busqueda")
+		terminal2.habilitarAccion("Controlar tardanza")
 															
 			
 		}
@@ -106,7 +109,8 @@ class TestDecorator {
 				
 				Assert.assertEquals(registros.registros.size,1)
 				
-			Assert.assertEquals(registros.registros.head.fecha,"15/05/2016")
+			Assert.assertEquals(registros.registros.head.fecha,new SimpleDateFormat("dd/MM/yyyy").format(new Date())
+)
 			Assert.assertEquals(registros.registros.head.fraseBuscada,"libreria")
 		}
 		@Test
@@ -154,5 +158,30 @@ class TestDecorator {
 			Assert.assertEquals(registros.registros.size,2)
 			
 		}
+		@Test
+		def void TestPruebaDeInformePorFecha(){
+			terminal1.buscar("libreria")
+			Assert.assertEquals(registros.informeCantDeBusquedasXFecha.get(new SimpleDateFormat("dd/MM/yyyy").format(new Date())
+			),1)
+						terminal1.buscar("pepito")
+			Assert.assertEquals(registros.informeCantDeBusquedasXFecha.get(new SimpleDateFormat("dd/MM/yyyy").format(new Date())
+			),2)}
+		@Test
+		def void TestPruebaDeInformePorTerminal(){
+			terminal1.buscar("libreria")
+			Assert.assertEquals(registros.informeTotalesPorTerminal.get("terminal1"),10)
+			terminal1.buscar("libreria")
+			Assert.assertEquals(registros.informeTotalesPorTerminal.get("terminal1"),20)
+			terminal2.buscar("libreria")
+			Assert.assertEquals(registros.informeTotalesPorTerminal.get("terminal2"),10)
+		}
+		@Test
+		def void TestParcialesPorTerminal(){
+			terminal1.buscar("libreria")
+			terminal2.buscar("libreria")
+			terminal1.buscar("libreria")
+			Assert.assertArrayEquals(registros.parcialesPorTerminal(terminal1).toArray,#[10,10])
+			Assert.assertArrayEquals(registros.parcialesPorTerminal(terminal2).toArray,#[10])
+		}
+		}
 		
-	}
