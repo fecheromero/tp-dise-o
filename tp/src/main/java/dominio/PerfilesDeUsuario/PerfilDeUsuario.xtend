@@ -8,6 +8,8 @@ import org.eclipse.xtend.lib.annotations.Accessors
 @Accessors
 public abstract class PerfilDeUsuario {
 	Busqueda buscador
+	
+	
 	def List<PuntoDeInteres> buscar(String str){
 		buscador.buscar(str,this)
 	}
