@@ -22,4 +22,11 @@ class Registros {
   		def void reset(){
   			registros=new ArrayList<RegistroDeBusqueda>
   		}
+
+		def int cantidadBusquedasPorFecha (String fechaAConsultar){
+			var listaBusquedas = registros.filter[registro|registro.fecha == fechaAConsultar]
+			var total = listaBusquedas.length
+			return total
+		}
 }
+		
