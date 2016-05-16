@@ -7,6 +7,8 @@ import dominio.pois.PuntoDeInteres
 import org.eclipse.xtend.lib.annotations.Accessors
 import java.lang.reflect.Type
 import excepciones.NoValidoException
+import java.util.Collection
+import java.util.HashSet
 
 @Accessors
 class Terminal extends PerfilDeUsuario {
@@ -14,9 +16,11 @@ class Terminal extends PerfilDeUsuario {
  	InterfazDeBusqueda buscador
  	public String nombre
  	long tardanza
+ 	var HashSet<InterfazInforme> informadores=new HashSet<InterfazInforme>
  	new(String _nombre,Busqueda busqueda){
 		buscador=busqueda
 		nombre=_nombre
+		informadores.addAll(#[InformePorTerminal.instance,InformePorFecha.instance,InformeTotalUsuario.instance])
 	}
  		def void reset(){
  			rdo=null
@@ -69,7 +73,19 @@ class Terminal extends PerfilDeUsuario {
  			
  			
  		}
- 	
- 	
- 	
- 	}
+ 		
+ 		def Object pedirInforme(InterfazInforme informador){
+ 			if(informadores.contains(informador)){
+ 				informador.informar(this) 
+ 			}
+ 			else {throw new NoValidoException("el informe no esta habilitado")}
+ 		}
+ 		def void agregarInforme(InterfazInforme informador){
+ 			informadores.add(informador)
+ 		}
+ 		def void quitarInforme(InterfazInforme _informador){
+ 			var info=informadores.filter[info|info!=_informador].toSet as HashSet<InterfazInforme>
+			informadores=info 
+			 }
+ 
+ }	

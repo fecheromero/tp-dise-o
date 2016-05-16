@@ -31,6 +31,12 @@ import org.junit.Assert
 import java.text.SimpleDateFormat
 import java.util.Date
 import excepciones.SendAdminException
+import decorator.InformePorFecha
+import java.util.HashMap
+import decorator.InformeTotalUsuario
+import decorator.InformePorTerminal
+import java.util.ArrayList
+import excepciones.NoValidoException
 
 class TestDecorator {
 	Busqueda busqueda
@@ -183,5 +189,29 @@ class TestDecorator {
 			Assert.assertArrayEquals(registros.parcialesPorTerminal(terminal1).toArray,#[10,10])
 			Assert.assertArrayEquals(registros.parcialesPorTerminal(terminal2).toArray,#[10])
 		}
+		@Test
+		def void TestTerminal1MuestrInformes(){
+			terminal1.buscar("libreria")
+			Assert.assertEquals((terminal1.pedirInforme(InformePorFecha.instance) as HashMap<String,Integer>).get((new SimpleDateFormat("dd/MM/yyyy").format(new Date())
+			)),1)		
+			Assert.assertEquals((terminal1.pedirInforme(InformeTotalUsuario.instance )as HashMap<String,Integer>).get("terminal1"),10)
+			Assert.assertArrayEquals((terminal1.pedirInforme(InformePorTerminal.instance) as ArrayList<Integer>).toArray,#[10])
+			
 		}
+		@Test(expected=NoValidoException)
+		def void TestQuitarInforme(){
+			terminal1.buscar("libreria")
+			terminal1.quitarInforme(InformePorFecha.instance)
+			terminal1.pedirInforme(InformePorFecha.instance)
+			Assert.assertEquals(terminal1.informadores.size,2)
+		}
+		@Test
+		def void TestAgregarInforme(){
+			terminal1.quitarInforme(InformePorFecha.instance)
+			terminal1.agregarInforme(InformePorFecha.instance)
+			terminal1.pedirInforme(InformePorFecha.instance)
+			
+		}
+		}
+		
 		
