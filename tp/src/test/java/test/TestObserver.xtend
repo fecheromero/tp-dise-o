@@ -2,16 +2,12 @@ package test
 
 import dominio.PerfilesDeUsuario.Administrador
 import dominio.PerfilesDeUsuario.Consulta
-import observer.BusquedaObserver
 import dominio.Busqueda
-import observer.ResultadosPorBusqueda
 import observer.DemoraBusqueda
 import org.junit.Before
 import observer.AlmacenamientoDeBusqueda
 import org.junit.Test
 import observer.MailSender
-import org.mockito.ArgumentMatcher
-
 import static org.mockito.Matchers.*
 import static org.mockito.Mockito.*
 import dominio.Repositorio
@@ -26,9 +22,9 @@ import fixtures.ParadaColectivoFixture
 import fixtures.CentroDTOFixture
 import fixtures.FixtureBancoJson
 import org.junit.Assert
+import org.joda.time.LocalDate
 
 class TestObserver {
-	ResultadosPorBusqueda registros
 	Repositorio repo
 	LocalComercial libreria
 	ParadaDeColectivo _114
@@ -36,13 +32,11 @@ class TestObserver {
 	AdapterCGP adapterCGP
 	StubServicioExternoBanco stubServExtBanco
 	AdapterJson adapterJson
-	Administrador administrador
 	Consulta terminalAbasto
 	Consulta terminalFlorida
 	Consulta terminalTeatroColon
 	Administrador admin
 	Busqueda buscador
-	ResultadosPorBusqueda registro
 	DemoraBusqueda observerDemora
 	AlmacenamientoDeBusqueda observerAlmacenamiento
 	MailSender mockedMailSender
@@ -72,13 +66,11 @@ class TestObserver {
 		mockedMailSender = mock(typeof(MailSender))
 		observerDemora = new DemoraBusqueda(admin, 2)
 		observerDemora.mailSender = mockedMailSender
-		buscador = new Busqueda()
 		terminalAbasto = new Consulta("Abasto", buscador)
 		terminalFlorida = new Consulta("Florida", buscador)
 		terminalTeatroColon = new Consulta("Teatro Colon", buscador)
 		admin = new Administrador(buscador)
 		observerAlmacenamiento = new AlmacenamientoDeBusqueda()
-		observerAlmacenamiento.contador = 0
 		buscador.agregarObservador(observerAlmacenamiento)
 		buscador.agregarObservador(observerDemora)
 
@@ -88,17 +80,19 @@ class TestObserver {
 	def void testAgregarObservadores() {
 		Assert.assertTrue(buscador.busquedaObservers.size == 2)
 	}
+
 	@Test
 	def void testEliminarObservadores() {
 		buscador.eliminarObservador(observerDemora)
 		Assert.assertTrue(buscador.busquedaObservers.size == 1)
-		Assert.assertTrue(buscador.busquedaObservers.exists[unObservador|unObservador==observerAlmacenamiento])
+		Assert.assertTrue(buscador.busquedaObservers.exists[unObservador|unObservador == observerAlmacenamiento])
 	}
+
 	@Test
 	def void testMandarMailAlAdministrador() {
 		reset(mockedMailSender)
 		observerDemora.tiempoDeEspera = -1
-		terminalAbasto.buscar("cgp14")
+		terminalAbasto.buscar("libreria")
 		verify(mockedMailSender, times(1)).send(any(typeof(Administrador)))
 	}
 
@@ -107,5 +101,65 @@ class TestObserver {
 		reset(mockedMailSender)
 		terminalAbasto.buscar("_114")
 		verify(mockedMailSender, times(0)).send(any(typeof(Administrador)))
+	}
+
+	@Test
+	def void tesReporteBusquedasPorFecha() {
+		terminalAbasto.buscar("_114")
+		terminalFlorida.buscar("libreria")
+		var cantidad = observerAlmacenamiento.cantidadDeBusquedasPorFecha(new LocalDate(2016, 05, 16))
+		Assert.assertEquals(2, cantidad)
+	}
+
+	@Test
+	def void testCantidadDeResultadosParcialesPorTerminal() {
+		terminalAbasto.buscar("libreria")
+		terminalAbasto.buscar("banco")
+		terminalFlorida.buscar("_114")
+		terminalFlorida.buscar("libreria")
+		terminalAbasto.buscar("_114")
+		var cantidadDeAbasto = observerAlmacenamiento.resultadosParcialesPorTerminal(terminalAbasto)
+		Assert.assertEquals(#[10,10,10],cantidadDeAbasto)
+	}
+	@Test
+	def void testCantidadDeResultadosTotalesPorTerminal() {
+		terminalAbasto.buscar("libreria")
+		terminalAbasto.buscar("banco")
+		terminalFlorida.buscar("_114")
+		terminalFlorida.buscar("libreria")
+		terminalAbasto.buscar("_114")
+		var cantidadTotalDeAbasto = observerAlmacenamiento.resultadosTotalesPorTerminal(terminalAbasto)
+		Assert.assertEquals(30,cantidadTotalDeAbasto)
+	}
+	@Test
+	def testDesactivarAlmacenamiento(){
+		terminalAbasto.buscar("_114")
+		terminalFlorida.buscar("libreria")
+		var cantidad = observerAlmacenamiento.cantidadDeBusquedasPorFecha(new LocalDate(2016, 05, 16))
+		Assert.assertEquals(2, cantidad)
+		buscador.eliminarObservador(observerAlmacenamiento)
+		terminalAbasto.buscar("_114")
+		terminalFlorida.buscar("libreria")
+		cantidad = observerAlmacenamiento.cantidadDeBusquedasPorFecha(new LocalDate(2016, 05, 16))
+		Assert.assertEquals(2, cantidad)
+				
+	}
+	@Test
+	def testActivarAlmacenamiento(){
+		terminalAbasto.buscar("_114")
+		terminalFlorida.buscar("libreria")
+		var cantidad = observerAlmacenamiento.cantidadDeBusquedasPorFecha(new LocalDate(2016, 05, 16))
+		Assert.assertEquals(2, cantidad)
+		buscador.eliminarObservador(observerAlmacenamiento)
+		terminalAbasto.buscar("_114")
+		terminalFlorida.buscar("libreria")
+		cantidad = observerAlmacenamiento.cantidadDeBusquedasPorFecha(new LocalDate(2016, 05, 16))
+		Assert.assertEquals(2, cantidad)
+		buscador.agregarObservador(observerAlmacenamiento)
+		terminalAbasto.buscar("_114")
+		terminalFlorida.buscar("libreria")
+		cantidad = observerAlmacenamiento.cantidadDeBusquedasPorFecha(new LocalDate(2016, 05, 16))
+		Assert.assertEquals(4, cantidad)
+				
 	}
 }
