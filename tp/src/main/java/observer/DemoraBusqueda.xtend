@@ -8,7 +8,10 @@ class DemoraBusqueda implements BusquedaObserver{
 	Administrador admin
 	double tiempoDeEspera
 	
-	
+	new(Administrador adm, double tiempo){
+		admin=adm
+		tiempoDeEspera=tiempo
+	}
 	override buscar(String frase) {
 		}
 	
