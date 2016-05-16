@@ -11,16 +11,13 @@ import org.eclipse.xtend.lib.annotations.Accessors
 class AlmacenamientoDeBusqueda implements BusquedaObserver {
 
 	List<ResultadosPorBusqueda> listaDeBusquedas = new ArrayList<ResultadosPorBusqueda>
-	int contador
 	double tiempoDeEjecucion
 	int cantidadDeResultados
 	PerfilDeUsuario usuario
 
-//	LocalDate fechaDeEjecucion
 	override buscar(String frase) {
-		contador++
 		var fechaDeEjecucion = new LocalDate(LocalDate.now.getYear(), LocalDate.now.getMonthOfYear(),
-			LocalDate.now.getDayOfWeek)
+			LocalDate.now.getDayOfMonth())
 		var resultado = new ResultadosPorBusqueda(frase, cantidadDeResultados, tiempoDeEjecucion, fechaDeEjecucion,
 			usuario)
 		listaDeBusquedas.add(resultado)
@@ -50,7 +47,7 @@ class AlmacenamientoDeBusqueda implements BusquedaObserver {
 		return new ArrayList<Integer>(listaDeResultados.toList)
 	}
 
-	def int ResultadosTotalesPorTerminal(Consulta usr) {
+	def int resultadosTotalesPorTerminal(Consulta usr) {
 		var listaDeResultados = this.resultadosParcialesPorTerminal(usr)
 		return listaDeResultados.fold(0,[acum,resultados|acum+resultados])
 
