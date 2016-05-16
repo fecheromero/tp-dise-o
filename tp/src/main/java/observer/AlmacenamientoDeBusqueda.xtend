@@ -5,7 +5,9 @@ import java.util.ArrayList
 import org.joda.time.LocalDate
 import dominio.PerfilesDeUsuario.PerfilDeUsuario
 import dominio.PerfilesDeUsuario.Consulta
+import org.eclipse.xtend.lib.annotations.Accessors
 
+@Accessors
 class AlmacenamientoDeBusqueda implements BusquedaObserver {
 
 	List<ResultadosPorBusqueda> listaDeBusquedas = new ArrayList<ResultadosPorBusqueda>
