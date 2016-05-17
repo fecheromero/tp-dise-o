@@ -8,10 +8,10 @@ import dominio.PerfilesDeUsuario.PerfilDeUsuario
 class ResultadosPorBusqueda {
 	String palabra
 	int cantidadDeResultados
-	Double tiempoDeEjecucion
+	Long tiempoDeEjecucion
 	LocalDate fechaDeConsulta
 	PerfilDeUsuario usuario
-	new(String unaPalabra,Integer resultados,Double tiempo, LocalDate fecha,PerfilDeUsuario usr){
+	new(String unaPalabra,Integer resultados,long tiempo, LocalDate fecha,PerfilDeUsuario usr){
 		palabra=unaPalabra
 		cantidadDeResultados=resultados
 		tiempoDeEjecucion=tiempo

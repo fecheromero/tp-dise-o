@@ -5,13 +5,13 @@ import java.util.List
 import java.util.HashSet
 import dependencias.Buscador
 import org.eclipse.xtend.lib.annotations.Accessors
-import observer.BusquedaObserver
 import java.util.ArrayList
 import dominio.PerfilesDeUsuario.PerfilDeUsuario
+import observer.Accion
 
 @Accessors
 class Busqueda {
-	List<BusquedaObserver> busquedaObservers = new ArrayList<BusquedaObserver>
+	List<Accion> busquedaObservers = new ArrayList<Accion>
 
 	HashSet<OrigenDePois> origenes = new HashSet<OrigenDePois>
 
@@ -21,17 +21,17 @@ class Busqueda {
 			10)
 		var tiempoFin = System.currentTimeMillis()
 		val tiempo = tiempoFin - tiempoInicio
-		busquedaObservers.forEach[observador|observador.tiempoDeEjecucion(tiempo)]
-		busquedaObservers.forEach[observador|observador.cantidadDeResultados(lista.length)]
-		busquedaObservers.forEach[observador|observador.ejecutadoPor(usuario)]
-		busquedaObservers.forEach[observador|observador.buscar(str)]
+//		busquedaObservers.forEach[observador|observador.tiempoDeEjecucion(tiempo)]
+//		busquedaObservers.forEach[observador|observador.cantidadDeResultados(lista.length)]
+//		busquedaObservers.forEach[observador|observador.ejecutadoPor(usuario)]
+		busquedaObservers.forEach[observador|observador.buscar(str,tiempo,lista.length,usuario)]
 		return lista
 	}
 
-	def void agregarObservador(BusquedaObserver observer) {
+	def void agregarObservador(Accion observer) {
 		busquedaObservers.add(observer)
 	}
-	def void eliminarObservador(BusquedaObserver observer) {
+	def void eliminarObservador(Accion observer) {
 		busquedaObservers.remove(observer)
 	}
 
