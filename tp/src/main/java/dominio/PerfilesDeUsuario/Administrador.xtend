@@ -1,7 +1,7 @@
 package dominio.PerfilesDeUsuario
 
-import observer.BusquedaObserver
 import dominio.Busqueda
+import observer.Accion
 
 class Administrador extends PerfilDeUsuario{
 	
@@ -9,10 +9,8 @@ class Administrador extends PerfilDeUsuario{
 		buscador=busc
 	}
 	
-	def void elminarAccion(BusquedaObserver observador){
-		buscador.eliminarObservador(observador)
+	override estaHabilitadaLaAccion(Accion accion) {
+		throw new UnsupportedOperationException("TODO: auto-generated method stub")
 	}
-	def void agregarAccion(BusquedaObserver observador){
-		buscador.agregarObservador(observador)
-	}
+
 }

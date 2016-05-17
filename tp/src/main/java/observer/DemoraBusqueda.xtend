@@ -5,31 +5,19 @@ import dominio.PerfilesDeUsuario.PerfilDeUsuario
 import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors
-class DemoraBusqueda implements BusquedaObserver{
+class DemoraBusqueda extends Accion{
 	
 	Administrador admin
 	double tiempoDeEspera
 	MailSender mailSender
-	
 	new(Administrador adm, double tiempo){
 		admin=adm
 		tiempoDeEspera=tiempo
 	}
-	override buscar(String frase) {
-		}
-	
-	override tiempoDeEjecucion(Long tiempo) {
-		if(tiempo/1000>tiempoDeEspera){
+	override buscar(String frase,Long tiempo,int cantidad,PerfilDeUsuario usuario) {
+		if((tiempo/1000>tiempoDeEspera)&& (usuario==dueño)){
 			mailSender.send(admin)
 		}
 	}
-	
-	override cantidadDeResultados(Integer cantidad) {
-	}
-	
-	override ejecutadoPor(PerfilDeUsuario usuario) {
-	}
-	
-	
-	
+
 }
