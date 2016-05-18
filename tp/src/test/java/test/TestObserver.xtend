@@ -44,11 +44,12 @@ class TestObserver {
 	Consulta terminalFlorida
 	Consulta terminalTeatroColon
 	Administrador admin
-	Busqueda buscador
-	DemoraBusqueda observerDemoraAbasto
-	DemoraBusqueda observerDemoraFlorida
-	DemoraBusqueda observerDemoraColon
-
+	Busqueda buscadorAbasto
+	Busqueda buscadorFlorida
+	Busqueda buscadorColon
+	
+	DemoraBusqueda observerDemora
+	
 	AlmacenamientoDeBusqueda observerAlmacenamientoAbasto
 	AlmacenamientoDeBusqueda observerAlmacenamientoFlorida
 	AlmacenamientoDeBusqueda observerAlmacenamientoColon
@@ -66,10 +67,7 @@ class TestObserver {
 	ResultadosTotales observerResTotFlorida
 	ResultadosTotales observerResTotColon
 
-	List<Accion> accionesAbasto
-	List<Accion> accionesFlorida
-	List<Accion> accionesColon
-
+	
 	@Before
 	def void setUp() {
 
@@ -88,24 +86,30 @@ class TestObserver {
 		stubServExtBanco.agregarBancoJson(new FixtureBancoJson().obtenerBancoJson2)
 		adapterJson = new AdapterJson
 		adapterJson.origen = stubServExtBanco
-		buscador = new Busqueda()
-		buscador.agregarOrigen(repo)
-		buscador.agregarOrigen(adapterCGP)
-		buscador.agregarOrigen(adapterJson)
+		buscadorAbasto = new Busqueda()
+		buscadorAbasto.agregarOrigen(repo)
+		buscadorAbasto.agregarOrigen(adapterCGP)
+		buscadorAbasto.agregarOrigen(adapterJson)
+		
+		buscadorFlorida= new Busqueda()
+		buscadorFlorida.agregarOrigen(repo)
+		buscadorFlorida.agregarOrigen(adapterCGP)
+		buscadorFlorida.agregarOrigen(adapterJson)
+		
+		buscadorColon= new Busqueda()
+		buscadorColon.agregarOrigen(repo)
+		buscadorColon.agregarOrigen(adapterCGP)
+		buscadorColon.agregarOrigen(adapterJson)
+		
 		mockedMailSender = mock(typeof(MailSender))
 
 		observerAlmacenamientoAbasto = new AlmacenamientoDeBusqueda()
 		observerAlmacenamientoFlorida = new AlmacenamientoDeBusqueda()
 		observerAlmacenamientoColon = new AlmacenamientoDeBusqueda()
 
-		observerDemoraAbasto = new DemoraBusqueda(admin, 2)
-		observerDemoraFlorida = new DemoraBusqueda(admin, 2)
-		observerDemoraColon = new DemoraBusqueda(admin, 2)
-
-		observerDemoraAbasto.mailSender = mockedMailSender
-		observerDemoraFlorida.mailSender = mockedMailSender
-		observerDemoraColon.mailSender = mockedMailSender
-
+		observerDemora = new DemoraBusqueda(admin, 2)
+		observerDemora.mailSender = mockedMailSender
+		
 		observerBusqPorFechaAbasto = new BusquedasPorFecha(observerAlmacenamientoAbasto)
 		observerBusqPorFechaFlorida = new BusquedasPorFecha(observerAlmacenamientoFlorida)
 		observerBusqPorFechaColon = new BusquedasPorFecha(observerAlmacenamientoColon)
@@ -118,67 +122,55 @@ class TestObserver {
 		observerResTotAbasto = new ResultadosTotales(observerAlmacenamientoAbasto)
 		observerResTotColon = new ResultadosTotales(observerAlmacenamientoColon)
 
-		accionesAbasto = new ArrayList<Accion>
+		var accionesAbasto = new ArrayList<Accion>
 		accionesAbasto.addAll(
-			#[observerAlmacenamientoAbasto, observerDemoraAbasto, observerBusqPorFechaAbasto, observerResParcAbasto,
+			#[observerAlmacenamientoAbasto, observerDemora, observerBusqPorFechaAbasto, observerResParcAbasto,
 				observerResTotAbasto])
-		accionesFlorida = new ArrayList<Accion>
+		var accionesFlorida = new ArrayList<Accion>
 		accionesFlorida.addAll(
-			#[observerAlmacenamientoFlorida, observerDemoraFlorida, observerBusqPorFechaFlorida, observerResParcFlorida,
+			#[observerAlmacenamientoFlorida, observerDemora, observerBusqPorFechaFlorida, observerResParcFlorida,
 				observerResTotFlorida])
-		accionesColon = new ArrayList<Accion>
+		var accionesColon = new ArrayList<Accion>
 		accionesColon.addAll(
-			#[observerAlmacenamientoColon, observerDemoraColon, observerBusqPorFechaColon, observerResParcColon,
+			#[observerAlmacenamientoColon, observerDemora, observerBusqPorFechaColon, observerResParcColon,
 				observerResTotColon])
 
-		terminalAbasto = new Consulta("Abasto", buscador, new ArrayList<Accion>(accionesAbasto))
-		terminalFlorida = new Consulta("Florida", buscador, new ArrayList<Accion>(accionesFlorida))
-		terminalTeatroColon = new Consulta("Teatro Colon", buscador, new ArrayList<Accion>(accionesColon))
-		admin = new Administrador(buscador)
-		buscador.busquedaObservers.addAll(accionesAbasto)
-		buscador.busquedaObservers.addAll(accionesFlorida)
-		buscador.busquedaObservers.addAll(accionesColon)
+		terminalAbasto = new Consulta("Abasto", buscadorAbasto)
+		terminalFlorida = new Consulta("Florida", buscadorFlorida)
+		terminalTeatroColon = new Consulta("Teatro Colon", buscadorColon)
+		
+		
+		buscadorAbasto.busquedaObservers.addAll(accionesAbasto)
+		buscadorFlorida.busquedaObservers.addAll(accionesFlorida)
+		buscadorColon.busquedaObservers.addAll(accionesColon)
 
 		observerAlmacenamientoAbasto.dueño = terminalAbasto
 		observerAlmacenamientoFlorida.dueño = terminalFlorida
 		observerAlmacenamientoColon.dueño = terminalTeatroColon
-
-		observerDemoraAbasto.dueño = terminalAbasto
-		observerDemoraFlorida.dueño = terminalFlorida
-		observerDemoraColon.dueño = terminalFlorida
-
-		observerBusqPorFechaAbasto.dueño=terminalAbasto
-		observerBusqPorFechaFlorida.dueño=terminalFlorida
-		observerBusqPorFechaColon.dueño=terminalTeatroColon
-
-		observerResParcAbasto.dueño=terminalAbasto
-		observerResParcFlorida.dueño=terminalFlorida
-		observerResParcColon.dueño=terminalTeatroColon
-
-		observerResTotAbasto.dueño=terminalAbasto
-		observerResTotFlorida.dueño=terminalFlorida
-		observerResTotColon.dueño=terminalTeatroColon
-
 	}
 
 	@Test
 	def void testAgregarObservadores() {
-		Assert.assertTrue(buscador.busquedaObservers.size == 15)
+		buscadorFlorida.eliminarObservador(observerDemora)
+		Assert.assertTrue(buscadorFlorida.busquedaObservers.size == 4)
+		buscadorFlorida.agregarObservador(observerDemora)
+		Assert.assertTrue(buscadorFlorida.busquedaObservers.size == 5)
 	}
 
 	@Test
 	def void testEliminarObservadores() {
-		buscador.eliminarObservador(observerDemoraAbasto)
-		Assert.assertTrue(buscador.busquedaObservers.size == 14)
-		Assert.assertFalse(buscador.busquedaObservers.exists[unObservador|unObservador == observerDemoraAbasto])
+		buscadorFlorida.eliminarObservador(observerDemora)
+		Assert.assertTrue(buscadorFlorida.busquedaObservers.size == 14)
+		Assert.assertFalse(buscadorFlorida.busquedaObservers.exists[unObservador|unObservador == observerDemora])
 	}
 
 	@Test
 	def void testMandarMailAlAdministrador() {
 		reset(mockedMailSender)
-		observerDemoraAbasto.tiempoDeEspera = -1
+		observerDemora.tiempoDeEspera = 0.003
 		terminalAbasto.buscar("libreria")
 		verify(mockedMailSender, times(1)).send(any(typeof(Administrador)))
+		System.out.println(observerDemora.tiempoDeEspera)
 	}
 
 	@Test
@@ -193,7 +185,7 @@ class TestObserver {
 		terminalAbasto.buscar("_114")
 		terminalFlorida.buscar("libreria")
 		terminalAbasto.buscar("libreria")
-		var cantidad = observerAlmacenamientoAbasto.cantidadDeBusquedasPorFecha(new LocalDate(2016, 5, 17))
+		var cantidad = observerAlmacenamientoAbasto.cantidadDeBusquedasPorFecha(new LocalDate(2016, 5, 18))
 		Assert.assertEquals(2, cantidad)
 	}
 
@@ -205,7 +197,7 @@ class TestObserver {
 		var cantidad = observerAlmacenamientoAbasto.cantidadDeBusquedasPorFecha(new LocalDate(2016, 5, 17))
 		Assert.assertEquals(2, cantidad)
 		terminalAbasto.deshabilitarAccion(observerBusqPorFechaAbasto)
-		var cant = observerBusqPorFechaAbasto.busquedasPorFecha(new LocalDate(16, 05, 17))
+		observerBusqPorFechaAbasto.busquedasPorFecha(new LocalDate(16, 05, 17))
 
 	}
 

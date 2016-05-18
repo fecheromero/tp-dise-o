@@ -1,16 +1,15 @@
 package dominio.PerfilesDeUsuario
 
 import dominio.Busqueda
-import observer.Accion
-import java.util.List
-import java.util.ArrayList
 import excepciones.NoValidoException
+import java.util.ArrayList
+import observer.Accion
 
 class Consulta extends PerfilDeUsuario{
 	String nombre
 //	List<Accion> listaDeAcciones=new ArrayList<Accion>
 	
-	new(String nom,Busqueda busc,ArrayList<Accion> acciones) {
+	new(String nom,Busqueda busc) {
 		buscador=busc
 		nombre=nom
 //		listaDeAcciones=acciones
