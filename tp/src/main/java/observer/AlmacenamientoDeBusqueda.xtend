@@ -7,12 +7,12 @@ import org.joda.time.LocalDate
 
 @Accessors
 class AlmacenamientoDeBusqueda extends Accion {
-	List<ResultadosPorBusqueda> listaDeBusquedas = new ArrayList<ResultadosPorBusqueda>
+	List<RegistroPorBusqueda> listaDeBusquedas = new ArrayList<RegistroPorBusqueda>
 
 	override buscar(String frase, Long tiempo, int cantidad) {
 		var fechaDeEjecucion = new LocalDate(LocalDate.now.getYear(), LocalDate.now.getMonthOfYear(),
 			LocalDate.now.getDayOfMonth())
-		var resultado = new ResultadosPorBusqueda(frase, cantidad, tiempo, fechaDeEjecucion)
+		var resultado = new RegistroPorBusqueda(frase, cantidad, tiempo, fechaDeEjecucion)
 		listaDeBusquedas.add(resultado)
 	}
 
