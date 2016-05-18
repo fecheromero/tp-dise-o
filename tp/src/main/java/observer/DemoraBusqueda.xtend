@@ -10,7 +10,7 @@ Administrador admin
 double tiempoDeEspera
 MailSender mailSender
 
-new(Administrador adm, double tiempo) {
+new(Administrador adm, int tiempo) {
 	admin = adm
 	tiempoDeEspera = tiempo
 }

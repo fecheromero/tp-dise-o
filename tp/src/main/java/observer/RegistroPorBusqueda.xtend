@@ -7,14 +7,14 @@ import org.joda.time.LocalDate
 class RegistroPorBusqueda {
 	String palabra
 	int cantidadDeResultados
-	Long tiempoDeEjecucion
+	double tiempoDeEjecucion
 	LocalDate fechaDeConsulta
 	
 
 	new(String unaPalabra, Integer resultados, long tiempo, LocalDate fecha) {
 		palabra = unaPalabra
 		cantidadDeResultados = resultados
-		tiempoDeEjecucion = tiempo
+		tiempoDeEjecucion = tiempo/1000
 		fechaDeConsulta = fecha
 
 	}
