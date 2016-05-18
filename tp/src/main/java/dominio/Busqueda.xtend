@@ -15,7 +15,7 @@ class Busqueda {
 
 	HashSet<OrigenDePois> origenes = new HashSet<OrigenDePois>
 
-	def List<PuntoDeInteres> buscar(String str, PerfilDeUsuario usuario) {
+	def List<PuntoDeInteres> buscar(String str) {
 		var tiempoInicio = System.currentTimeMillis()
 		val lista = Buscador.getInstance.mostrarPrimeros(str, origenes.map[origen|origen.buscar(str)].flatten.toList,
 			10)
@@ -24,7 +24,7 @@ class Busqueda {
 //		busquedaObservers.forEach[observador|observador.tiempoDeEjecucion(tiempo)]
 //		busquedaObservers.forEach[observador|observador.cantidadDeResultados(lista.length)]
 //		busquedaObservers.forEach[observador|observador.ejecutadoPor(usuario)]
-		busquedaObservers.forEach[observador|observador.buscar(str,tiempo,lista.length,usuario)]
+		busquedaObservers.forEach[observador|observador.buscar(str,tiempo,lista.length)]
 		return lista
 	}
 
@@ -40,3 +40,20 @@ class Busqueda {
 	}
 
 }
+
+
+
+/* 
+def List<PuntoDeInteres> buscar(String str, PerfilDeUsuario usuario) {
+		var tiempoInicio = System.currentTimeMillis()
+		val lista = Buscador.getInstance.mostrarPrimeros(str, origenes.map[origen|origen.buscar(str)].flatten.toList,
+			10)
+		var tiempoFin = System.currentTimeMillis()
+		val tiempo = tiempoFin - tiempoInicio
+//		busquedaObservers.forEach[observador|observador.tiempoDeEjecucion(tiempo)]
+//		busquedaObservers.forEach[observador|observador.cantidadDeResultados(lista.length)]
+//		busquedaObservers.forEach[observador|observador.ejecutadoPor(usuario)]
+		busquedaObservers.forEach[observador|observador.buscar(str,tiempo,lista.length,usuario)]
+		return lista
+	}
+*/

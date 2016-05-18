@@ -11,11 +11,19 @@ class ResultadosPorBusqueda {
 	Long tiempoDeEjecucion
 	LocalDate fechaDeConsulta
 	PerfilDeUsuario usuario
-	new(String unaPalabra,Integer resultados,long tiempo, LocalDate fecha,PerfilDeUsuario usr){
-		palabra=unaPalabra
-		cantidadDeResultados=resultados
-		tiempoDeEjecucion=tiempo
-		fechaDeConsulta= fecha
-		usuario=usr
+
+	new(String unaPalabra, Integer resultados, long tiempo, LocalDate fecha) {
+		palabra = unaPalabra
+		cantidadDeResultados = resultados
+		tiempoDeEjecucion = tiempo
+		fechaDeConsulta = fecha
+
 	}
 }
+/*new(String unaPalabra,Integer resultados,long tiempo, LocalDate fecha,PerfilDeUsuario usr){
+ * 		palabra=unaPalabra
+ * 		cantidadDeResultados=resultados
+ * 		tiempoDeEjecucion=tiempo
+ * 		fechaDeConsulta= fecha
+ * 		usuario=usr
+ } */

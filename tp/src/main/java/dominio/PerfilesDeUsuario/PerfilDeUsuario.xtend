@@ -12,7 +12,8 @@ public abstract class PerfilDeUsuario {
 	
 	
 	def List<PuntoDeInteres> buscar(String str){
-		buscador.buscar(str,this)
+		buscador.buscar(str)
+		//buscador.buscar(str,this)
 	}
 	def boolean estaHabilitadaLaAccion(Accion accion)
 }

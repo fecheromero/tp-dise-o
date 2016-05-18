@@ -8,14 +8,14 @@ import excepciones.NoValidoException
 
 class Consulta extends PerfilDeUsuario{
 	String nombre
-	List<Accion> listaDeAcciones=new ArrayList<Accion>
+//	List<Accion> listaDeAcciones=new ArrayList<Accion>
 	
 	new(String nom,Busqueda busc,ArrayList<Accion> acciones) {
 		buscador=busc
 		nombre=nom
-		listaDeAcciones=acciones
+//		listaDeAcciones=acciones
 		}
-	def habilitarAccion(Accion accion){
+		def habilitarAccion(Accion accion){
 		if(buscador.busquedaObservers.contains(accion)){
 			throw new NoValidoException("Esta accion ya está habilitada")
 		}else{buscador.agregarObservador(accion)}
@@ -23,11 +23,12 @@ class Consulta extends PerfilDeUsuario{
 	def deshabilitarAccion(Accion accion){
 		if(buscador.busquedaObservers.contains(accion)){
 			buscador.eliminarObservador(accion)
-		}else{throw new NoValidoException("Esta accion ya está habilitada")}
+		}else{throw new NoValidoException("Esta accion ya está deshabilitada")}
 	}
 	override estaHabilitadaLaAccion(Accion accion){
 		if(buscador.busquedaObservers.contains(accion)){
 			true
 		}else{false}
 	}
+		
 }
