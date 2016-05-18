@@ -2,7 +2,6 @@ package dominio.PerfilesDeUsuario
 
 import dominio.Busqueda
 import excepciones.NoValidoException
-import java.util.ArrayList
 import observer.Accion
 
 class Consulta extends PerfilDeUsuario{
