@@ -140,6 +140,20 @@ class TestObserver {
 		terminalAbasto = new Consulta("Abasto", buscadorAbasto)
 		terminalFlorida = new Consulta("Florida", buscadorFlorida)
 		terminalTeatroColon = new Consulta("Teatro Colon", buscadorColon)
+		
+		observerBusqPorFechaAbasto.buscador=buscadorAbasto
+		observerBusqPorFechaFlorida.buscador=buscadorFlorida
+		observerBusqPorFechaColon.buscador=buscadorColon
+		
+		observerResParcColon.buscador=buscadorColon
+		observerResParcAbasto.buscador=buscadorAbasto
+		observerResParcFlorida.buscador=buscadorFlorida
+		
+		observerResTotFlorida.buscador=buscadorFlorida
+		observerResTotAbasto.buscador=buscadorAbasto
+		observerResTotColon.buscador=buscadorColon
+	
+	
 	}
 
 	@Test
@@ -173,14 +187,24 @@ class TestObserver {
 	}
 
 	@Test
-	def void tesReporteBusquedasPorFecha() {
+	def void testReporteBusquedasPorFecha() {
 		terminalAbasto.buscar("_114")
 		terminalFlorida.buscar("libreria")
 		terminalAbasto.buscar("libreria")
-		var cantidad = observerAlmacenamientoAbasto.cantidadDeBusquedasPorFecha(new LocalDate(2016, 05, 18))
+		var cantidad =observerBusqPorFechaAbasto.busquedasPorFecha(new LocalDate(2016, 05, 18))
 		Assert.assertEquals(2, cantidad)
 	}
-
+	@Test(expected=NoValidoException)
+	def void testDeshabilitarReporteBusquedasPorFecha() {
+		terminalAbasto.buscar("_114")
+		terminalFlorida.buscar("libreria")
+		terminalAbasto.buscar("libreria")
+		var cantidad = observerBusqPorFechaAbasto.busquedasPorFecha(new LocalDate(2016, 05, 18))
+		Assert.assertEquals(2, cantidad)
+		terminalAbasto.deshabilitarAccion(observerBusqPorFechaAbasto)
+		observerBusqPorFechaAbasto.busquedasPorFecha(new LocalDate(2016, 05, 18))
+		
+	}
 	@Test(expected=NoValidoException)
 	def void testDeshabilitarAccionYaDeshabilitada() {
 		terminalAbasto.buscar("_114")
