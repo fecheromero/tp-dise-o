@@ -22,7 +22,12 @@ import java.util.List
 
 @Accessors
 public class AdapterCGP implements OrigenDePois {
+	 
 	 InterfazCGP origen
+	
+	def override buscar(String str){
+		centrosACGPs(origen.buscar(str)) 
+	}
 	def List<PuntoDeInteres> centrosACGPs(ArrayList<CentroDTO> listaDeCentros){
 		val arrayCGPs = listaDeCentros.map[unCentro|this.centroACGP(unCentro) as PuntoDeInteres]
 		return arrayCGPs
@@ -83,8 +88,5 @@ public class AdapterCGP implements OrigenDePois {
 		return dias
 	}
 	
-	def override buscar(String str){
-		centrosACGPs(origen.buscar(str)) 
-	}
 	
 }
