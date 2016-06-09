@@ -8,7 +8,7 @@ class InformePorTerminal implements InterfazInforme {
 		def public static InformePorTerminal getInstance(){
 			uno
 		}
-	override List<Integer> informar(Terminal terminal){
-		Registros.instance.parcialesPorTerminal(terminal)
+	override List<Integer> informar(BusquedaExecuter exec){
+		Registros.instance.parcialesPorTerminal(exec)
 	}
 }

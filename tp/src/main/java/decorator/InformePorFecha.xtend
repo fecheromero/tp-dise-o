@@ -9,7 +9,7 @@ class InformePorFecha implements InterfazInforme {
 			uno
 		}
 	
-		override HashMap<String,Integer> informar(Terminal terminal){
+		override HashMap<String,Integer> informar(BusquedaExecuter exec){
 		Registros.instance.informeCantDeBusquedasXFecha
 	}
 }

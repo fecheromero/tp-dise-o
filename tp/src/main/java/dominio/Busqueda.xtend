@@ -7,6 +7,7 @@ import dependencias.Buscador
 import org.eclipse.xtend.lib.annotations.Accessors
 import decorator.InterfazDeBusqueda
 import decorator.Terminal
+import decorator.BusquedaExecuter
 
 @Accessors
 class Busqueda implements InterfazDeBusqueda {
@@ -17,11 +18,11 @@ class Busqueda implements InterfazDeBusqueda {
 		}
 		def override sig(InterfazDeBusqueda _sig){
 	}
-		def  override buscar(String str, Terminal terminal){
+		def  override buscar(String str, BusquedaExecuter exec){
 				var long starTime=System.nanoTime()
-			terminal.rdo=Buscador.getInstance.mostrarPrimeros(str,origenes.map[origen| origen.buscar(str)].flatten.toList,10)
+			exec.rdo=Buscador.getInstance.mostrarPrimeros(str,origenes.map[origen| origen.buscar(str)].flatten.toList,10)
 				var long endTime=System.nanoTime()
-					terminal.tardanza=(endTime-starTime)/1000000			
+					exec.tardanza=(endTime-starTime)/1000000			
 		}
 		def void agregarOrigen(OrigenDePois origen){
 			origenes.add(origen)

@@ -2,7 +2,7 @@ package decorator
 
 
 interface InterfazDeBusqueda {
-	def void buscar(String str,Terminal terminal){
+	def void buscar(String str,BusquedaExecuter exec){
 	
 	}
 	def InterfazDeBusqueda sig(){

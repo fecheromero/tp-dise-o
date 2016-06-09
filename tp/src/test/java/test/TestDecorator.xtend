@@ -1,7 +1,7 @@
 package test
 
 import dominio.Busqueda
-import decorator.Terminal
+import decorator.BusquedaExecuter
 import decorator.Acciones
 import decorator.Registros
 import org.junit.Before
@@ -34,13 +34,13 @@ import excepciones.SendAdminException
 import decorator.InformePorFecha
 import java.util.HashMap
 import decorator.InformeTotalUsuario
-import decorator.InformePorTerminal
 import java.util.ArrayList
 import excepciones.NoValidoException
+import decorator.InformePorTerminal
 
 class TestDecorator {
 	Busqueda busqueda
-	Terminal terminal1
+	BusquedaExecuter exec1
 	Acciones acciones
 	Registros registros
 	Repositorio repo
@@ -51,7 +51,7 @@ class TestDecorator {
 	StubServicioExternoBanco stubServExtBanco
 	AdapterJson adapterJson
 	Administrador administrador
-	Terminal terminal2
+	BusquedaExecuter exec2
 	@Before
 	def void setUp(){
 			repo=Repositorio.instance
@@ -73,8 +73,8 @@ class TestDecorator {
 		busqueda.agregarOrigen(repo)
 		busqueda.agregarOrigen(adapterCGP)
 		busqueda.agregarOrigen(adapterJson)
-		terminal1=new Terminal("terminal1",busqueda)
-		terminal2=new Terminal("terminal2",busqueda)
+		exec1=new BusquedaExecuter("exec1",busqueda)
+		exec2=new BusquedaExecuter("exec2",busqueda)
 		acciones=Acciones.getInstance
 		acciones.reset
 		acciones.agregar("Controlar tardanza", new ControlarTardanza(2,administrador))
@@ -82,10 +82,10 @@ class TestDecorator {
 		registros=Registros.getInstance
 		registros.reset
 		administrador=new Administrador()
-		terminal1.habilitarAccion("Registrar busqueda")
-		terminal1.habilitarAccion("Controlar tardanza")
-		terminal2.habilitarAccion("Registrar busqueda")
-		terminal2.habilitarAccion("Controlar tardanza")
+		exec1.habilitarAccion("Registrar busqueda")
+		exec1.habilitarAccion("Controlar tardanza")
+		exec2.habilitarAccion("Registrar busqueda")
+		exec2.habilitarAccion("Controlar tardanza")
 															
 			
 		}
@@ -102,16 +102,16 @@ class TestDecorator {
 		@Test
 		def void TestDecorado(){
 			
-			Assert.assertTrue(terminal1.buscador.class==ControlarTardanza)
+			Assert.assertTrue(exec1.buscador.class==ControlarTardanza)
 		}
 		@Test
 		def void TestBusquedaCompleta(){
 			
-			Assert.assertEquals(terminal1.buscar("libreria").head.nombre,"libreria don Pepito")
+			Assert.assertEquals(exec1.buscar("libreria").head.nombre,"libreria don Pepito")
 			}
 		@Test
 		def void TestSeRegistra(){
-				terminal1.buscar("libreria")
+				exec1.buscar("libreria")
 				
 				Assert.assertEquals(registros.registros.size,1)
 				
@@ -121,8 +121,8 @@ class TestDecorator {
 		}
 		@Test
 		def void TestNoSeRegistra(){
-			terminal1.deshabilitarAccion("Registrar busqueda")
-			terminal1.buscar("libreria")
+			exec1.deshabilitarAccion("Registrar busqueda")
+			exec1.buscar("libreria")
 			Assert.assertEquals(registros.registros.size,0)
 		}
 		@Test
@@ -133,9 +133,9 @@ class TestDecorator {
 			var ControlarTardanza mockedControlarTardanza=spy(controlarTardanza2)
 			doThrow(new SendAdminException).when(mockedControlarTardanza).sendMail(administrador)
 			acciones.agregar("Controlar tardanza2",mockedControlarTardanza)
-			terminal1.deshabilitarAccion("Controlar tardanza")
-			terminal1.habilitarAccion("Controlar tardanza2")
-			try{terminal1.buscar("libreria")
+			exec1.deshabilitarAccion("Controlar tardanza")
+			exec1.habilitarAccion("Controlar tardanza2")
+			try{exec1.buscar("libreria")
 			} catch(SendAdminException e){cantSends+=1}
 			Assert.assertEquals(cantSends,1)
 		}
@@ -147,69 +147,69 @@ class TestDecorator {
 			var ControlarTardanza mockedControlarTardanza=spy(controlarTardanza2)
 			doThrow(new SendAdminException).when(mockedControlarTardanza).sendMail(administrador)
 			acciones.agregar("Controlar tardanza2",mockedControlarTardanza)
-			terminal1.deshabilitarAccion("Controlar tardanza")
-			try{terminal1.buscar("libreria")
+			exec1.deshabilitarAccion("Controlar tardanza")
+			try{exec1.buscar("libreria")
 			} catch(SendAdminException e){cantSends+=1}
 			Assert.assertEquals(cantSends,0)
 		}
 		@Test
 		def void TestHabilitarYDeshabilitarRegistro(){
-			terminal1.buscar("libreria")
+			exec1.buscar("libreria")
 			Assert.assertEquals(registros.registros.size,1)
-			terminal1.deshabilitarAccion("Registrar busqueda")
-			terminal1.buscar("libreria")
+			exec1.deshabilitarAccion("Registrar busqueda")
+			exec1.buscar("libreria")
 			Assert.assertEquals(registros.registros.size,1)
-			terminal1.habilitarAccion("Registrar busqueda")
-			terminal1.buscar("libreria")
+			exec1.habilitarAccion("Registrar busqueda")
+			exec1.buscar("libreria")
 			Assert.assertEquals(registros.registros.size,2)
 			
 		}
 		@Test
 		def void TestPruebaDeInformePorFecha(){
-			terminal1.buscar("libreria")
+			exec1.buscar("libreria")
 			Assert.assertEquals(registros.informeCantDeBusquedasXFecha.get(new SimpleDateFormat("dd/MM/yyyy").format(new Date())
 			),1)
-						terminal1.buscar("pepito")
+						exec1.buscar("pepito")
 			Assert.assertEquals(registros.informeCantDeBusquedasXFecha.get(new SimpleDateFormat("dd/MM/yyyy").format(new Date())
 			),2)}
 		@Test
-		def void TestPruebaDeInformePorTerminal(){
-			terminal1.buscar("libreria")
-			Assert.assertEquals(registros.informeTotalesPorTerminal.get("terminal1"),10)
-			terminal1.buscar("libreria")
-			Assert.assertEquals(registros.informeTotalesPorTerminal.get("terminal1"),20)
-			terminal2.buscar("libreria")
-			Assert.assertEquals(registros.informeTotalesPorTerminal.get("terminal2"),10)
+		def void TestPruebaDeInformePorexec(){
+			exec1.buscar("libreria")
+			Assert.assertEquals(registros.informeTotalesPorTerminal.get("exec1"),10)
+			exec1.buscar("libreria")
+			Assert.assertEquals(registros.informeTotalesPorTerminal.get("exec1"),20)
+			exec2.buscar("libreria")
+			Assert.assertEquals(registros.informeTotalesPorTerminal.get("exec2"),10)
 		}
 		@Test
-		def void TestParcialesPorTerminal(){
-			terminal1.buscar("libreria")
-			terminal2.buscar("libreria")
-			terminal1.buscar("libreria")
-			Assert.assertArrayEquals(registros.parcialesPorTerminal(terminal1).toArray,#[10,10])
-			Assert.assertArrayEquals(registros.parcialesPorTerminal(terminal2).toArray,#[10])
+		def void TestParcialesPorexec(){
+			exec1.buscar("libreria")
+			exec2.buscar("libreria")
+			exec1.buscar("libreria")
+			Assert.assertArrayEquals(registros.parcialesPorTerminal(exec1).toArray,#[10,10])
+			Assert.assertArrayEquals(registros.parcialesPorTerminal(exec2).toArray,#[10])
 		}
 		@Test
-		def void TestTerminal1MuestrInformes(){
-			terminal1.buscar("libreria")
-			Assert.assertEquals((terminal1.pedirInforme(InformePorFecha.instance) as HashMap<String,Integer>).get((new SimpleDateFormat("dd/MM/yyyy").format(new Date())
+		def void Testexec1MuestrInformes(){
+			exec1.buscar("libreria")
+			Assert.assertEquals((exec1.pedirInforme(InformePorFecha.instance) as HashMap<String,Integer>).get((new SimpleDateFormat("dd/MM/yyyy").format(new Date())
 			)),1)		
-			Assert.assertEquals((terminal1.pedirInforme(InformeTotalUsuario.instance )as HashMap<String,Integer>).get("terminal1"),10)
-			Assert.assertArrayEquals((terminal1.pedirInforme(InformePorTerminal.instance) as ArrayList<Integer>).toArray,#[10])
+			Assert.assertEquals((exec1.pedirInforme(InformeTotalUsuario.instance )as HashMap<String,Integer>).get("exec1"),10)
+			Assert.assertArrayEquals((exec1.pedirInforme(InformePorTerminal.instance) as ArrayList<Integer>).toArray,#[10])
 			
 		}
 		@Test(expected=NoValidoException)
 		def void TestQuitarInforme(){
-			terminal1.buscar("libreria")
-			terminal1.quitarInforme(InformePorFecha.instance)
-			terminal1.pedirInforme(InformePorFecha.instance)
-			Assert.assertEquals(terminal1.informadores.size,2)
+			exec1.buscar("libreria")
+			exec1.quitarInforme(InformePorFecha.instance)
+			exec1.pedirInforme(InformePorFecha.instance)
+			Assert.assertEquals(exec1.informadores.size,2)
 		}
 		@Test
 		def void TestAgregarInforme(){
-			terminal1.quitarInforme(InformePorFecha.instance)
-			terminal1.agregarInforme(InformePorFecha.instance)
-			terminal1.pedirInforme(InformePorFecha.instance)
+			exec1.quitarInforme(InformePorFecha.instance)
+			exec1.agregarInforme(InformePorFecha.instance)
+			exec1.pedirInforme(InformePorFecha.instance)
 			
 		}
 		}

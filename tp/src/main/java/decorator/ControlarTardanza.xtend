@@ -17,9 +17,9 @@ class ControlarTardanza implements InterfazDeBusqueda {
 	def override sig(InterfazDeBusqueda _sig){
 		sig=_sig
 	}
-	def override buscar(String str,Terminal terminal){
-		sig.buscar(str,terminal)
-	if(terminal.tardanza>tardanzaMax){
+	def override buscar(String str,BusquedaExecuter exec){
+		sig.buscar(str,exec)
+	if(exec.tardanza>tardanzaMax){
 		sendMail(admin)
 	}	
 	}

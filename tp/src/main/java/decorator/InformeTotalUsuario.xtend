@@ -8,7 +8,7 @@ class InformeTotalUsuario implements InterfazInforme{
 		def public static InformeTotalUsuario getInstance(){
 			uno
 		}
-		override HashMap<String,Integer> informar(Terminal terminal){
+		override HashMap<String,Integer> informar(BusquedaExecuter exec){
 		Registros.instance.informeTotalesPorTerminal
 	}
 }
