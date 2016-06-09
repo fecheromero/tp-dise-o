@@ -13,12 +13,15 @@ public class LocalComercial extends PuntoDeInteres {
 	Rubro rubro
 	@Validable
 	Horario horario
+	
+	String otrosTags=""
+	
 	 def void sethorario(Horario _horario){
 		super.horario=_horario
 		horario=_horario
 	}
 	override String listaDeTags() {
-		super.listaDeTags().concat(" ".concat(rubro.nombre))
+		super.listaDeTags().concat(" ".concat(rubro.nombre).concat(" ").concat(otrosTags))
 	}
 	
 	new(String _nombre, Horario _horario, Direccion _direccion, Rubro _rubro){
