@@ -19,6 +19,9 @@ class Repositorio implements OrigenDePois {
 		def public static Repositorio getInstance(){
 			uno
 		}
+	def void reset(){
+		uno=new Repositorio()
+	}
 	
 
 	def void setServicioDTO(InterfazCGP servicio){
