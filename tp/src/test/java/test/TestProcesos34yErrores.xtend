@@ -175,8 +175,9 @@ class TestProcesos34yErrores{
 		enviarMail = new EnviarMail(admin)
 
 		admin.accionDeError = enviarMail
-		repoProcesos = new RepositorioProcesos
-		admin.repositorio = repoProcesos
+		repoProcesos = RepositorioProcesos.getInstance
+		repoProcesos.reset
+//		admin.repositorio = repoProcesos
 	}
 
 	@Test

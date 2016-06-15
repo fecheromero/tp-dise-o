@@ -4,11 +4,19 @@ import java.util.List
 import java.util.ArrayList
 import org.eclipse.xtend.lib.annotations.Accessors
 
-@Accessors
 class RepositorioProcesos {
-	List<ResultadosPorProceso> listaDeResultados=new ArrayList
+@Accessors
 	
-	def agregarResultado(ResultadosPorProceso resultado){
+	List<ResultadosPorProceso> listaDeResultados=new ArrayList
+	private static RepositorioProcesos uno=new RepositorioProcesos()
+		private new( ){}
+		def public static RepositorioProcesos getInstance(){
+			uno
+		}
+		def void reset(){
+		listaDeResultados.clear
+		}
+		def agregarResultado(ResultadosPorProceso resultado){
 		listaDeResultados.add(resultado)
-	}
+		}
 }
