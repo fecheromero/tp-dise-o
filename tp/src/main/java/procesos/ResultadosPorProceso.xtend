@@ -1,7 +1,9 @@
 package procesos
-
 import org.joda.time.LocalDateTime
 import dominio.PerfilesDeUsuario.PerfilDeUsuario
+import org.eclipse.xtend.lib.annotations.Accessors
+
+@Accessors
 class ResultadosPorProceso {
 	LocalDateTime fechaInicio
 	LocalDateTime fechaFin

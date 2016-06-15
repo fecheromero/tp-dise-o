@@ -29,8 +29,10 @@ import org.junit.Test
 import procesos.AgregarAccionesUsuarios
 import org.junit.Assert
 import procesos.EnviarMail
+import procesos.RepositorioProcesos
+import procesos.ProcesosMultiples
 
-class TestProceso3 {
+class TestProcesos34yErrores{
 	Repositorio repo
 	LocalComercial libreria
 	ParadaDeColectivo _114
@@ -48,6 +50,7 @@ class TestProceso3 {
 
 	DemoraBusqueda observerDemora
 	DemoraBusqueda observerDemora2
+	DemoraBusqueda observerDemora3
 
 	AlmacenamientoDeBusqueda observerAlmacenamientoAbasto
 	AlmacenamientoDeBusqueda observerAlmacenamientoFlorida
@@ -65,11 +68,14 @@ class TestProceso3 {
 	ResultadosTotales observerResTotAbasto
 	ResultadosTotales observerResTotFlorida
 	ResultadosTotales observerResTotColon
-	
+
 	AgregarAccionesUsuarios agregarAcciones
-	
+	AgregarAccionesUsuarios agregarAcciones2
+	ProcesosMultiples procesoMultiple
 	EnviarMail enviarMail
-	
+
+	RepositorioProcesos repoProcesos
+
 	@Before
 	def void setUp() {
 
@@ -92,7 +98,6 @@ class TestProceso3 {
 		buscadorAbasto.agregarOrigen(repo)
 		buscadorAbasto.agregarOrigen(adapterCGP)
 		buscadorAbasto.agregarOrigen(adapterJson)
-		
 
 		buscadorFlorida = new Busqueda()
 		buscadorFlorida.agregarOrigen(repo)
@@ -112,9 +117,11 @@ class TestProceso3 {
 
 		observerDemora = new DemoraBusqueda(admin, 2)
 		observerDemora2 = new DemoraBusqueda(admin, 3)
+		observerDemora3 = new DemoraBusqueda(admin, 3)
 		observerDemora.mailSender = mockedMailSender
 		observerDemora2.mailSender = mockedMailSender
-		
+		observerDemora3.mailSender = mockedMailSender
+
 		observerBusqPorFechaAbasto = new BusquedasPorFecha(observerAlmacenamientoAbasto)
 		observerBusqPorFechaFlorida = new BusquedasPorFecha(observerAlmacenamientoFlorida)
 		observerBusqPorFechaColon = new BusquedasPorFecha(observerAlmacenamientoColon)
@@ -126,7 +133,6 @@ class TestProceso3 {
 		observerResTotFlorida = new ResultadosTotales(observerAlmacenamientoFlorida)
 		observerResTotAbasto = new ResultadosTotales(observerAlmacenamientoAbasto)
 		observerResTotColon = new ResultadosTotales(observerAlmacenamientoColon)
-		
 
 		var accionesAbasto = new ArrayList<Accion>
 		accionesAbasto.addAll(
@@ -144,55 +150,85 @@ class TestProceso3 {
 		buscadorAbasto.busquedaObservers.addAll(accionesAbasto)
 		buscadorFlorida.busquedaObservers.addAll(accionesFlorida)
 		buscadorColon.busquedaObservers.addAll(accionesColon)
-		
+
 		terminalAbasto = new Consulta("Abasto", buscadorAbasto)
 		terminalFlorida = new Consulta("Florida", buscadorFlorida)
 		terminalTeatroColon = new Consulta("Teatro Colon", buscadorColon)
-		
-		observerBusqPorFechaAbasto.buscador=buscadorAbasto
-		observerBusqPorFechaFlorida.buscador=buscadorFlorida
-		observerBusqPorFechaColon.buscador=buscadorColon
-		
-		observerResParcColon.buscador=buscadorColon
-		observerResParcAbasto.buscador=buscadorAbasto
-		observerResParcFlorida.buscador=buscadorFlorida
-		
-		observerResTotFlorida.buscador=buscadorFlorida
-		observerResTotAbasto.buscador=buscadorAbasto
-		observerResTotColon.buscador=buscadorColon
-		
-		
-		agregarAcciones=new AgregarAccionesUsuarios(#[terminalAbasto,terminalFlorida],#[observerDemora2])
-		
-		admin= new Administrador(buscadorFlorida)
-	
-		enviarMail=new EnviarMail (admin)
-		
-		admin.accionDeError=enviarMail
-		
-		}
+
+		observerBusqPorFechaAbasto.buscador = buscadorAbasto
+		observerBusqPorFechaFlorida.buscador = buscadorFlorida
+		observerBusqPorFechaColon.buscador = buscadorColon
+
+		observerResParcColon.buscador = buscadorColon
+		observerResParcAbasto.buscador = buscadorAbasto
+		observerResParcFlorida.buscador = buscadorFlorida
+
+		observerResTotFlorida.buscador = buscadorFlorida
+		observerResTotAbasto.buscador = buscadorAbasto
+		observerResTotColon.buscador = buscadorColon
+
+		agregarAcciones = new AgregarAccionesUsuarios(#[terminalAbasto, terminalFlorida], #[observerDemora2])
+		agregarAcciones2 = new AgregarAccionesUsuarios(#[terminalTeatroColon, terminalFlorida], #[observerDemora3])
+		procesoMultiple=new ProcesosMultiples(#[agregarAcciones,agregarAcciones2])
+		admin = new Administrador(buscadorFlorida)
+
+		enviarMail = new EnviarMail(admin)
+
+		admin.accionDeError = enviarMail
+		repoProcesos = new RepositorioProcesos
+		admin.repositorio = repoProcesos
+	}
+
 	@Test
-	def void testAgregarAccionesAUsuarios(){
+	def void testAgregarAccionesAUsuarios() {
 		Assert.assertTrue(buscadorFlorida.busquedaObservers.size == 5)
 		agregarAcciones.exec(admin)
 		Assert.assertTrue(buscadorFlorida.busquedaObservers.size == 6)
-				
-		
+
 	}
-	@Test (expected=Exception)
-	def void testProcesoConError(){
+	@Test
+	def void testProcesoMultiple(){
 		Assert.assertTrue(buscadorFlorida.busquedaObservers.size == 5)
-		agregarAcciones=new AgregarAccionesUsuarios(#[terminalAbasto,terminalFlorida],#[observerDemora])
+		admin.exec(procesoMultiple)
+		Assert.assertTrue(buscadorFlorida.busquedaObservers.size == 7)
+
+	}
+
+	@Test(expected=Exception)
+	def void testProcesoConError() {
+		Assert.assertTrue(buscadorFlorida.busquedaObservers.size == 5)
+		agregarAcciones = new AgregarAccionesUsuarios(#[terminalAbasto, terminalFlorida], #[observerDemora])
 		agregarAcciones.exec(admin)
 		Assert.assertTrue(buscadorFlorida.busquedaObservers.size == 6)
 	}
 
-	@Test(expected=Exception)
+	@Test
 	def void testMandarMailAlAdministrador() {
-		reset(mockedMailSender)
-		agregarAcciones=new AgregarAccionesUsuarios(#[terminalAbasto,terminalFlorida],#[observerDemora])
+		try {reset(mockedMailSender)
+		agregarAcciones = new AgregarAccionesUsuarios(#[terminalAbasto, terminalFlorida], #[observerDemora])
 		agregarAcciones.exec(admin)
-		verify(mockedMailSender, times(1)).send(any(typeof(Administrador)))
-	
-	}	
-}	
+		}catch(Exception e){
+		verify(mockedMailSender, times(0)).send(any(typeof(Administrador)))
+		}
+	}
+
+	@Test
+	def void testAlmacenamientoDeProcesoOK() {
+		admin.exec(agregarAcciones)
+		Assert.assertTrue(repoProcesos.listaDeResultados.get(0).resultado == "ok")
+		Assert.assertTrue(repoProcesos.listaDeResultados.size == 1)
+	}
+	@Test
+	def void testAlmacenamientoDeProcesoConError(){
+		try {reset(mockedMailSender)
+		agregarAcciones = new AgregarAccionesUsuarios(#[terminalAbasto, terminalFlorida], #[observerDemora2])
+		agregarAcciones.exec(admin)
+		}catch(Exception e){
+		verify(mockedMailSender, times(0)).send(any(typeof(Administrador)))
+		Assert.assertTrue(repoProcesos.listaDeResultados.get(0).resultado == "error")
+		Assert.assertTrue(repoProcesos.listaDeResultados.size == 1)		
+		}
+	}
+
+}
+

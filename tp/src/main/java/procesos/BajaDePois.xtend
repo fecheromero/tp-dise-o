@@ -3,7 +3,7 @@ package procesos
 import dominio.Repositorio
 import dominio.PerfilesDeUsuario.Administrador
 
-class BajaDePois extends Proceso {
+class BajaDePois implements Proceso {
 	ServicioBajaPois serv
 	Repositorio repo=Repositorio.instance
 	new(ServicioBajaPois _serv){

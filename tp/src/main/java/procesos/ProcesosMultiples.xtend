@@ -5,7 +5,7 @@ import java.util.ArrayList
 import dominio.PerfilesDeUsuario.Administrador
 
 
-class ProcesosMultiples extends Proceso{
+class ProcesosMultiples implements Proceso{
 	List<Proceso> listaDeProcesos= new ArrayList
 	
 	new(List<Proceso> procesos){
