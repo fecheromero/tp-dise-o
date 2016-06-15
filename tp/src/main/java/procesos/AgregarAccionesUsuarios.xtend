@@ -6,7 +6,7 @@ import java.util.ArrayList
 import observer.Accion
 import dominio.PerfilesDeUsuario.Administrador
 
-class AgregarAccionesUsuarios extends Proceso{
+class AgregarAccionesUsuarios implements Proceso{
 	List<Consulta> listaDeUsuarios= new ArrayList
 //	List<PerfilDeUsuario> listaDeUsuariosUndo= new ArrayList
 	List<Accion> listaDeAcciones=new ArrayList

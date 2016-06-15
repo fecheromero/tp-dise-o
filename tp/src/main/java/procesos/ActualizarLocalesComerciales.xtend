@@ -7,7 +7,7 @@ import excepciones.ProcesingException
 import java.util.HashSet
 import dominio.PerfilesDeUsuario.Administrador
 
-class ActualizarLocalesComerciales extends Proceso {
+class ActualizarLocalesComerciales implements Proceso {
 	
 	String text
 	
