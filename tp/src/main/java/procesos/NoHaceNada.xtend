@@ -2,7 +2,7 @@ package procesos
 
 import dominio.PerfilesDeUsuario.Administrador
 
-class NoHaceNada extends Proceso {
+class NoHaceNada implements InterfazProcesoDeError {
 	override exec(Administrador adm){
 		
 	}
