@@ -1,7 +1,9 @@
 package procesos
 
-class NoHaceNada implements Proceso {
-	override exec(){
+import dominio.PerfilesDeUsuario.Administrador
+
+class NoHaceNada extends Proceso {
+	override exec(Administrador adm){
 		
 	}
 }

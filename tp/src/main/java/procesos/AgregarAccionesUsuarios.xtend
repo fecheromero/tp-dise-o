@@ -4,8 +4,9 @@ import java.util.List
 import dominio.PerfilesDeUsuario.Consulta
 import java.util.ArrayList
 import observer.Accion
+import dominio.PerfilesDeUsuario.Administrador
 
-class AgregarAccionesUsuarios implements Proceso{
+class AgregarAccionesUsuarios extends Proceso{
 	List<Consulta> listaDeUsuarios= new ArrayList
 //	List<PerfilDeUsuario> listaDeUsuariosUndo= new ArrayList
 	List<Accion> listaDeAcciones=new ArrayList
@@ -16,7 +17,7 @@ class AgregarAccionesUsuarios implements Proceso{
 		
 	}
 	
-	override exec() {
+	override exec(Administrador adm) {
 		listaDeUsuarios.forEach[usuario|agregarAccionesAUsuario(usuario)]
 	}
 	def void agregarAccionesAUsuario(Consulta usuario){

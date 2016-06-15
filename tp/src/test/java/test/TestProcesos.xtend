@@ -16,6 +16,8 @@ import org.joda.time.DateTime
 import org.joda.time.LocalDate
 import java.util.HashSet
 import java.util.ArrayList
+import dominio.PerfilesDeUsuario.Administrador
+import dominio.Busqueda
 
 class TestProcesos {
 	ActualizarLocalesComerciales actualizador1
@@ -24,6 +26,8 @@ class TestProcesos {
 	Repositorio repo
 	BajaDePois baja1
 	ServicioBajaPois serv
+	Administrador adm
+	Busqueda busqueda
 	@Before
 	def void setUp(){
 		fixtKiosco= new KioscoFixture()
@@ -37,6 +41,8 @@ class TestProcesos {
 		Mockito.when(serv.poisEliminados).thenReturn(bajas)
 		repo=Repositorio.instance
 		repo.create(fixtKiosco.obtenerKiosco)
+		busqueda=new Busqueda
+		adm=new Administrador(busqueda)
 	}
 	//Actualizar locales comerciales
 @Test
@@ -45,17 +51,17 @@ def void testSplit(){
 }
 @Test
 def void testActualizarLocalesComerciales(){
-	actualizador1.exec
+	actualizador1.exec(adm)
 	var LocalComercial local=repo.buscar("tucu").get(0) as LocalComercial
 	Assert.assertEquals(local.listaDeTags.contains("alfajores"),true)
-	actualizador1.exec
+	actualizador1.exec(adm)
 	Assert.assertEquals(local.otrosTags,"  Kiosko alfajores caramelos")
 	
 }
 
 @Test
 def void testActualizarUnLocalQueNoExisteNoRompeNiHaceNada(){
-	actualizador2.exec
+	actualizador2.exec(adm)
 }
 //Baja de pois
 @Test
@@ -64,7 +70,7 @@ def void testBajaPois(){
 		repo.reset
 		repo=Repositorio.instance
 	repo.create(fixtKiosco.obtenerKiosco)
-	baja1.exec
+	baja1.exec(adm)
 	Assert.assertEquals(repo.puntos.size,1)
 	
 }
