@@ -6,12 +6,13 @@ import procesos.Proceso
 import procesos.RepositorioProcesos
 import procesos.ResultadosPorProceso
 import org.joda.time.LocalDateTime
+import procesos.InterfazProcesoDeError
+import org.eclipse.xtend.lib.annotations.Accessors
 
-
-
+@Accessors
 class Administrador extends PerfilDeUsuario{
 	RepositorioProcesos repositorio
-	Proceso accionDeError
+	InterfazProcesoDeError accionDeError
 	new(Busqueda busc) {
 		buscador=busc
 	}
@@ -29,9 +30,9 @@ class Administrador extends PerfilDeUsuario{
 	}
 		catch(Exception e){
 			val fin2= new LocalDateTime
-		repositorio.agregarResultado(new ResultadosPorProceso(inicio,fin2,proceso,this,"error","error en "+this.toString))
+		repositorio.agregarResultado(new ResultadosPorProceso(inicio,fin2,proceso,this,"error","error en "+proceso.toString))
 		
-			accionDeError.exec(this)
+			accionDeError.exec(this,proceso)
 		}
 		
 	
