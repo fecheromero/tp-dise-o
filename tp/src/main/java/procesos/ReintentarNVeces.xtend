@@ -15,7 +15,7 @@ class ReintentarNVeces extends Proceso {
 		
 	override exec (Administrador adm){
 		while (n!=0) try{
-			listaDeProcesos.forEach[accion |accion.exec(adm)]
+			listaDeProcesos.forEach[accion |adm.exec(accion)]
 			n=0
 			}
 		catch(Exception e){

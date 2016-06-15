@@ -12,7 +12,6 @@ import org.joda.time.LocalDateTime
 class Administrador extends PerfilDeUsuario{
 	RepositorioProcesos repositorio
 	Proceso accionDeError
-	
 	new(Busqueda busc) {
 		buscador=busc
 	}
@@ -25,6 +24,7 @@ class Administrador extends PerfilDeUsuario{
 			val inicio=new LocalDateTime
 		try{
 		val fin1=new LocalDateTime
+		proceso.exec(this)
 		repositorio.agregarResultado(new ResultadosPorProceso(inicio,fin1,proceso,this,"ok","correcto"))
 	}
 		catch(Exception e){
@@ -36,6 +36,5 @@ class Administrador extends PerfilDeUsuario{
 		
 	
 	}
-}
-		
 
+}

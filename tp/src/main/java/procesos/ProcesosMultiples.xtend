@@ -12,7 +12,7 @@ class ProcesosMultiples extends Proceso{
 		listaDeProcesos=procesos
 	}	
 	override exec(Administrador adm) {
-		listaDeProcesos.forEach[proceso|proceso.exec(adm)]
+		listaDeProcesos.forEach[proceso|adm.exec(proceso)]
 	
 	}
 }
