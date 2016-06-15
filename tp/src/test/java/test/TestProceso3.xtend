@@ -28,6 +28,7 @@ import static org.mockito.Mockito.*
 import org.junit.Test
 import procesos.AgregarAccionesUsuarios
 import org.junit.Assert
+import procesos.EnviarMail
 
 class TestProceso3 {
 	Repositorio repo
@@ -67,6 +68,8 @@ class TestProceso3 {
 	
 	AgregarAccionesUsuarios agregarAcciones
 	
+	EnviarMail enviarMail
+	
 	@Before
 	def void setUp() {
 
@@ -89,6 +92,7 @@ class TestProceso3 {
 		buscadorAbasto.agregarOrigen(repo)
 		buscadorAbasto.agregarOrigen(adapterCGP)
 		buscadorAbasto.agregarOrigen(adapterJson)
+		
 
 		buscadorFlorida = new Busqueda()
 		buscadorFlorida.agregarOrigen(repo)
@@ -122,6 +126,7 @@ class TestProceso3 {
 		observerResTotFlorida = new ResultadosTotales(observerAlmacenamientoFlorida)
 		observerResTotAbasto = new ResultadosTotales(observerAlmacenamientoAbasto)
 		observerResTotColon = new ResultadosTotales(observerAlmacenamientoColon)
+		
 
 		var accionesAbasto = new ArrayList<Accion>
 		accionesAbasto.addAll(
@@ -158,8 +163,14 @@ class TestProceso3 {
 		
 		
 		agregarAcciones=new AgregarAccionesUsuarios(#[terminalAbasto,terminalFlorida],#[observerDemora2])
-	}
+		
+		admin= new Administrador(buscadorFlorida)
 	
+		enviarMail=new EnviarMail (admin)
+		
+		admin.accionDeError=enviarMail
+		
+		}
 	@Test
 	def void testAgregarAccionesAUsuarios(){
 		Assert.assertTrue(buscadorFlorida.busquedaObservers.size == 5)
@@ -168,5 +179,20 @@ class TestProceso3 {
 				
 		
 	}
+	@Test (expected=Exception)
+	def void testProcesoConError(){
+		Assert.assertTrue(buscadorFlorida.busquedaObservers.size == 5)
+		agregarAcciones=new AgregarAccionesUsuarios(#[terminalAbasto,terminalFlorida],#[observerDemora])
+		agregarAcciones.exec(admin)
+		Assert.assertTrue(buscadorFlorida.busquedaObservers.size == 6)
+	}
+
+	@Test(expected=Exception)
+	def void testMandarMailAlAdministrador() {
+		reset(mockedMailSender)
+		agregarAcciones=new AgregarAccionesUsuarios(#[terminalAbasto,terminalFlorida],#[observerDemora])
+		agregarAcciones.exec(admin)
+		verify(mockedMailSender, times(1)).send(any(typeof(Administrador)))
 	
-}
+	}	
+}	

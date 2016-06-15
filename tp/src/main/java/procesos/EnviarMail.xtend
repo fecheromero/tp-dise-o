@@ -10,7 +10,7 @@ MailSender mailSender
 		new(Administrador _usuario){
 			usuario=_usuario
 		}
-	override exec(Administrador adm){
+	override exec(Administrador adm, Proceso proceso){
 		mailSender.send(usuario)
 	
 	}

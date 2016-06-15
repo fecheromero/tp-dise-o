@@ -13,7 +13,7 @@ class ReintentarNVeces implements InterfazProcesoDeError {
 		n=nVeces
 		}
 		
-	override exec (Administrador adm){
+	override exec (Administrador adm, Proceso proceso){
 		while (n!=0) try{
 			listaDeProcesos.forEach[accion |adm.exec(accion)]
 			n=0
