@@ -3,7 +3,7 @@ package procesos
 import dominio.PerfilesDeUsuario.Administrador
 import observer.MailSender
 
-class EnviarMail extends Proceso{
+class EnviarMail implements InterfazProcesoDeError{
 Administrador usuario
 MailSender mailSender
 

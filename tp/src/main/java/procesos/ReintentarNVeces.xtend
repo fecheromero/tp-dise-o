@@ -4,7 +4,7 @@ import java.util.List
 import java.util.ArrayList
 import dominio.PerfilesDeUsuario.Administrador
 
-class ReintentarNVeces extends Proceso {
+class ReintentarNVeces implements InterfazProcesoDeError {
 	List<Proceso> listaDeProcesos=new ArrayList
 	Integer n
 	
