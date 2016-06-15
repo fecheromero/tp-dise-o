@@ -5,8 +5,9 @@ import dominio.Repositorio
 import dominio.locales.LocalComercial
 import excepciones.ProcesingException
 import java.util.HashSet
+import dominio.PerfilesDeUsuario.Administrador
 
-class ActualizarLocalesComerciales implements Proceso {
+class ActualizarLocalesComerciales extends Proceso {
 	
 	String text
 	
@@ -14,7 +15,7 @@ class ActualizarLocalesComerciales implements Proceso {
 		text=_text
 	}
 	
-	override def void exec (){
+	override def void exec (Administrador adm){
 		
 		val String[] separado=text.split(";")
 		val LocalComercial local=Repositorio.instance.puntos.filter[poi|poi.class==LocalComercial].

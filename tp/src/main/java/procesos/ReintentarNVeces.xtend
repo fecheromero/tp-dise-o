@@ -2,9 +2,9 @@ package procesos
 
 import java.util.List
 import java.util.ArrayList
+import dominio.PerfilesDeUsuario.Administrador
 
-
-class ReintentarNVeces implements Proceso {
+class ReintentarNVeces extends Proceso {
 	List<Proceso> listaDeProcesos=new ArrayList
 	Integer n
 	
@@ -13,9 +13,9 @@ class ReintentarNVeces implements Proceso {
 		n=nVeces
 		}
 		
-	override exec (){
+	override exec (Administrador adm){
 		while (n!=0) try{
-			listaDeProcesos.forEach[accion |accion.exec()]
+			listaDeProcesos.forEach[accion |accion.exec(adm)]
 			n=0
 			}
 		catch(Exception e){
