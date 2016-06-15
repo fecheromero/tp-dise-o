@@ -16,7 +16,7 @@ import org.junit.Assert
 import dominio.locales.LocalComercial
 import dominio.pois.ParadaDeColectivo
 import decorator.Terminal
-import decorator.BusquedaExecuter
+import org.uqbar.geodds.Point
 
 class TestBusqueda {
 	Busqueda busqueda
@@ -27,7 +27,7 @@ class TestBusqueda {
 	AdapterJson adapterJson
 	LocalComercial libreria
 	ParadaDeColectivo _114
-	BusquedaExecuter exec
+	Terminal terminal
 	@Before
 	def void SetUp(){
 		repo=Repositorio.getInstance
@@ -49,23 +49,23 @@ class TestBusqueda {
 		busqueda.agregarOrigen(repo)
 		busqueda.agregarOrigen(adapterCGP)
 		busqueda.agregarOrigen(adapterJson)
-		exec=new BusquedaExecuter("ejecutador",busqueda)
+		terminal=new Terminal("ejecutador",new Point(1,2),busqueda)
 		}
 		@Test
 		def void buscarUnObjetoDelRepoLocal(){
-			busqueda.buscar("libreria",exec)
-			Assert.assertSame(exec.rdo.head.nombre, "libreria don Pepito")
+			busqueda.buscar("libreria",terminal)
+			Assert.assertSame(terminal.rdo.head.nombre, "libreria don Pepito")
 		}
 		@Test
 		def void buscarUnObjetoDeLaInterfazDeCGPs(){
-						busqueda.buscar("Rivadavia 4577",exec)
+						busqueda.buscar("Rivadavia 4577",terminal)
 			
-			Assert.assertEquals(exec.rdo.head.direccion.callePrincipal,"Rivadavia 4577")
+			Assert.assertEquals(terminal.rdo.head.direccion.callePrincipal,"Rivadavia 4577")
 		}
 		@Test
 		def void buscarUnObjetoDeLaInterfazDeBancos(){
-						busqueda.buscar("Banco de la plaza",exec)
+						busqueda.buscar("Banco de la plaza",terminal)
 			
-			Assert.assertEquals(exec.rdo.head.nombre,"Banco de la Plaza Avellaneda")
+			Assert.assertEquals(terminal.rdo.head.nombre,"Banco de la Plaza Avellaneda")
 		}
 	}

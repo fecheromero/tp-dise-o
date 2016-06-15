@@ -36,17 +36,17 @@ class Registros {
 			]
 			rdo
 		}
-		def int cantDeRdosPorTerminal(BusquedaExecuter exec){
-			registros.filter[rdo| rdo.exec==exec].map[rdo| rdo.cantDeResultados].fold(0,[cant1,cant2|cant1+cant2])
+		def int cantDeRdosPorTerminal(Terminal terminal){
+			registros.filter[rdo| rdo.term==terminal].map[rdo| rdo.cantDeResultados].fold(0,[cant1,cant2|cant1+cant2])
 				
 		}
 		def HashMap<String,Integer> informeTotalesPorTerminal(){
 			val HashMap<String,Integer> rdo=new HashMap<String,Integer>
-			registros.map[registros|registros.exec].toSet.forEach[terminal| rdo.put(terminal.nombre,cantDeRdosPorTerminal(terminal))]
+			registros.map[registros|registros.term].toSet.forEach[terminal| rdo.put(terminal.nombre,cantDeRdosPorTerminal(terminal))]
 			rdo		
 		}
-		def List<Integer> parcialesPorTerminal(BusquedaExecuter exec){
-			registros.filter[rdo|rdo.exec==exec].map[rdo| rdo.cantDeResultados].toList
+		def List<Integer> parcialesPorTerminal(Terminal terminal){
+			registros.filter[rdo|rdo.term==terminal].map[rdo| rdo.cantDeResultados].toList
 		}
 		
 }

@@ -1,5 +1,5 @@
 package decorator
 
- class Administrador extends PerfilDeUsuario {
-	def recibe(){}
-	}
+class Administrador implements PerfilDeUsuario {
+	
+}

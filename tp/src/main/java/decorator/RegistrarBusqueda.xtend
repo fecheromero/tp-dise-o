@@ -8,18 +8,12 @@ class RegistrarBusqueda implements InterfazDeBusqueda {
 	Registros registros=Registros.getInstance
 	String fecha
 	InterfazDeBusqueda sig
-	new(){
-		sig=new Busqueda()
+	new(ControlarTardanza cont){
+		sig=cont
 	}
-	def override sig(){
-			sig
-		}
-		def override sig(InterfazDeBusqueda _sig){
-		sig=_sig
-	}
-	def  override buscar(String str,BusquedaExecuter exec){
-		sig.buscar(str,exec)
+	def  override buscar(String str,Terminal term){
+		sig.buscar(str,term)
 		fecha=new SimpleDateFormat("dd/MM/yyyy").format(new Date())
-		registros.create(new RegistroDeBusqueda(fecha,str,exec.rdo.size,exec,exec.tardanza))	
+		registros.create(new RegistroDeBusqueda(fecha,str,term.rdo.size,term,term.tardanza))	
 		}
 	}

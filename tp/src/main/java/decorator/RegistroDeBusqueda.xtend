@@ -8,13 +8,13 @@ class RegistroDeBusqueda {
   		String fecha
   		String fraseBuscada
   		int CantDeResultados
-  		BusquedaExecuter exec
+  		Terminal term
   		long demora
-  		new (String _fecha, String _fraseBuscada, int CantDeResultados, BusquedaExecuter _exec, long _demora){
+  		new (String _fecha, String _fraseBuscada, int CantDeResultados, Terminal _exec, long _demora){
   			fecha=_fecha
   			fraseBuscada=_fraseBuscada
   			cantDeResultados=CantDeResultados
-  			exec=_exec
+  			term=_exec
   			 demora=_demora
   		}	
 	}

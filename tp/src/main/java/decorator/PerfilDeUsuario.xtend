@@ -1,5 +1,5 @@
 package decorator
 
-class PerfilDeUsuario {
+interface PerfilDeUsuario {
 	
 }

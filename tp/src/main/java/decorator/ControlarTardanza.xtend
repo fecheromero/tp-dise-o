@@ -2,27 +2,22 @@ package decorator
 
 import dominio.Busqueda
 
-class ControlarTardanza implements InterfazDeBusqueda {
-	int tardanzaMax
-	Administrador admin
+class ControlarTardanza implements InterfazDeBusqueda{
 	InterfazDeBusqueda sig
-	new(int tard,Administrador _admin){
-		sig=new Busqueda()
+	MailSender mailSender
+	long tardanzaMax
+	Administrador admin
+	
+	new(Busqueda busq,MailSender mailS, long tard, Administrador _admin){
+		sig=busq
+		mailSender=mailS
 		tardanzaMax=tard
 		admin=_admin
 	}
-	def override sig(){
-			sig
-		}
-	def override sig(InterfazDeBusqueda _sig){
-		sig=_sig
-	}
-	def override buscar(String str,BusquedaExecuter exec){
-		sig.buscar(str,exec)
-	if(exec.tardanza>tardanzaMax){
-		sendMail(admin)
+	def override buscar(String str,Terminal term){
+		sig.buscar(str,term)
+	if(term.tardanza>tardanzaMax){
+		mailSender.sendMail(admin)
 	}	
-	}
-	def void sendMail(Administrador admin){
-	}
-	}
+}
+}
