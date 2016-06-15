@@ -10,7 +10,7 @@ class Administrador extends PerfilDeUsuario{
 	}
 
 	override estaHabilitadaLaAccion(Accion accion) {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+		true
 	}
 
 }
