@@ -1,6 +1,10 @@
 package fixtures
 
 import java.util.HashSet
+<<<<<<< HEAD:tp/src/test/java/fixtures/SucursalBancoFixture.xtend
+=======
+
+>>>>>>> ef9a3c59b0277b6eef8b193da7a85ab60801c05a:tp/src/test/java/fixtures/SucursalBancoFixture.xtend
 import dominio.tiempo.Turno
 import org.joda.time.LocalTime
 import dominio.tiempo.Horario
