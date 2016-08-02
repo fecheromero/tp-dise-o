@@ -5,7 +5,11 @@ import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors
 abstract class Accion {
-	
-	def void buscar(String frase, Long tiempo, int cantidad, PerfilDeUsuario usuario)
 
+	PerfilDeUsuario dueño	
+	def void buscar(String frase,Long tiempo,int cantidad)
+	
+	//def void buscar(String frase,Long tiempo,int cantidad,PerfilDeUsuario usuario)
+
+	
 }

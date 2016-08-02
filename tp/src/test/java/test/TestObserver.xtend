@@ -6,6 +6,7 @@ import dominio.PerfilesDeUsuario.Consulta
 import dominio.Repositorio
 import dominio.locales.LocalComercial
 import dominio.pois.ParadaDeColectivo
+import excepciones.NoValidoException
 import fixtures.CentroDTOFixture
 import fixtures.FixtureBancoJson
 import fixtures.LibreriaFixture
@@ -18,7 +19,6 @@ import observer.AlmacenamientoDeBusqueda
 import observer.BusquedasPorFecha
 import observer.DemoraBusqueda
 import observer.MailSender
-import observer.RepositorioDeConsultas
 import observer.ResultadosParciales
 import observer.ResultadosTotales
 import org.joda.time.LocalDate
@@ -30,11 +30,9 @@ import stubs.StubServicioExternoCGP
 
 import static org.mockito.Matchers.*
 import static org.mockito.Mockito.*
-import excepciones.NoValidoException
 
 class TestObserver {
 	Repositorio repo
-	RepositorioDeConsultas baseConsultas
 	LocalComercial libreria
 	ParadaDeColectivo _114
 	StubServicioExternoCGP stubServExtCGP
@@ -45,25 +43,33 @@ class TestObserver {
 	Consulta terminalFlorida
 	Consulta terminalTeatroColon
 	Administrador admin
-	Busqueda buscador
+	Busqueda buscadorAbasto
+	Busqueda buscadorFlorida
+	Busqueda buscadorColon
 
 	DemoraBusqueda observerDemora
 
-	AlmacenamientoDeBusqueda observerAlmacenamiento
+	AlmacenamientoDeBusqueda observerAlmacenamientoAbasto
+	AlmacenamientoDeBusqueda observerAlmacenamientoFlorida
+	AlmacenamientoDeBusqueda observerAlmacenamientoColon
 
 	MailSender mockedMailSender
-	BusquedasPorFecha observerBusqPorFecha
+	BusquedasPorFecha observerBusqPorFechaAbasto
+	BusquedasPorFecha observerBusqPorFechaFlorida
+	BusquedasPorFecha observerBusqPorFechaColon
 
-	ResultadosParciales observerResParc
+	ResultadosParciales observerResParcAbasto
+	ResultadosParciales observerResParcFlorida
+	ResultadosParciales observerResParcColon
 
-	ResultadosTotales observerResTot
+	ResultadosTotales observerResTotAbasto
+	ResultadosTotales observerResTotFlorida
+	ResultadosTotales observerResTotColon
 
 	@Before
 	def void setUp() {
 
-		repo = Repositorio.getInstance
-		baseConsultas = RepositorioDeConsultas.getInstance
-		baseConsultas.reset
+		repo = Repositorio.instance
 		libreria = new LibreriaFixture().obtenerLibreria
 		repo.create(libreria)
 		_114 = new ParadaColectivoFixture().obtenerParadaColectivo
@@ -78,56 +84,91 @@ class TestObserver {
 		stubServExtBanco.agregarBancoJson(new FixtureBancoJson().obtenerBancoJson2)
 		adapterJson = new AdapterJson
 		adapterJson.origen = stubServExtBanco
+		buscadorAbasto = new Busqueda()
+		buscadorAbasto.agregarOrigen(repo)
+		buscadorAbasto.agregarOrigen(adapterCGP)
+		buscadorAbasto.agregarOrigen(adapterJson)
 
-		buscador = new Busqueda()
-		buscador.agregarOrigen(repo)
-		buscador.agregarOrigen(adapterCGP)
-		buscador.agregarOrigen(adapterJson)
+		buscadorFlorida = new Busqueda()
+		buscadorFlorida.agregarOrigen(repo)
+		buscadorFlorida.agregarOrigen(adapterCGP)
+		buscadorFlorida.agregarOrigen(adapterJson)
+
+		buscadorColon = new Busqueda()
+		buscadorColon.agregarOrigen(repo)
+		buscadorColon.agregarOrigen(adapterCGP)
+		buscadorColon.agregarOrigen(adapterJson)
 
 		mockedMailSender = mock(typeof(MailSender))
 
-		observerAlmacenamiento = new AlmacenamientoDeBusqueda()
+		observerAlmacenamientoAbasto = new AlmacenamientoDeBusqueda()
+		observerAlmacenamientoFlorida = new AlmacenamientoDeBusqueda()
+		observerAlmacenamientoColon = new AlmacenamientoDeBusqueda()
 
 		observerDemora = new DemoraBusqueda(admin, 2)
 		observerDemora.mailSender = mockedMailSender
 
-		observerBusqPorFecha = new BusquedasPorFecha
+		observerBusqPorFechaAbasto = new BusquedasPorFecha(observerAlmacenamientoAbasto)
+		observerBusqPorFechaFlorida = new BusquedasPorFecha(observerAlmacenamientoFlorida)
+		observerBusqPorFechaColon = new BusquedasPorFecha(observerAlmacenamientoColon)
 
-		observerResParc = new ResultadosParciales
+		observerResParcColon = new ResultadosParciales(observerAlmacenamientoColon)
+		observerResParcAbasto = new ResultadosParciales(observerAlmacenamientoAbasto)
+		observerResParcFlorida = new ResultadosParciales(observerAlmacenamientoFlorida)
 
-		observerResTot = new ResultadosTotales
+		observerResTotFlorida = new ResultadosTotales(observerAlmacenamientoFlorida)
+		observerResTotAbasto = new ResultadosTotales(observerAlmacenamientoAbasto)
+		observerResTotColon = new ResultadosTotales(observerAlmacenamientoColon)
 
 		var accionesAbasto = new ArrayList<Accion>
 		accionesAbasto.addAll(
-			#[observerAlmacenamiento, observerDemora, observerBusqPorFecha, observerResParc, observerResTot])
+			#[observerAlmacenamientoAbasto, observerDemora, observerBusqPorFechaAbasto, observerResParcAbasto,
+				observerResTotAbasto])
 		var accionesFlorida = new ArrayList<Accion>
 		accionesFlorida.addAll(
-			#[observerAlmacenamiento, observerDemora, observerBusqPorFecha, observerResParc, observerResTot])
+			#[observerAlmacenamientoFlorida, observerDemora, observerBusqPorFechaFlorida, observerResParcFlorida,
+				observerResTotFlorida])
 		var accionesColon = new ArrayList<Accion>
 		accionesColon.addAll(
-			#[observerAlmacenamiento, observerDemora, observerBusqPorFecha, observerResParc, observerResTot])
+			#[observerAlmacenamientoColon, observerDemora, observerBusqPorFechaColon, observerResParcColon,
+				observerResTotColon])
 
-		buscador.busquedaObservers.addAll(accionesAbasto)
-
-		terminalAbasto = new Consulta("Abasto", buscador, accionesAbasto)
-		terminalFlorida = new Consulta("Florida", buscador, accionesFlorida)
-		terminalTeatroColon = new Consulta("Teatro Colon", buscador, accionesColon)
-
+		buscadorAbasto.busquedaObservers.addAll(accionesAbasto)
+		buscadorFlorida.busquedaObservers.addAll(accionesFlorida)
+		buscadorColon.busquedaObservers.addAll(accionesColon)
+		
+		terminalAbasto = new Consulta("Abasto", buscadorAbasto)
+		terminalFlorida = new Consulta("Florida", buscadorFlorida)
+		terminalTeatroColon = new Consulta("Teatro Colon", buscadorColon)
+		
+		observerBusqPorFechaAbasto.buscador=buscadorAbasto
+		observerBusqPorFechaFlorida.buscador=buscadorFlorida
+		observerBusqPorFechaColon.buscador=buscadorColon
+		
+		observerResParcColon.buscador=buscadorColon
+		observerResParcAbasto.buscador=buscadorAbasto
+		observerResParcFlorida.buscador=buscadorFlorida
+		
+		observerResTotFlorida.buscador=buscadorFlorida
+		observerResTotAbasto.buscador=buscadorAbasto
+		observerResTotColon.buscador=buscadorColon
+	
+	
 	}
 
 	@Test
 	def void testAgregarObservadores() {
-		buscador.eliminarObservador(observerDemora)
-		Assert.assertTrue(buscador.busquedaObservers.size == 4)
-		buscador.agregarObservador(observerDemora)
-		Assert.assertTrue(buscador.busquedaObservers.size == 5)
+		buscadorFlorida.eliminarObservador(observerDemora)
+		Assert.assertTrue(buscadorFlorida.busquedaObservers.size == 4)
+		buscadorFlorida.agregarObservador(observerDemora)
+		Assert.assertTrue(buscadorFlorida.busquedaObservers.size == 5)
 	}
 
 	@Test
 	def void testEliminarObservadores() {
-		buscador.eliminarObservador(observerDemora)
-		Assert.assertTrue(buscador.busquedaObservers.size == 4)
-		Assert.assertFalse(buscador.busquedaObservers.exists[unObservador|unObservador == observerDemora])
+		buscadorFlorida.eliminarObservador(observerDemora)
+		Assert.assertTrue(buscadorFlorida.busquedaObservers.size == 4)
+		Assert.assertFalse(buscadorFlorida.busquedaObservers.exists[unObservador|unObservador == observerDemora])
 	}
 
 	@Test
@@ -147,62 +188,61 @@ class TestObserver {
 
 	@Test
 	def void testReporteBusquedasPorFecha() {
-
 		terminalAbasto.buscar("_114")
 		terminalFlorida.buscar("libreria")
 		terminalAbasto.buscar("libreria")
-		var cantidad = observerBusqPorFecha.buscarPorFecha(new LocalDate(2016, 06, 15), terminalAbasto)
-		Assert.assertEquals(3, cantidad)
-
-		terminalTeatroColon.buscar("pepito")
-		var cantidad2 = observerBusqPorFecha.buscarPorFecha(new LocalDate(2016, 06, 15), terminalFlorida)
-		Assert.assertEquals(4, cantidad2)
-
+		var cantidad =observerBusqPorFechaAbasto.busquedasPorFecha(new LocalDate(2016, 05, 18))
+		Assert.assertEquals(2, cantidad)
 	}
-
-	@Test(expected=NoValidoException)
+	@Test
 	def void testDeshabilitarReporteBusquedasPorFecha() {
-
 		terminalAbasto.buscar("_114")
 		terminalFlorida.buscar("libreria")
 		terminalAbasto.buscar("libreria")
-		var cantidad = observerBusqPorFecha.buscarPorFecha(new LocalDate(2016, 06, 15), terminalAbasto)
-		Assert.assertEquals(3, cantidad)
-		terminalAbasto.deshabilitarAccion(observerBusqPorFecha)
-		observerBusqPorFecha.buscarPorFecha(new LocalDate(2016, 06, 15), terminalAbasto)
-
+		var cantidad = observerBusqPorFechaAbasto.busquedasPorFecha(new LocalDate(2016, 05, 18))
+		Assert.assertEquals(2, cantidad)
+		terminalAbasto.deshabilitarAccion(observerBusqPorFechaAbasto)
+		observerBusqPorFechaAbasto.busquedasPorFecha(new LocalDate(2016, 05, 18))
+		
 	}
-
-	@Test(expected=NoValidoException)
+	@Test
 	def void testDeshabilitarAccionYaDeshabilitada() {
 		terminalAbasto.buscar("_114")
 		terminalFlorida.buscar("libreria")
 		terminalAbasto.buscar("libreria")
-		var cantidad = observerBusqPorFecha.buscarPorFecha(new LocalDate(2016, 06, 15), terminalAbasto)
-		Assert.assertEquals(3, cantidad)
-		terminalAbasto.deshabilitarAccion(observerBusqPorFecha)
-		terminalAbasto.deshabilitarAccion(observerBusqPorFecha)
+		var cantidad = observerAlmacenamientoAbasto.cantidadDeBusquedasPorFecha(new LocalDate(2016, 05, 18))
+		Assert.assertEquals(2, cantidad)
+		terminalAbasto.deshabilitarAccion(observerBusqPorFechaAbasto)
+		terminalAbasto.deshabilitarAccion(observerBusqPorFechaAbasto)
 
 	}
 
-	@Test(expected=NoValidoException)
+	@Test
 	def void testErrorParaHabilitarAccionYaHabilitada() {
 		terminalAbasto.buscar("_114")
 		terminalFlorida.buscar("libreria")
 		terminalAbasto.buscar("libreria")
-		var cantidad = observerBusqPorFecha.buscarPorFecha(new LocalDate(2016, 06, 15), terminalAbasto)
-		Assert.assertEquals(3, cantidad)
-		terminalAbasto.habilitarAccion(observerBusqPorFecha)
+		var cantidad = observerAlmacenamientoAbasto.cantidadDeBusquedasPorFecha(new LocalDate(2016, 05, 18))
+		Assert.assertEquals(2, cantidad)
+		terminalAbasto.habilitarAccion(observerBusqPorFechaAbasto)
 
+	}
+
+	@Test
+	def void testCantidadDeResultadosParcialesPorTerminal() {
+		terminalAbasto.buscar("libreria")
+		terminalAbasto.buscar("banco")
+		terminalFlorida.buscar("_114")
+		terminalFlorida.buscar("libreria")
+		terminalAbasto.buscar("_114")
+		var cantidadDeAbasto = observerAlmacenamientoAbasto.resultadosParcialesPorTerminal()
+		Assert.assertEquals(#[10, 10, 10], cantidadDeAbasto)
 	}
 
 	@Test
 	def void testVerificarQueSeDeshabilito() {
 		terminalFlorida.deshabilitarAccion(observerDemora)
 		Assert.assertFalse(terminalFlorida.estaHabilitadaLaAccion(observerDemora))
-
-		terminalTeatroColon.deshabilitarAccion(observerResParc)
-		Assert.assertFalse(terminalTeatroColon.estaHabilitadaLaAccion(observerResParc))
 	}
 
 	@Test
@@ -214,89 +254,47 @@ class TestObserver {
 	}
 
 	@Test
-	def void testCantidadDeResultadosParcialesPorTerminal() {
-		terminalAbasto.buscar("libreria")
-		terminalAbasto.buscar("banco")
-		terminalFlorida.buscar("_114")
-		terminalFlorida.buscar("libreria")
-		terminalAbasto.buscar("_114")
-		terminalTeatroColon.buscar("pepito")
-		var cantidadDeAbasto = observerResParc.resultadosParciales(terminalAbasto)
-		Assert.assertEquals(#[10, 10, 10], cantidadDeAbasto)
-
-		var cantidadDeFlorida = observerResParc.resultadosParciales(terminalFlorida)
-		Assert.assertEquals(#[10, 10], cantidadDeFlorida)
-
-		var cantidadDeColon = observerResParc.resultadosParciales(terminalTeatroColon)
-		Assert.assertEquals(#[10], cantidadDeColon)
-	}
-
-	@Test
 	def void testCantidadDeResultadosTotalesPorTerminal() {
 		terminalAbasto.buscar("libreria")
 		terminalAbasto.buscar("banco")
-		terminalAbasto.buscar("_114")
 		terminalFlorida.buscar("_114")
 		terminalFlorida.buscar("libreria")
-		terminalTeatroColon.buscar("pepito")
-
-		var cantidadTotalDeAbasto = observerResTot.resultadosTotales(terminalAbasto)
+		terminalAbasto.buscar("_114")
+		var cantidadTotalDeAbasto = observerAlmacenamientoAbasto.resultadosTotalesPorTerminal()
 		Assert.assertEquals(30, cantidadTotalDeAbasto)
-
-		var cantidadDeFlorida = observerResTot.resultadosTotales(terminalFlorida)
-		Assert.assertEquals(20, cantidadDeFlorida)
-
-		var cantidadDeColon = observerResTot.resultadosTotales(terminalTeatroColon)
-		Assert.assertEquals(10, cantidadDeColon)
 	}
 
 	@Test
-	def void testDesactivaryReactivarAlmacenamiento() {
+	def void testDesactivarAlmacenamiento() {
 		terminalAbasto.buscar("_114")
-		terminalAbasto.buscar("libreria")
-
-		var cantidad = observerBusqPorFecha.buscarPorFecha(new LocalDate(2016, 06, 15), terminalAbasto)
-		Assert.assertEquals(2, cantidad)
-
-		terminalAbasto.deshabilitarAccion(observerAlmacenamiento)
-		Assert.assertFalse(terminalAbasto.estaHabilitadaLaAccion(observerAlmacenamiento))
-		
-		terminalAbasto.buscar("pepe")
-		var cantidad2 = observerBusqPorFecha.buscarPorFecha(new LocalDate(2016, 06, 15), terminalAbasto)
-		Assert.assertEquals(2, cantidad2)
-
-		terminalAbasto.habilitarAccion(observerAlmacenamiento)
-		terminalFlorida.buscar("pepe")
-		var cantidad3 = observerBusqPorFecha.buscarPorFecha(new LocalDate(2016, 06, 15), terminalAbasto)
-		Assert.assertEquals(3, cantidad3)
-	}
-
-	@Test(expected=NoValidoException)
-	def void testErrorCantidadDeResultadosTotalesPorTerminalDeshabilitado() {
-		terminalAbasto.buscar("libreria")
-		terminalAbasto.buscar("banco")
-		terminalAbasto.buscar("_114")
-
-		var cantidadTotalDeAbasto = observerResTot.resultadosTotales(terminalAbasto)
-		Assert.assertEquals(30, cantidadTotalDeAbasto)
-		
-		terminalAbasto.deshabilitarAccion(observerResTot)
-		
-		observerResTot.resultadosTotales(terminalAbasto)		
-
-	}
-	
-	@Test(expected=NoValidoException)
-	def void testErrorCantidadDeResultadosParcialesPorTerminalDeshabilitado() {
-		terminalFlorida.buscar("_114")
 		terminalFlorida.buscar("libreria")
-		
-		var cantidadDeFlorida = observerResParc.resultadosParciales(terminalFlorida)
-		Assert.assertEquals(#[10, 10], cantidadDeFlorida)
-				
-		terminalFlorida.deshabilitarAccion(observerResParc)
-		
-		observerResParc.resultadosParciales(terminalFlorida)		
+		var cantidad = observerAlmacenamientoAbasto.cantidadDeBusquedasPorFecha(new LocalDate(2016, 05, 18))
+		Assert.assertEquals(1, cantidad)
+		terminalAbasto.deshabilitarAccion(observerAlmacenamientoAbasto)
+		terminalAbasto.buscar("_114")
+		terminalFlorida.buscar("libreria")
+		cantidad = observerAlmacenamientoAbasto.cantidadDeBusquedasPorFecha(new LocalDate(2016, 05, 18))
+		Assert.assertEquals(1, cantidad)
+
+	}
+
+	@Test
+	def void testActivarAlmacenamiento() {
+		terminalAbasto.buscar("_114")
+		terminalFlorida.buscar("libreria")
+		terminalAbasto.buscar("_114")
+		var cantidad = observerAlmacenamientoAbasto.cantidadDeBusquedasPorFecha(new LocalDate(2016, 05, 18))
+		Assert.assertEquals(2, cantidad)
+		terminalAbasto.deshabilitarAccion(observerAlmacenamientoAbasto)
+		terminalAbasto.buscar("_114")
+		terminalFlorida.buscar("libreria")
+		cantidad = observerAlmacenamientoAbasto.cantidadDeBusquedasPorFecha(new LocalDate(2016, 05, 18))
+		Assert.assertEquals(2, cantidad)
+		terminalAbasto.habilitarAccion(observerAlmacenamientoAbasto)
+		terminalAbasto.buscar("_114")
+		terminalFlorida.buscar("libreria")
+		cantidad = observerAlmacenamientoAbasto.cantidadDeBusquedasPorFecha(new LocalDate(2016, 05, 18))
+		Assert.assertEquals(3, cantidad)
 
 	}
 }

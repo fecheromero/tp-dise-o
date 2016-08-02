@@ -9,9 +9,6 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import stubs.StubServicioExternoBanco
-import fixtures.FixtureBancoJson
-import java.util.List
-import dominio.pois.PuntoDeInteres
 
 public class TestAdapterJson {
 

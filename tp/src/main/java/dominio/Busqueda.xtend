@@ -1,6 +1,5 @@
 package dominio
 
-
 import dominio.pois.PuntoDeInteres
 import java.util.List
 import java.util.HashSet
@@ -16,14 +15,17 @@ class Busqueda {
 
 	HashSet<OrigenDePois> origenes = new HashSet<OrigenDePois>
 
-	def List<PuntoDeInteres> buscar(String str, PerfilDeUsuario user) {
-		
+
+	def List<PuntoDeInteres> buscar(String str) {
 		var tiempoInicio = System.currentTimeMillis()
 		val lista = Buscador.getInstance.mostrarPrimeros(str, origenes.map[origen|origen.buscar(str)].flatten.toList,
 			10)
 		var tiempoFin = System.currentTimeMillis()
 		val tiempo = tiempoFin - tiempoInicio
-		busquedaObservers.forEach[observador|observador.buscar(str,tiempo,lista.length,user )]
+//		busquedaObservers.forEach[observador|observador.tiempoDeEjecucion(tiempo)]
+//		busquedaObservers.forEach[observador|observador.cantidadDeResultados(lista.length)]
+//		busquedaObservers.forEach[observador|observador.ejecutadoPor(usuario)]
+		busquedaObservers.forEach[observador|observador.buscar(str,tiempo,lista.length)]
 		return lista
 	}
 

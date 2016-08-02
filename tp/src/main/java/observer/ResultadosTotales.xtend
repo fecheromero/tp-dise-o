@@ -1,25 +1,34 @@
 package observer
 
-import dominio.PerfilesDeUsuario.PerfilDeUsuario
+
+import dominio.Busqueda
 import excepciones.NoValidoException
 import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors
 class ResultadosTotales extends Accion {
-	
-	override buscar(String frase, Long tiempo, int cantidad, PerfilDeUsuario user) {}
 
-	def int resultadosTotales(PerfilDeUsuario user) {
-		if (user.estaHabilitadaLaAccion(this)) {
-			return resultadosTotalesPorTerminal(user)
-		} else {
-			throw new NoValidoException("Esta accion está deshabilitada")
-		}
-
+	AlmacenamientoDeBusqueda almacenamientoDeTerminal
+	Busqueda buscador
+	new(AlmacenamientoDeBusqueda almacenamiento) {
+		almacenamientoDeTerminal = almacenamiento
 	}
-def int resultadosTotalesPorTerminal( PerfilDeUsuario terminal) {
-  	var listaDeBusquedasDeTerminal = RepositorioDeConsultas.getInstance.listaDeBusquedas.filter [unaBusqueda|
-			unaBusqueda.usuario == terminal	]
-	return listaDeBusquedasDeTerminal.fold(0,[acum,resultado|acum+resultado.cantidadDeResultados]) 
- }
- }
+
+	override buscar(String frase, Long tiempo, int cantidad) {
+	}
+
+	def int resultadosTotales() {
+		if(buscador.busquedaObservers.contains(this)){
+		almacenamientoDeTerminal.resultadosTotalesPorTerminal
+		}else{throw new NoValidoException("Esta accion está deshabilitada")}
+	}
+}
+/*override buscar(String frase, Long tiempo, int cantidad, PerfilDeUsuario usuario) {
+ * 	}
+
+ * 	def int resultadosTotales() {
+ * 		if (dueño.estaHabilitadaLaAccion(this)) {
+ * 			almacenamientoDeTerminal.resultadosTotalesPorTerminal
+ * 		} else {
+ * 			throw new NoValidoException("Esta accion ya está habilitada")
+ } */

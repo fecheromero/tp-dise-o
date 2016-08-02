@@ -1,21 +1,21 @@
 package test
 
-import org.junit.Before
+
+import dominio.Busqueda
 import dominio.Repositorio
-import fixtures.LibreriaFixture
-import fixtures.ParadaColectivoFixture
-import stubs.StubServicioExternoCGP
-import fixtures.CentroDTOFixture
-import interfazAServiciosExternos.AdapterCGP
-import interfazAServiciosExternos.AdapterJson
-import stubs.StubServicioExternoBanco
-import fixtures.FixtureBancoJson
-import org.junit.Test
-import org.junit.Assert
 import dominio.locales.LocalComercial
 import dominio.pois.ParadaDeColectivo
-import dominio.Busqueda
-import dominio.PerfilesDeUsuario.Consulta
+import fixtures.CentroDTOFixture
+import fixtures.FixtureBancoJson
+import fixtures.LibreriaFixture
+import fixtures.ParadaColectivoFixture
+import interfazAServiciosExternos.AdapterCGP
+import interfazAServiciosExternos.AdapterJson
+import org.junit.Assert
+import org.junit.Before
+import org.junit.Test
+import stubs.StubServicioExternoBanco
+import stubs.StubServicioExternoCGP
 
 class TestBusqueda {
 	Busqueda busqueda
@@ -26,8 +26,7 @@ class TestBusqueda {
 	AdapterJson adapterJson
 	LocalComercial libreria
 	ParadaDeColectivo _114
-	Consulta terminalAbasto
-	
+
 	@Before
 	def void SetUp(){
 		repo=Repositorio.getInstance
@@ -52,14 +51,15 @@ class TestBusqueda {
 		}
 		@Test
 		def void buscarUnObjetoDelRepoLocal(){
-			Assert.assertSame(busqueda.buscar("libreria" , terminalAbasto).head.nombre, "libreria don Pepito")
+
+			Assert.assertSame(busqueda.buscar("libreria").head.nombre, "libreria don Pepito")
 		}
 		@Test
 		def void buscarUnObjetoDeLaInterfazDeCGPs(){
-			Assert.assertEquals(busqueda.buscar("Rivadavia 4577",terminalAbasto).head.direccion.callePrincipal,"Rivadavia 4577")
+			Assert.assertEquals(busqueda.buscar("Rivadavia 4577").head.direccion.callePrincipal,"Rivadavia 4577")
 		}
 		@Test
 		def void buscarUnObjetoDeLaInterfazDeBancos(){
-			Assert.assertEquals(busqueda.buscar("Banco de la plaza",terminalAbasto).head.nombre,"Banco de la Plaza Avellaneda")
-}
+			Assert.assertEquals(busqueda.buscar("Banco de la plaza").head.nombre,"Banco de la Plaza Avellaneda")
+		}
 	}
