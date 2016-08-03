@@ -7,9 +7,10 @@ import org.eclipse.xtend.lib.annotations.Accessors
 class RepositorioProcesos {
 @Accessors
 	
-	List<ResultadosPorProceso> listaDeResultados=new ArrayList
+	List<ResultadosPorProceso> listaDeResultados=new ArrayList<ResultadosPorProceso>
+	
 	private static RepositorioProcesos uno=new RepositorioProcesos()
-		private new( ){}
+		private new(){}
 		def public static RepositorioProcesos getInstance(){
 			uno
 		}

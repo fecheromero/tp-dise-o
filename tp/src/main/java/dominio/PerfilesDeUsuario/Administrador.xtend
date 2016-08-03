@@ -18,8 +18,7 @@ class Administrador extends PerfilDeUsuario {
 	}
 
 	override estaHabilitadaLaAccion(Accion accion) {
-
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+		return listaDeAcciones.contains(accion)
 	}
 
 	def exec(Proceso proceso) {

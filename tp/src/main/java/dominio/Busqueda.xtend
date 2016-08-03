@@ -15,17 +15,16 @@ class Busqueda {
 
 	HashSet<OrigenDePois> origenes = new HashSet<OrigenDePois>
 
-
-	def List<PuntoDeInteres> buscar(String str) {
+	def List<PuntoDeInteres> buscar(String str, PerfilDeUsuario user) {
+		
 		var tiempoInicio = System.currentTimeMillis()
 		val lista = Buscador.getInstance.mostrarPrimeros(str, origenes.map[origen|origen.buscar(str)].flatten.toList,
 			10)
 		var tiempoFin = System.currentTimeMillis()
 		val tiempo = tiempoFin - tiempoInicio
-//		busquedaObservers.forEach[observador|observador.tiempoDeEjecucion(tiempo)]
-//		busquedaObservers.forEach[observador|observador.cantidadDeResultados(lista.length)]
-//		busquedaObservers.forEach[observador|observador.ejecutadoPor(usuario)]
-		busquedaObservers.forEach[observador|observador.buscar(str,tiempo,lista.length)]
+
+		busquedaObservers.forEach[observador|observador.buscar(str,tiempo,lista.length,user )]
+
 		return lista
 	}
 
