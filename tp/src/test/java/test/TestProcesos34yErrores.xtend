@@ -191,15 +191,14 @@ class TestProcesos34yErrores {
 
 	@Test
 	def void testAlmacenamientoDeProcesoConError() {
-		try {
+		
 			reset(mockedMailSender)
 			agregarAcciones = new AgregarAccionesUsuarios(#[terminalAbasto, terminalFlorida], #[observerDemora])
-			agregarAcciones.exec(admin)
-		} catch (Exception e) {
-			verify(mockedMailSender, times(1)).send(any(typeof(Administrador)))
+			admin.exec(agregarAcciones)
 			Assert.assertTrue(repoProcesos.listaDeResultados.size == 1)
+			verify(mockedMailSender, times(1)).send(any(typeof(Administrador)))
 			Assert.assertTrue(repoProcesos.listaDeResultados.get(0).resultado == "error")
-		}
+		
 	}
 
 }
