@@ -30,7 +30,7 @@ class Administrador extends PerfilDeUsuario {
 			RepositorioProcesos.getInstance.agregarResultado(resultado)
 		} catch (Exception e) {
 			val fin2 = new LocalDateTime
-			var resultado = new ResultadosPorProceso(inicio, fin2, proceso, this, "error",
+			val resultado = new ResultadosPorProceso(inicio, fin2, proceso, this, "error",
 				"error en " + proceso.toString)
 			RepositorioProcesos.getInstance.agregarResultado(resultado)
 			accionDeError.exec(this, proceso)

@@ -124,7 +124,7 @@ class TestProcesos34yErrores {
 		 * 		observerResTotAbasto.buscador = buscadorAbasto
 		 * 		observerResTotColon.buscador = buscadorColon
 		 */
-		agregarAcciones = new AgregarAccionesUsuarios(#[terminalAbasto, terminalFlorida], #[observerDemora2])
+		agregarAcciones = new AgregarAccionesUsuarios(#[terminalAbasto], #[observerDemora2])
 		agregarAcciones2 = new AgregarAccionesUsuarios(#[terminalTeatroColon, terminalFlorida], #[observerDemora2])
 		procesoMultiple = new ProcesosMultiples(#[agregarAcciones, agregarAcciones2])
 		admin = new Administrador(buscador)
@@ -134,7 +134,6 @@ class TestProcesos34yErrores {
 		admin.accionDeError = enviarMail
 		repoProcesos = RepositorioProcesos.getInstance
 		repoProcesos.reset
-//		admin.repositorio = repoProcesos
 	}
 
 	@Test
@@ -184,9 +183,12 @@ class TestProcesos34yErrores {
 
 	@Test
 	def void testAlmacenamientoDeProcesoOK() {
+		
 		admin.exec(agregarAcciones)
 		Assert.assertTrue(repoProcesos.listaDeResultados.size == 1)
-		Assert.assertTrue(repoProcesos.listaDeResultados.get(0).resultado == "ok")
+//		Assert.assertTrue(terminalAbasto.listaDeAcciones.contains(observerDemora2))
+		Assert.assertTrue(repoProcesos.listaDeResultados.get(0).resultado=="ok")
+		Assert.assertTrue(repoProcesos.listaDeResultados.size == 1)
 	}
 
 	@Test
