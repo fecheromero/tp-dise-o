@@ -10,7 +10,9 @@ import dominio.tiempo.Dia
 import com.google.common.collect.Sets
 import dependencias.Validable
 import dependencias.Validator
+import org.uqbar.commons.utils.Observable
 
+@Observable
 @Accessors
 public abstract class PuntoDeInteres implements Validator {
 	private int id
