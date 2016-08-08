@@ -16,6 +16,7 @@ import org.uqbar.arena.widgets.tables.Column
 
 class BusquedaWindow extends SimpleWindow<BusquedaModel>{
 	
+	
 	new(WindowOwner parent) {
 		super(parent,new BusquedaModel)
 		
@@ -35,7 +36,7 @@ class BusquedaWindow extends SimpleWindow<BusquedaModel>{
 		 val panelPrincipal=new Panel(mainPanel)=>[
 		 	layout=new ColumnLayout(2)
 		 	]
-		 	val panelIzquierdo=new Panel(panelPrincipal)
+		 	 var Panel panelIzquierdo=new Panel(panelPrincipal)
 		 		new Label(panelIzquierdo).text="Criterio de busqueda"
 		 		new TextBox(panelIzquierdo)=>[
 		 			value<=>"criterio"
@@ -43,8 +44,11 @@ class BusquedaWindow extends SimpleWindow<BusquedaModel>{
 	
 		 	val  panelDerecho=new Panel(panelPrincipal)=>[
 		 		layout=new HorizontalLayout]
-		 		new Button(panelDerecho).caption = "Agregar"
-		 		
+		 		new Button(panelDerecho)=>[
+		 		caption = "Agregar"
+		 		onClick([|])
+		 		disableOnError
+		 		]
 		 		new Button(panelDerecho)=>[
 		 			caption = "Buscar"
 		 			onClick([|modelObject.search
@@ -72,6 +76,8 @@ class BusquedaWindow extends SimpleWindow<BusquedaModel>{
 			value <=> "poiSeleccionado"
 		]	
 		this.describeResultsGrid(table)}
+		
+
 	override protected addActions(Panel actionsPanel) {}
 	
 	
