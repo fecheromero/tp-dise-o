@@ -18,7 +18,7 @@ class Administrador extends PerfilDeUsuario {
 	}
 
 	override estaHabilitadaLaAccion(Accion accion) {
-		true
+		return listaDeAcciones.contains(accion)
 	}
 
 	def exec(Proceso proceso) {
@@ -26,11 +26,11 @@ class Administrador extends PerfilDeUsuario {
 		try {
 			val fin1 = new LocalDateTime
 			proceso.exec(this)
-			var resultado = new ResultadosPorProceso(inicio, fin1, proceso, this, "ok", "correcto")
+			val resultado = new ResultadosPorProceso(inicio, fin1, proceso, this, "ok", "correcto")
 			RepositorioProcesos.getInstance.agregarResultado(resultado)
 		} catch (Exception e) {
 			val fin2 = new LocalDateTime
-			var resultado = new ResultadosPorProceso(inicio, fin2, proceso, this, "error",
+			val resultado = new ResultadosPorProceso(inicio, fin2, proceso, this, "error",
 				"error en " + proceso.toString)
 			RepositorioProcesos.getInstance.agregarResultado(resultado)
 			accionDeError.exec(this, proceso)

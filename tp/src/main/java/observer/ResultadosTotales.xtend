@@ -6,7 +6,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors
 class ResultadosTotales extends Accion {
-	
+
 	override buscar(String frase, Long tiempo, int cantidad, PerfilDeUsuario user) {}
 
 	def int resultadosTotales(PerfilDeUsuario user) {
@@ -17,9 +17,11 @@ class ResultadosTotales extends Accion {
 		}
 
 	}
-def int resultadosTotalesPorTerminal( PerfilDeUsuario terminal) {
-  	var listaDeBusquedasDeTerminal = RepositorioDeConsultas.getInstance.listaDeBusquedas.filter [unaBusqueda|
-			unaBusqueda.usuario == terminal	]
-	return listaDeBusquedasDeTerminal.fold(0,[acum,resultado|acum+resultado.cantidadDeResultados]) 
- }
- }
+
+	def int resultadosTotalesPorTerminal(PerfilDeUsuario terminal) {
+		var listaDeBusquedasDeTerminal = RepositorioDeConsultas.getInstance.listaDeBusquedas.filter [unaBusqueda|
+			unaBusqueda.usuario == terminal
+		]
+		return listaDeBusquedasDeTerminal.fold(0, [acum, resultado|acum + resultado.cantidadDeResultados])
+	}
+}

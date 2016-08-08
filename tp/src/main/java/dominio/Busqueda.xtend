@@ -1,6 +1,5 @@
 package dominio
 
-
 import dominio.pois.PuntoDeInteres
 import java.util.List
 import java.util.HashSet
@@ -23,7 +22,9 @@ class Busqueda {
 			10)
 		var tiempoFin = System.currentTimeMillis()
 		val tiempo = tiempoFin - tiempoInicio
+
 		busquedaObservers.forEach[observador|observador.buscar(str,tiempo,lista.length,user )]
+
 		return lista
 	}
 

@@ -60,6 +60,4 @@ class Repositorio implements OrigenDePois {
 		listaBancos.forEach[banco | this.createOrUpdate(banco)]
 	}
  */
-
-
 }

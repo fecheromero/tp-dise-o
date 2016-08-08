@@ -30,6 +30,7 @@ import stubs.StubServicioExternoCGP
 
 import static org.mockito.Matchers.*
 import static org.mockito.Mockito.*
+
 import excepciones.NoValidoException
 
 class TestObserver {
@@ -45,6 +46,7 @@ class TestObserver {
 	Consulta terminalFlorida
 	Consulta terminalTeatroColon
 	Administrador admin
+
 	Busqueda buscador
 
 	DemoraBusqueda observerDemora
@@ -60,6 +62,7 @@ class TestObserver {
 
 	@Before
 	def void setUp() {
+
 
 		repo = Repositorio.getInstance
 		baseConsultas = RepositorioDeConsultas.getInstance
@@ -117,6 +120,7 @@ class TestObserver {
 
 	@Test
 	def void testAgregarObservadores() {
+
 		buscador.eliminarObservador(observerDemora)
 		Assert.assertTrue(buscador.busquedaObservers.size == 4)
 		buscador.agregarObservador(observerDemora)
@@ -125,6 +129,7 @@ class TestObserver {
 
 	@Test
 	def void testEliminarObservadores() {
+
 		buscador.eliminarObservador(observerDemora)
 		Assert.assertTrue(buscador.busquedaObservers.size == 4)
 		Assert.assertFalse(buscador.busquedaObservers.exists[unObservador|unObservador == observerDemora])
@@ -147,15 +152,14 @@ class TestObserver {
 
 	@Test
 	def void testReporteBusquedasPorFecha() {
-
 		terminalAbasto.buscar("_114")
 		terminalFlorida.buscar("libreria")
 		terminalAbasto.buscar("libreria")
-		var cantidad = observerBusqPorFecha.buscarPorFecha(new LocalDate(2016, 06, 15), terminalAbasto)
+		var cantidad = observerBusqPorFecha.buscarPorFecha(new LocalDate(), terminalAbasto)
 		Assert.assertEquals(3, cantidad)
 
 		terminalTeatroColon.buscar("pepito")
-		var cantidad2 = observerBusqPorFecha.buscarPorFecha(new LocalDate(2016, 06, 15), terminalFlorida)
+		var cantidad2 = observerBusqPorFecha.buscarPorFecha(new LocalDate(), terminalFlorida)
 		Assert.assertEquals(4, cantidad2)
 
 	}
@@ -166,10 +170,10 @@ class TestObserver {
 		terminalAbasto.buscar("_114")
 		terminalFlorida.buscar("libreria")
 		terminalAbasto.buscar("libreria")
-		var cantidad = observerBusqPorFecha.buscarPorFecha(new LocalDate(2016, 06, 15), terminalAbasto)
+		var cantidad = observerBusqPorFecha.buscarPorFecha(new LocalDate(), terminalAbasto)
 		Assert.assertEquals(3, cantidad)
 		terminalAbasto.deshabilitarAccion(observerBusqPorFecha)
-		observerBusqPorFecha.buscarPorFecha(new LocalDate(2016, 06, 15), terminalAbasto)
+		observerBusqPorFecha.buscarPorFecha(new LocalDate(), terminalAbasto)
 
 	}
 
@@ -178,11 +182,10 @@ class TestObserver {
 		terminalAbasto.buscar("_114")
 		terminalFlorida.buscar("libreria")
 		terminalAbasto.buscar("libreria")
-		var cantidad = observerBusqPorFecha.buscarPorFecha(new LocalDate(2016, 06, 15), terminalAbasto)
+		var cantidad = observerBusqPorFecha.buscarPorFecha(new LocalDate(), terminalAbasto)
 		Assert.assertEquals(3, cantidad)
 		terminalAbasto.deshabilitarAccion(observerBusqPorFecha)
 		terminalAbasto.deshabilitarAccion(observerBusqPorFecha)
-
 	}
 
 	@Test(expected=NoValidoException)
@@ -190,7 +193,8 @@ class TestObserver {
 		terminalAbasto.buscar("_114")
 		terminalFlorida.buscar("libreria")
 		terminalAbasto.buscar("libreria")
-		var cantidad = observerBusqPorFecha.buscarPorFecha(new LocalDate(2016, 06, 15), terminalAbasto)
+
+		var cantidad = observerBusqPorFecha.buscarPorFecha(new LocalDate(), terminalAbasto)
 		Assert.assertEquals(3, cantidad)
 		terminalAbasto.habilitarAccion(observerBusqPorFecha)
 
@@ -200,7 +204,6 @@ class TestObserver {
 	def void testVerificarQueSeDeshabilito() {
 		terminalFlorida.deshabilitarAccion(observerDemora)
 		Assert.assertFalse(terminalFlorida.estaHabilitadaLaAccion(observerDemora))
-
 		terminalTeatroColon.deshabilitarAccion(observerResParc)
 		Assert.assertFalse(terminalTeatroColon.estaHabilitadaLaAccion(observerResParc))
 	}
@@ -214,6 +217,7 @@ class TestObserver {
 	}
 
 	@Test
+
 	def void testCantidadDeResultadosParcialesPorTerminal() {
 		terminalAbasto.buscar("libreria")
 		terminalAbasto.buscar("banco")
@@ -255,19 +259,19 @@ class TestObserver {
 		terminalAbasto.buscar("_114")
 		terminalAbasto.buscar("libreria")
 
-		var cantidad = observerBusqPorFecha.buscarPorFecha(new LocalDate(2016, 06, 15), terminalAbasto)
+		var cantidad = observerBusqPorFecha.buscarPorFecha(new LocalDate(), terminalAbasto)
 		Assert.assertEquals(2, cantidad)
 
 		terminalAbasto.deshabilitarAccion(observerAlmacenamiento)
 		Assert.assertFalse(terminalAbasto.estaHabilitadaLaAccion(observerAlmacenamiento))
 		
 		terminalAbasto.buscar("pepe")
-		var cantidad2 = observerBusqPorFecha.buscarPorFecha(new LocalDate(2016, 06, 15), terminalAbasto)
+		var cantidad2 = observerBusqPorFecha.buscarPorFecha(new LocalDate(), terminalAbasto)
 		Assert.assertEquals(2, cantidad2)
 
 		terminalAbasto.habilitarAccion(observerAlmacenamiento)
 		terminalFlorida.buscar("pepe")
-		var cantidad3 = observerBusqPorFecha.buscarPorFecha(new LocalDate(2016, 06, 15), terminalAbasto)
+		var cantidad3 = observerBusqPorFecha.buscarPorFecha(new LocalDate(), terminalAbasto)
 		Assert.assertEquals(3, cantidad3)
 	}
 

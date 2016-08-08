@@ -10,6 +10,7 @@ import dominio.tiempo.Dia
 import com.google.common.collect.Sets
 import dependencias.Validable
 import dependencias.Validator
+
 @Accessors
 public abstract class PuntoDeInteres implements Validator {
 	private int id
