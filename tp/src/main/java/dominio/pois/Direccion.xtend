@@ -27,6 +27,7 @@ class Direccion implements Validator {
 	String piso
 	String departamento
 	String unidad
+	String direccionS
 	Tageador tag =Tageador.getInstance
 
 	new(String callePrincipal, String numero, String[] entre, Point coordenadas, String localidad, String provincia,
@@ -42,6 +43,7 @@ class Direccion implements Validator {
 		this.piso = piso
 		this.departamento = departamento
 		this.unidad = unidad
+		direccionS=callePrincipal.concat(" ").concat(numero)
 	}
 
 	def String listaDeTags() {

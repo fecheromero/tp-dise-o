@@ -9,35 +9,71 @@ import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.tables.Table
 import dominio.pois.PuntoDeInteres
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
+import org.uqbar.arena.windows.SimpleWindow
+import org.uqbar.arena.windows.WindowOwner
+import org.uqbar.arena.widgets.TextBox
+import org.uqbar.arena.widgets.tables.Column
 
-class BusquedaWindow extends MainWindow<BusquedaModel>{
+class BusquedaWindow extends SimpleWindow<BusquedaModel>{
 	
-	new() {
-		super(new BusquedaModel)
+	new(WindowOwner parent) {
+		super(parent,new BusquedaModel)
+		
 	
 	}
-	 override createContents(Panel mainPanel){
+		override def createMainTemplate(Panel mainPanel) {
+		title = "Buscador de Pois"
+		taskDescription = "Ingrese los parámetros de búsqueda"
+
+		super.createMainTemplate(mainPanel)
+		this.createResultsGrid(mainPanel)
+		}
+
+	
+	 override createFormPanel(Panel mainPanel){
 		this.title="Buscador"
 		 val panelPrincipal=new Panel(mainPanel)=>[
 		 	layout=new ColumnLayout(2)
 		 	]
-		 	val panelDerecho=new Panel(panelPrincipal)
-		 		new Label(panelDerecho).text="Criterio de busqueda"
-		
-		 	val  panelIzquierdo=new Panel(panelPrincipal)=>[
-		 		layout=new HorizontalLayout]
-		 		new Button(panelIzquierdo).caption = "Agregar"
-		 		
-		 		new Button(panelIzquierdo).caption = "Buscar"
-		 	
-		 val panelInferior=new Panel(panelPrincipal)
-		 val grilla=new Table<PuntoDeInteres>(panelInferior, PuntoDeInteres)=>[
-		 	items<=>"resultados"
-			 ]
-	}
+		 	val panelIzquierdo=new Panel(panelPrincipal)
+		 		new Label(panelIzquierdo).text="Criterio de busqueda"
+		 		new TextBox(panelIzquierdo)=>[
+		 			value<=>"criterio"
+		 		]
 	
-		def static main(String[] args) {
-		new BusquedaWindow().startApplication
+		 	val  panelDerecho=new Panel(panelPrincipal)=>[
+		 		layout=new HorizontalLayout]
+		 		new Button(panelDerecho).caption = "Agregar"
+		 		
+		 		new Button(panelDerecho)=>[
+		 			caption = "Buscar"
+		 			onClick([|modelObject.search
+		 			])
+			setAsDefault
+			disableOnError
+		 	]
+		 
 	}
+	def void describeResultsGrid(Table<PuntoDeInteres> table) {
+		new Column<PuntoDeInteres>(table) => [
+			title = "Nombre"
+			fixedSize = 200
+			bindContentsToProperty("nombre")
+		]
+			new Column<PuntoDeInteres>(table) => [
+			title = "Direccion"
+			fixedSize = 200
+			bindContentsToProperty("direccion.direccionS")
+		]
+		}
+	def protected createResultsGrid(Panel mainPanel) {
+		val table = new Table<PuntoDeInteres>(mainPanel, typeof(PuntoDeInteres)) => [
+			items <=> "resultados"
+			value <=> "poiSeleccionado"
+		]	
+		this.describeResultsGrid(table)}
+	override protected addActions(Panel actionsPanel) {}
+	
+	
 	}
 	
