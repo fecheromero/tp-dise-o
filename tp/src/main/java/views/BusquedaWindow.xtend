@@ -16,6 +16,9 @@ import org.uqbar.arena.widgets.tables.Column
 
 class BusquedaWindow extends SimpleWindow<BusquedaModel>{
 	
+	var TextBox textBoxCriterio2
+	
+	var Button agregarButton
 	
 	new(WindowOwner parent) {
 		super(parent,new BusquedaModel)
@@ -41,12 +44,16 @@ class BusquedaWindow extends SimpleWindow<BusquedaModel>{
 		 		new TextBox(panelIzquierdo)=>[
 		 			value<=>"criterio"
 		 		]
+		 		textBoxCriterio2=new TextBox(panelIzquierdo)=>[
+		 			value<=>"criterio2"
+		 			visible<=>"visibleCriterio2"
+		 		]
 	
 		 	val  panelDerecho=new Panel(panelPrincipal)=>[
 		 		layout=new HorizontalLayout]
-		 		new Button(panelDerecho)=>[
-		 		caption = "Agregar"
-		 		onClick([|])
+		 		agregarButton=new Button(panelDerecho)=>[
+		 		bindCaptionToProperty("agregarButtonText")
+		 		onClick([|agregarAccion])
 		 		disableOnError
 		 		]
 		 		new Button(panelDerecho)=>[
@@ -77,7 +84,17 @@ class BusquedaWindow extends SimpleWindow<BusquedaModel>{
 		]	
 		this.describeResultsGrid(table)}
 		
-
+	def void agregarAccion(){
+		if(modelObject.visibleCriterio2){
+			modelObject.agregarButtonText= "agregar"
+			modelObject.criterio2=""
+			modelObject.visibleCriterio2 = false
+		}
+		else{ 	modelObject.agregarButtonText="quitar"
+		
+			modelObject.visibleCriterio2 = true
+		}
+	}
 	override protected addActions(Panel actionsPanel) {}
 	
 	
