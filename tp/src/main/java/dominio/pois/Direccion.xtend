@@ -5,8 +5,11 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.geodds.Point
 import dependencias.Validable
 import dependencias.Validator
+import org.uqbar.commons.utils.Observable
+
 
 @Accessors
+
 class Direccion implements Validator {
 	@Validable
 	String callePrincipal

@@ -6,6 +6,7 @@ import dominio.pois.PuntoDeInteres
 import dominio.pois.Direccion
 import dependencias.Validable
 import dependencias.Identificador
+import views.ParParametrico
 
 @Accessors
 public class LocalComercial extends PuntoDeInteres {
@@ -33,6 +34,9 @@ public class LocalComercial extends PuntoDeInteres {
 		
 	}
 	
+	override parametrosTextBox(){
+		#[new ParParametrico("direccion","direccion.direccionS"),new ParParametrico("nombre","nombre"),new ParParametrico("rubro","rubro.nombre")]
+	}
 	/*override validate() {
 
 		if (PuntoDeInteres.declaredFields.filter[field|field.name!="servicios"].exists [ field |

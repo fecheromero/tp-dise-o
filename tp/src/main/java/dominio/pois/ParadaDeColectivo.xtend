@@ -5,7 +5,16 @@ import org.joda.time.DateTime
 import dominio.pois.PuntoDeInteres
 import dominio.pois.Direccion
 import dependencias.Identificador
+import views.MasInfoWindow
+import org.uqbar.commons.utils.Observable
+import java.util.List
+import views.ParParametrico
+import org.uqbar.arena.windows.SimpleWindow
+import views.BusquedaModel
+import views.BusquedaWindow
+import java.awt.Panel
 
+@Observable
 @Accessors
 public class ParadaDeColectivo extends PuntoDeInteres {
 	
@@ -20,6 +29,9 @@ public class ParadaDeColectivo extends PuntoDeInteres {
 	override estaDisponible(DateTime unMomento,String nombreDeServicio){
 		return true
 	}
+	//def override void mostrate(){
+	//	new MasInfoWindow(this,#["nombre"]).startApplication
+	//}
 	/*override validate() {
 
 		if (PuntoDeInteres.declaredFields.filter[field|field.name!="servicios" && field.name!="horario"].exists [ field |
@@ -33,4 +45,9 @@ public class ParadaDeColectivo extends PuntoDeInteres {
 
 
 }*/
+override parametrosTextBox(){	
+	#[new ParParametrico("nombre","nombre")]			
+	
+	}
+
 }

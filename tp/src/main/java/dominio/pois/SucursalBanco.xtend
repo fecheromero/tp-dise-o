@@ -12,6 +12,7 @@ import dominio.pois.Servicio
 import dominio.pois.Direccion
 import dependencias.Validable
 import dependencias.Identificador
+import views.ParParametrico
 
 class SucursalBanco extends PuntoDeInteres {
 	@Validable
@@ -55,5 +56,10 @@ class SucursalBanco extends PuntoDeInteres {
 			serv1.concat(serv2)
 		])))
 	}
-
+	override parametrosTextBox(){
+		#[new ParParametrico("direccion.direccionS","direccion"),new ParParametrico("direccion.comuna.nombre","zona")]
+	}
+	override parametrosCombos(){
+		#[new ParParametrico("servicios","servicios")]
+	}
 }

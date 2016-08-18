@@ -18,6 +18,9 @@ import dominio.tiempo.Dia
 import dominio.tiempo.Horario
 import dominio.locales.LocalComercial
 import dominio.locales.Rubro
+import dominio.pois.Servicio
+import dominio.pois.CGP
+import dependencias.Buscador
 
 class BusquedaBootstrap extends CollectionBasedBootstrap{
 	
@@ -26,7 +29,7 @@ class BusquedaBootstrap extends CollectionBasedBootstrap{
 	}
 		override run(){
 			val repo = Repositorio.getInstance
-			
+					
 			//No puedo usar los Fixtures, fijense si alguno lo puede arreglar. Tira error de consola
 		var almagro = new Comuna("almagro", new Polygon(#[new Point(1, 2), new Point(2, 3)]))
 		
@@ -48,10 +51,17 @@ class BusquedaBootstrap extends CollectionBasedBootstrap{
 					new Direccion("calle pepe", "3333", #["jorge", "roberto"], new Point(1, 0), "bs as", "Buenos Aires",
 					almagro, "3333", "", "", ""), new Rubro("Kiosko de Diarios", 0.2))
 
+		unosTurnos=new HashSet<Turno>
+	
+		var servicios = new HashSet<Servicio>
+		servicios.add(new Servicio("asistencia Social",unHorario))
+		var unCGP = new CGP(servicios,new Direccion("calle sarmiento", "2142", #["san Martin", "Belgrano"], new Point(4, 6), "bs as","Buenos Aires", almagro, "1881", "", "", ""), "Centro de gestion y participacion")
 						
 		repo.create(_114)
 		repo.create(unKiosco)
+		repo.create(unCGP)
 		var Busqueda context=ApplicationContext.instance.getSingleton(typeof(Busqueda)) as Busqueda
 		context.agregarOrigen(repo)
+		
 		}
 		}

@@ -5,8 +5,10 @@ import org.joda.time.DateTime
 import dominio.tiempo.Horario
 import dependencias.Validable
 import dependencias.Validator
+import org.uqbar.commons.utils.Observable
 
 @Accessors
+@Observable
 class Servicio implements Validator {
 	@Validable
 	String nombre
@@ -19,6 +21,9 @@ class Servicio implements Validator {
 		this.horario = _horario
 	}
 
+	override toString(){
+		nombre
+	}
 	def String listaDeTags() {
 		var String lista
 		lista = nombre

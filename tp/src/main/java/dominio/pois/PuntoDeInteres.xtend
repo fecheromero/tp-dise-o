@@ -11,6 +11,16 @@ import com.google.common.collect.Sets
 import dependencias.Validable
 import dependencias.Validator
 import org.uqbar.commons.utils.Observable
+import views.MasInfoWindow
+import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
+import org.uqbar.arena.windows.SimpleWindow
+import org.uqbar.arena.windows.WindowOwner
+import org.uqbar.arena.windows.MainWindow
+import org.uqbar.arena.aop.windows.TransactionalDialog
+import java.util.List
+import views.ParParametrico
+import views.BusquedaModel
+import views.BusquedaWindow
 
 @Observable
 @Accessors
@@ -22,7 +32,7 @@ public abstract class PuntoDeInteres implements Validator {
 	String nombre
 	Horario horario
 	HashSet<Servicio> servicios
-
+	String icono
 	var double DISTANCIA_MAXIMA = 0.5
 
 	public def String listaDeTags() {
@@ -49,6 +59,19 @@ public abstract class PuntoDeInteres implements Validator {
 	def HashSet<Turno> juntarTurnosDeServicios(HashSet<Servicio> servicios) {
 		return Sets.newHashSet(servicios.map[unServicio|unServicio.horario.turnosDisponibles].flatten())
 	}
+	
+	def List<ParParametrico> parametrosTextBox(){	
+	#[]
+	}			
+	def List<ParParametrico> parametrosCombos(){
+		#[]
+	}
+	
+  def mostrar(BusquedaWindow view){
+	var ventana=new MasInfoWindow(view,this,this.parametrosTextBox,this.parametrosCombos)
+	view.openDialog(ventana)
+	
+}
 	
 
 	/*def void validate() {

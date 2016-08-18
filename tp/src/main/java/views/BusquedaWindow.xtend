@@ -1,6 +1,5 @@
 package views
 
-import org.uqbar.arena.windows.MainWindow
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.widgets.Label
@@ -13,6 +12,7 @@ import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.widgets.tables.Column
+import org.uqbar.arena.windows.Dialog
 
 class BusquedaWindow extends SimpleWindow<BusquedaModel>{
 	
@@ -31,6 +31,16 @@ class BusquedaWindow extends SimpleWindow<BusquedaModel>{
 
 		super.createMainTemplate(mainPanel)
 		this.createResultsGrid(mainPanel)
+		new Button(mainPanel)=>[
+					caption = "Mostrar"
+		 			onClick[|
+		 				if(modelObject.poiSeleccionado==null){showInfo("debe seleccionar un poi")}
+		 				else{
+		 				modelObject.poiSeleccionado.mostrar(this)
+		 				}
+		 			]
+			disableOnError
+		]
 		}
 
 	
@@ -81,6 +91,7 @@ class BusquedaWindow extends SimpleWindow<BusquedaModel>{
 		val table = new Table<PuntoDeInteres>(mainPanel, typeof(PuntoDeInteres)) => [
 			items <=> "resultados"
 			value <=> "poiSeleccionado"
+			
 		]	
 		this.describeResultsGrid(table)}
 		
@@ -96,6 +107,11 @@ class BusquedaWindow extends SimpleWindow<BusquedaModel>{
 		}
 	}
 	override protected addActions(Panel actionsPanel) {}
+	
+		def openDialog(Dialog<?> dialog) {
+		dialog.onAccept[|modelObject.search]
+		dialog.open
+	}
 	
 	
 	}

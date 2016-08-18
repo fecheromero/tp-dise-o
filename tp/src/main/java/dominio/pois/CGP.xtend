@@ -11,6 +11,8 @@ import dominio.pois.PuntoDeInteres
 import dominio.pois.Direccion
 import dependencias.Validable
 import dependencias.Identificador
+import views.ParParametrico
+import views.MasInfoWindow
 
 @Accessors
 public class CGP extends PuntoDeInteres {
@@ -50,5 +52,12 @@ public class CGP extends PuntoDeInteres {
 
 		}
 	}
+	
+override parametrosTextBox(){
+	#[new ParParametrico("direccion","direccion.direccionS"),new ParParametrico("zona","direccion.comuna.nombre")]
 
+}
+ override parametrosCombos(){
+ 	#[new ParParametrico("servicios","servicios")]
+}
 }
