@@ -1,0 +1,8 @@
+{
+  "name": "buscador-de-pois",
+  "description": "buscador de pois",
+  "author": "NULL",
+  "dependencies": {
+    "angular": "^1.5.8"
+  }
+}
