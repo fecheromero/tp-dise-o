@@ -1,8 +1,25 @@
 {
-  "name": "buscador-de-pois",
-  "description": "buscador de pois",
-  "author": "NULL",
+  "name": "Buscador",
+  "version": "1.0.0",
+  "description": "Buscador",
+  "scripts": {
+    "prestart": "npm install",
+    "start": "http-server  -p 8000 -c-1",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "angular",
+    "ui"
+  ],
+  "author": "",
+  "license": "",
   "dependencies": {
-    "angular": "^1.5.8"
+    "angular": "^1.4.4",
+    "angular-animate": "^1.4.4",
+    "angular-ui-router": "^0.2.15",
+    "bootstrap": "^3.3.5",
+    "http-server": "^0.8.0",
+    "jquery": "^2.1.4",
+    "underscore": "^1.8.3"
   }
 }
