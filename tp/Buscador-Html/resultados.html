@@ -10,7 +10,7 @@
 		</thead>
 		<tr ng-repeat="poi in buscadorCtrl.resultado">
 			<td title="'#'">{{numeracion}}</td>
-			<td title="'Nombre'"><a href="/{{poi.nombre}}.thml">
+			<td title="'Nombre'"><a ui-sref="verInfo.{{poi.constructor.name}}({nombre: poi.nombre})">
 					{{poi.nombre}}</a>
 			<td title="'Direccion'">{{poi.direccion}}</td>
 		</tr>
