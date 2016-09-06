@@ -45,11 +45,13 @@ function filtrarPois(listaDePois, criterio) {
 	});
 };
 
+
 var pois = [ new Colectivo("linea7", "843 y 892"),
 		new LocalComercial("La continental", "siempre viva 122", "Pizzeria"),
 		new SucursalBanco("BBVA","Flores y Parque Chacabuco","al fondo a la derecha",["Atencion al cliente","Deposito"]),
 		new CGP("CGP 7","Flores y Parque Chacabuco","Av. Rivadavia 2365.54",["Rentas","Registro Civil"])
 		]
+
 
 app.controller('buscadorCtrl', function($state) {
 	/* scope */
