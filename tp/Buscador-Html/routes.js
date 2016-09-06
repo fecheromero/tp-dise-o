@@ -35,5 +35,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		templateUrl : "colectivo.html",
 		controller : "vistaController as vistaCtrl"
 	})
+	.state('verBusqueda', {
+		
+		url : "/",
+		templateUrl : "index.html",
+		controller : "buscadorCtrl as buscadorCtrl"
+	})
 
 })
