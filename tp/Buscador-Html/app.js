@@ -50,22 +50,23 @@ var pois = [ new Colectivo("linea7", "843 y 892"),
 		new LocalComercial("La continental", "siempre viva 122", "Pizzeria"),
 		new SucursalBanco("BBVA","Flores y Parque Chacabuco","al fondo a la derecha",["Atencion al cliente","Deposito"]),
 		new CGP("CGP 7","Flores y Parque Chacabuco","Av. Rivadavia 2365.54",["Rentas","Registro Civil"])
-		]
+		];
 
-
+var resultado2;
 app.controller('buscadorCtrl', function($state) {
 	/* scope */
 	this.criterio = "saraza";
-	this.resultado = pois;
+	this.resultado = resultado2;
 	this.criterios = [ "algo" ];
 	var self = this;
 	this.buscar = function() {
-		this.resultado = pois.filter(function(poi) {
+		resultado2 = pois.filter(function(poi) {
 			var unPoi = poi;
 			return self.criterios.some(function(criterio) {
 				return tagearPoi(unPoi).includes(criterio);
 			})
 		})
+		$state.reload();
 	};
 	this.agregar = function() {
 		if (!this.criterios.includes(self.criterio)) {
@@ -76,7 +77,8 @@ app.controller('buscadorCtrl', function($state) {
 	this.limpiar = function() {
 		this.criterios = [];
 		this.criterio = "";
-		this.resultado = [];
+		resultado2 = [];
+		$state.reload();
 	};
 });
 var poi;
