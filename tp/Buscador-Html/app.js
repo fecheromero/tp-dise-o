@@ -46,7 +46,7 @@ function filtrarPois(listaDePois,criterio){
 	});
 };
 
-var pois=[new Colectivo("linea7","843 y 892","parada de colectivo"),new LocalComercial("La continental","siempre viva 122","kiosco","kiosco")]
+var pois=[new Colectivo("linea7","843 y 892","parada de colectivo"),new LocalComercial("laContinental","siempre viva 122","kiosco","kiosco")]
 
 app.controller('buscadorCtrl', function () {
 	/* scope */

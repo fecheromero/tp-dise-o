@@ -81,14 +81,54 @@
 		</thead>
 		<tr ng-repeat="poi in buscadorCtrl.resultado">
 			<td title="'#'">{{numeracion}}</td>
-			<td title="'Nombre'"><a href="/{{poi.nombre}}.html">
+			<td title="'Nombre'"><a href="#{{poi.nombre}}">
 					{{poi.nombre}}</a>
 			<td title="'Direccion'">{{poi.direccion}}</td>
 		</tr>
 	</table>
 
 </div>
+<div class="modal fade bd-example-modal-sm" id="linea7" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
+		<div class="modal-dialog modal-sm">
+			<!--Header--><div class="card">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+				
+					<div class="view overlay hm-white-slight">
 
+						<img src="images/icono-colectivo.jpg" height="100px;" width="100px;">
+					</div>
+					<div class="card-block">
+						<h4 class="card-title">Linea 7</h4>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<div class="modal fade bd-example-modal-sm in" id="laContinental" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: block;">
+		<div class="modal-dialog modal-sm">
+			<div class="card">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+				<div class="view overlay hm-white-slight">
+					<img src="images/Local.jpg" class="img-fluid" alt="" height="100px;" width="100px;">
+				</div>
+				<div class="card-block">
+
+					<h4 class="card-title">
+						<b>Varela 1103</b>
+					</h4>
+					<h4 class="card-title">La continental</h4>
+					<p class="card-text">Pizzas y empanadas</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
 	
 
 	<!-- SCRIPTS -->
