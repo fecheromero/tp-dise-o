@@ -37,9 +37,14 @@ app.config(function($stateProvider, $urlRouterProvider) {
 	})
 	.state('verBusqueda', {
 		
-		url : "/",
+		url : "/index",
 		templateUrl : "index.html",
-		controller : "buscadorCtrl as buscadorCtrl"
+		controller : "loginCtrl as loginCtrl"
 	})
-
+	.state('verLoginIncorrecto', {
+		
+		url : "/",
+		templateUrl : "loginIncorrecto.html",
+		controller : "loginCtrl as loginCtrl"
+	})
 })
