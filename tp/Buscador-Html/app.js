@@ -55,9 +55,9 @@ var pois = [ new Colectivo("linea7", "843 y 892"),
 var resultado2;
 app.controller('buscadorCtrl', function($state) {
 	/* scope */
-	this.criterio = "saraza";
+	this.criterio = "linea";
 	this.resultado = resultado2;
-	this.criterios = [ "algo" ];
+	this.criterios = [ "continental" ];
 	var self = this;
 	this.buscar = function() {
 		resultado2 = pois.filter(function(poi) {
@@ -87,6 +87,7 @@ app.controller('poiController', function($stateParams, $state) {
 	
 	if (poi instanceof LocalComercial){
 		$state.go("verInfo.LocalComercial");
+		
 	}
 	if (poi instanceof Colectivo){
 		$state.go("verInfo.Colectivo");
