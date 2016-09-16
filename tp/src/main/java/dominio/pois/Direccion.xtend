@@ -6,10 +6,12 @@ import org.uqbar.geodds.Point
 import dependencias.Validable
 import dependencias.Validator
 import org.uqbar.commons.utils.Observable
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fasterxml.jackson.annotation.JsonIgnore
 
 @Accessors
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 class Direccion implements Validator {
 	@Validable
 	String callePrincipal
@@ -18,6 +20,7 @@ class Direccion implements Validator {
 	@Validable
 	String[] entre
 	@Validable
+	@JsonIgnore
 	Point coordenadas
 	@Validable
 	String localidad
@@ -31,6 +34,7 @@ class Direccion implements Validator {
 	String departamento
 	String unidad
 	String direccionS
+	@JsonIgnore
 	Tageador tag =Tageador.getInstance
 
 	new(String callePrincipal, String numero, String[] entre, Point coordenadas, String localidad, String provincia,

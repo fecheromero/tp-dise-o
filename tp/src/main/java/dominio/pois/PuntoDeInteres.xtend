@@ -21,9 +21,11 @@ import java.util.List
 import views.ParParametrico
 import views.BusquedaModel
 import views.BusquedaWindow
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 
 @Observable
 @Accessors
+@JsonIgnoreProperties(ignoreUnknown = true)
 public abstract class PuntoDeInteres implements Validator {
 	private int id
 	@Validable
