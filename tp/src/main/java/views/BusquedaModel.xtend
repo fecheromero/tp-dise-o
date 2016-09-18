@@ -22,7 +22,7 @@ class BusquedaModel {
 	var PuntoDeInteres poiSeleccionado
 	var Boolean visibleCriterio2=false
 	def void search(){
-		resultados=repo.buscar(criterio.concat("").concat(criterio2),new Consulta("consulta",repo,new ArrayList<Accion>))
+		resultados=repo.buscar(criterio.concat("").concat(criterio2),new Consulta("consulta","psw",repo,new ArrayList<Accion>))
 	}
 	
 }

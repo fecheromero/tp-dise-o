@@ -6,25 +6,38 @@
 			<th>#</th>
 			<th>Nombre</th>
 			<th>Direccion</th>
-
+			<th>Favorito</th>
 		</thead>
 		<tr ng-repeat="poi in buscadorCtrl.resultado">
-			<td title="'#'">{{numeracion}}</td>
-			<td title="'Nombre'"><a ui-sref="verInfo.{{poi.constructor.name}}({nombre: poi.nombre})">
+			<td title="'#'">
+				      <img src="images/estrella.png" alt=""height="10px;" ng-hide="!poi.like" />
+         
+			</td>
+			<td title="'Nombre'"><a ui-sref="verInfo.{{poi.constructor.name}}({poi})">
 					{{poi.nombre}}</a>
 			<td title="'Direccion'">{{poi.direccion.callePrincipal + " " + poi.direccion.numero}}</td>
 
-        <td nowrap class="col-xs-2">
-          <button type="button" class="btn btn-success" data-toggle="modal" data-target="#editarTareaModal"
-                  data-ng-click="buscadorCtrl.like(poi);"
+        <td nowrap class="col-xs-2" title="'Favorito'">
+          <button type="button" class="btn btn-success" 
+                  data-ng-click="buscadorCtrl.like(poi);" 
+                  ng-hide="poi.like"
                   aria-label="favorito">
-            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                  <img src="images/estrella.png" alt=""height="10px;" />
+            <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Like
           </button>
-          <button type="button" class="btn btn-danger" data-ng-click="buscadorCtr.unlike(poi);" aria-label="unFav">
-            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+          <button type="button" class="btn btn-danger"
+           data-ng-click="buscadorCtrl.disLike(poi);" 
+           ng-hide="!poi.like" 
+           aria-label="unFav">
+            <span class="glyphicon glyphicon-user" aria-hidden="hidden"></span> disLike
           </button>
         </td>
 		</tr>
 	</table>
+
+         <div class="alert alert-danger" ng-repeat="error in buscadorCtrl.errors" >
+  <a href="#"  class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>{{error}}</strong> 
+</div>
 
 </div>

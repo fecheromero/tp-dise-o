@@ -33,6 +33,8 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility
 import dependencias.Bootstrap
 import usuarios.RepoUsuarios
+import dominio.PerfilesDeUsuario.Consulta
+import java.util.ArrayList
 
 /*
 class AnotherJSONUtils{
@@ -63,24 +65,46 @@ class PoiController {
 		repo.create(unBoots.obtenerKiosco)
 		repo.create(unBoots.obtenerParadaColectivo)
 		busquedaPois.agregarOrigen(Repositorio.instance)
+		
+		repoUsuarios.create(new Consulta("admin","12345",busquedaPois,new ArrayList())
+		)
 		}
 	extension JSONUtils = new JSONUtils
 	
 	extension JSONPropertyUtils = new JSONPropertyUtils
 	
-	@Get('/pois/:crit')
+	@Get('/pois/busqueda/:crit')
 	def Result buscar() {
-			var criterio=crit.split("%20").fold("",[str1,str2|str1+ " "+ str2+ " "])
+		var criterio=crit.split("SPC").fold("",[str1,str2|str1.concat(" ").concat(str2).concat(" ")])
 		response.contentType = ContentType.APPLICATION_JSON
 		
 			ok(busquedaPois.buscar(criterio,admin).toJson)
 	}
 	@Put('/pois/:poiId/like/:usuario')
 	def Result like(){
+		try {
 		var PerfilDeUsuario perfil=repoUsuarios.search(usuario)
-		perfil.favoritos.add(poiId.fromJson(Integer))
+		perfil.favoritos.add(Integer.parseInt(poiId))
 		repoUsuarios.update(perfil)
-		ok('{ "status" : "OK" }');
+		ok('{ "status" : "OK" }');}
+		catch(Exception e){badRequest(e.message) }
+	}
+	@Put('/pois/:poiId/disLike/:usuario')
+	def Result disLike(){
+		try {
+		var PerfilDeUsuario perfil=repoUsuarios.search(usuario)
+		perfil.favoritos.remove(Integer.parseInt(poiId))
+		repoUsuarios.update(perfil)
+		ok('{ "status" : "OK" }');}
+		catch(Exception e){badRequest(e.message) }
+	}
+	@Get('/pois/favoritos/:usuario')
+	def Result favoritos(){
+		try{
+		var PerfilDeUsuario usu=repoUsuarios.search(usuario)
+		response.contentType=ContentType.APPLICATION_JSON
+		ok(usu.favoritos.toJson)}
+		catch(Exception e){badRequest(e.message)}
 	}
 	def static void main(String[] args) {
 		XTRest.start(PoiController, 8000)

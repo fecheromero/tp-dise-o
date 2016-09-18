@@ -2,7 +2,7 @@ function LocalComercial(_nombre, _direccion, _rubro) {
 	this.nombre = _nombre;
 	this.direccion = _direccion;
 	this.rubro = _rubro;
-
+	this.like="true";
 };
 LocalComercial.prototype.icono = "local.jpg";
 
@@ -11,7 +11,7 @@ function SucursalBanco(_nombre, _zona, _direccion, _servicios) {
 	this.direccion = _direccion;
 	this.servicios = _servicios;
 	this.zona = _zona;
-
+	this.like="true";
 };
 SucursalBanco.prototype.icono = "banco.jpg";
 
@@ -20,14 +20,14 @@ function CGP(_nombre, _zona, _direccion, _servicios) {
 	this.direccion = _direccion;
 	this.servicios = _servicios;
 	this.zona = _zona;
-
+	this.like="true";
 };
 CGP.prototype.icono = "cgp.jpg";
 
 function Colectivo(_nombre, _direccion) {
 	this.nombre = _nombre;
 	this.direccion = _direccion;
-
+	this.like="true";
 };
 Colectivo.prototype.icono = "icono-colectivo.jpg";
 

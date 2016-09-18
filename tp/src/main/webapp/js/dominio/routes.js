@@ -35,17 +35,17 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		templateUrl : "templates/colectivo.html",
 		controller : "vistaController as vistaCtrl"
 	})
-	/*
+	
 	.state('verBusqueda', {
 		
 		url : "/index",
 		templateUrl : "index.html",
 		controller : "loginCtrl as loginCtrl"
 	})
-	.state('verLoginIncorrecto', {
+	.state('verLogin', {
 		
 		url : "/",
-		templateUrl : "template/loginIncorrecto.html",
+		templateUrl : "template/login.html",
 		controller : "loginCtrl as loginCtrl"
-	})*/
+	})
 })

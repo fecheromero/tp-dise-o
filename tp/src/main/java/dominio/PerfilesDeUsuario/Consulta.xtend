@@ -6,15 +6,17 @@ import java.util.ArrayList
 import java.util.List
 import observer.Accion
 import org.eclipse.xtend.lib.annotations.Accessors
+import java.util.HashSet
 
 @Accessors
 class Consulta extends PerfilDeUsuario {
-	String nombre
 	List<Accion> listaDeAcciones = new ArrayList<Accion>
 
-	new(String nom, Busqueda busc, ArrayList<Accion> acciones) {
+	new(String nom,String psw, Busqueda busc, ArrayList<Accion> acciones) {
 		buscador = busc
 		nombre = nom
+		contraseña=psw
+		favoritos=new HashSet<Integer>
 		listaDeAcciones = acciones
 	}
 
