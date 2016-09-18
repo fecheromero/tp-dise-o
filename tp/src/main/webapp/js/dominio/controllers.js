@@ -1,25 +1,12 @@
 'use strict';
 
-function tagearPoi(poi) {
-	return poi.nombre + " " + poi.direccion + " " + poi.horario + " ";
-};
-function filtrarPois(listaDePois, criterio) {
-	return listaDePois.filter(function(poi) {
-		return tagearPoi(poi).includes(criterio);
-	});
-};
-
-
-var pois = [ new Colectivo("linea7", "843 y 892"),
-		new LocalComercial("La continental", "siempre viva 122", "Pizzeria"),
-		new SucursalBanco("BBVA","Flores y Parque Chacabuco","al fondo a la derecha",["Atencion al cliente","Deposito"]),
-		new CGP("CGP 7","Flores y Parque Chacabuco","Av. Rivadavia 2365.54",["Rentas","Registro Civil"])
-		];
 
 var resultado2;
 function notificarError(){};
 function transformarAPoi(jsonPoi){
-	return  CGP.asPOI(jsonPoi);
+
+	  return eval(jsonPoi.tipo+".asPoi(jsonPoi)");
+	  
 };
 app.controller('buscadorCtrl', function(poisService,$state) {
 	/* scope */
@@ -27,18 +14,15 @@ app.controller('buscadorCtrl', function(poisService,$state) {
 	this.resultado=resultado2;
 	this.criterios=[];
 	var self = this;
-	/*this.buscar = function() {
-		resultado2= pois.filter(function(poi) {
-			var unPoi = poi;
-			return self.criterios.some(function(criterio) {
-				return tagearPoi(unPoi).includes(criterio);
-			})
-		})
-		$state.reload();
-	};*/
+
 	this.buscar=function(){
-		poisService.buscar(criterio,function(response){
+		poisService.buscar(_.reduce(self.criterios,function (str1,str2){
+			return str1 + " " + str2 + " "
+		}
+			),function(response){
 			resultado2=_.map(response.data,transformarAPoi);
+			$state.reload();
+	
 		},notificarError);
 	};
 	this.agregar = function() {
@@ -50,7 +34,8 @@ app.controller('buscadorCtrl', function(poisService,$state) {
 	this.limpiar = function() {
 		this.criterios = [];
 		this.criterio = "";
-		resultado = [];
+		resultado2=[];
+		self.resultado=[];
 		$state.reload();
 	};
 });

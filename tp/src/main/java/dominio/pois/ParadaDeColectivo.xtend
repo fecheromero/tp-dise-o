@@ -13,6 +13,7 @@ import org.uqbar.arena.windows.SimpleWindow
 import views.BusquedaModel
 import views.BusquedaWindow
 import java.awt.Panel
+import com.fasterxml.jackson.annotation.JsonProperty
 
 @Observable
 @Accessors
@@ -50,4 +51,10 @@ override parametrosTextBox(){
 	
 	}
 
+@JsonProperty("tipo")
+	
+	def String tipo() {
+		"Colectivo"
+	
+		}
 }

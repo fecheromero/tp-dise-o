@@ -31,6 +31,9 @@ import dominio.pois.Comuna
 import com.fasterxml.jackson.annotation.PropertyAccessor
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility
+import dependencias.Bootstrap
+import usuarios.RepoUsuarios
+
 /*
 class AnotherJSONUtils{
 	ObjectMapper mapper = new ObjectMapper().setVisibility(PropertyAccessor.FIELD, Visibility.ANY)
@@ -46,32 +49,38 @@ class AnotherJSONUtils{
 } */
 @Controller
 class PoiController {
+
+		var Busqueda busquedaPois = new Busqueda
+		var Administrador admin=new Administrador(busquedaPois)
+		var Repositorio repo=Repositorio.instance
+		var Bootstrap unBoots=new Bootstrap
+		var RepoUsuarios repoUsuarios=RepoUsuarios.instance
+		new(){
+	
+		
+		repo.create(unBoots.obtenerCGPFlores)
+		repo.create(unBoots.obtenerBanco)
+		repo.create(unBoots.obtenerKiosco)
+		repo.create(unBoots.obtenerParadaColectivo)
+		busquedaPois.agregarOrigen(Repositorio.instance)
+		}
 	extension JSONUtils = new JSONUtils
 	
 	extension JSONPropertyUtils = new JSONPropertyUtils
 	
 	@Get('/pois/:crit')
 	def Result buscar() {
-		var criterio=crit
-		var Busqueda busquedaPois = new Busqueda
-		var Administrador admin=new Administrador(busquedaPois)
-		var Repositorio repo=Repositorio.instance
-		var HashSet<Turno>	unosTurnos=new HashSet<Turno>
-		unosTurnos.add(new Turno(new LocalTime(0,10),new LocalTime(2,4)))
-		var HashSet<Dia>unosDias=new HashSet<Dia>
-		unosDias.add(Dia.LUN)
-		var Horario unHorario=new Horario(unosDias,unosTurnos)
-		var  servicios = new HashSet<Servicio>
-		servicios.add(new Servicio("asistencia Social",unHorario))
-		var almagro = new Comuna("once",new Polygon(#[new Point(0, 0), new Point(0, 5), new Point(5, 5), new Point(5, 0)]))		
-	
-		var unCGP = new CGP(servicios,new Direccion("calle sarmiento", "2142", #["san Martin", "Belgrano"], new Point(4, 6), "bs as","Buenos Aires", almagro, "1881", "", "", ""), "Centro de gestion y participacion")
-		
-		
-		repo.create(unCGP)
-		busquedaPois.agregarOrigen(Repositorio.instance)
+			var criterio=crit.split("%20").fold("",[str1,str2|str1+ " "+ str2+ " "])
+		response.contentType = ContentType.APPLICATION_JSON
 		
 			ok(busquedaPois.buscar(criterio,admin).toJson)
+	}
+	@Put('/pois/:poiId/like/:usuario')
+	def Result like(){
+		var PerfilDeUsuario perfil=repoUsuarios.search(usuario)
+		perfil.favoritos.add(poiId.fromJson(Integer))
+		repoUsuarios.update(perfil)
+		ok('{ "status" : "OK" }');
 	}
 	def static void main(String[] args) {
 		XTRest.start(PoiController, 8000)

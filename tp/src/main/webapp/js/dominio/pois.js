@@ -34,4 +34,17 @@ Colectivo.prototype.icono = "icono-colectivo.jpg";
 CGP.asPoi= function(jsonPoi){
 
   return angular.extend(new CGP(), jsonPoi);
+}
+LocalComercial.asPoi= function(jsonPoi){
+
+  return angular.extend(new LocalComercial(), jsonPoi);
+};
+Colectivo.asPoi= function(jsonPoi){
+
+  return angular.extend(new Colectivo(), jsonPoi);
+};
+
+SucursalBanco.asPoi= function(jsonPoi){
+
+  return angular.extend(new SucursalBanco(), jsonPoi);
 };

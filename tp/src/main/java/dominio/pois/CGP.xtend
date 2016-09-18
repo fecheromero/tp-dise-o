@@ -13,6 +13,7 @@ import dependencias.Validable
 import dependencias.Identificador
 import views.ParParametrico
 import views.MasInfoWindow
+import com.fasterxml.jackson.annotation.JsonProperty
 
 @Accessors
 public class CGP extends PuntoDeInteres {
@@ -60,4 +61,10 @@ override parametrosTextBox(){
  override parametrosCombos(){
  	#[new ParParametrico("servicios","servicios")]
 }
+@JsonProperty("tipo")
+	
+	def String tipo() {
+		"CGP"
+	
+		}
 }

@@ -12,7 +12,18 @@
 			<td title="'#'">{{numeracion}}</td>
 			<td title="'Nombre'"><a ui-sref="verInfo.{{poi.constructor.name}}({nombre: poi.nombre})">
 					{{poi.nombre}}</a>
-			<td title="'Direccion'">{{poi.direccion}}</td>
+			<td title="'Direccion'">{{poi.direccion.callePrincipal + " " + poi.direccion.numero}}</td>
+
+        <td nowrap class="col-xs-2">
+          <button type="button" class="btn btn-success" data-toggle="modal" data-target="#editarTareaModal"
+                  data-ng-click="buscadorCtrl.like(poi);"
+                  aria-label="favorito">
+            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+          </button>
+          <button type="button" class="btn btn-danger" data-ng-click="buscadorCtr.unlike(poi);" aria-label="unFav">
+            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+          </button>
+        </td>
 		</tr>
 	</table>
 

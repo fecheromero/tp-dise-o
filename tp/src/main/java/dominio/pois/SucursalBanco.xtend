@@ -13,6 +13,7 @@ import dominio.pois.Direccion
 import dependencias.Validable
 import dependencias.Identificador
 import views.ParParametrico
+import com.fasterxml.jackson.annotation.JsonProperty
 
 class SucursalBanco extends PuntoDeInteres {
 	@Validable
@@ -62,4 +63,11 @@ class SucursalBanco extends PuntoDeInteres {
 	override parametrosCombos(){
 		#[new ParParametrico("servicios","servicios")]
 	}
+	
+@JsonProperty("tipo")
+	
+	def String tipo() {
+		"SucursalBanco"
+	
+		}
 }
