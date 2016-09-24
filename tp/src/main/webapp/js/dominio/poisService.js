@@ -13,6 +13,9 @@ app.service('poisService', function ($http) {
   this.favoritos=function(usuario,callback,errorHandler){
   	$http.get('/pois/favoritos/'+usuario).then(callback,errorHandler);
   };
+  this.agregarReview=function(poi,puntaje,comentario,callback,errorHandler){
+	$http.put('/pois/'+poi+'/'+puntaje+'/'+comentario).then(callback,errorHandler);  
+  };
 });
 
 

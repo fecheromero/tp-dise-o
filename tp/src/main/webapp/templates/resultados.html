@@ -10,11 +10,12 @@
 		</thead>
 		<tr ng-repeat="poi in buscadorCtrl.resultado">
 			<td title="'#'">
+				      {{poi.id}}
 				      <img src="images/estrella.png" alt=""height="10px;" ng-hide="!poi.like" />
          
 			</td>
-			<td title="'Nombre'"><a ui-sref="verInfo.{{poi.constructor.name}}({poi})">
-					{{poi.nombre}}</a>
+			<td title="'Nombre'">
+			<a ui-sref="busqueda.verInfo({id: poi.id})">{{poi.nombre}}</a>
 			<td title="'Direccion'">{{poi.direccion.callePrincipal + " " + poi.direccion.numero}}</td>
 
         <td nowrap class="col-xs-2" title="'Favorito'">

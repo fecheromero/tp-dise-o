@@ -8,9 +8,9 @@
 
 		</thead>
 		<tr>
-			<td title="'#'">{{numeracion}}</td>
-			<td title="'Nombre'">{{vistaCtrl.poi.nombre}}</a>
-			<td title="'Direccion'">{{vistaCtrl.poi.direccion}}</td>
+			<td title="'#'">{{poiCtrl.poi.id}}</td>
+			<td title="'Nombre'">{{poiCtrl.poi.nombre}}</a>
+			<td title="'Direccion'">{{poiCtrl.poi.direccion.direccionS}}</td>
 		</tr>
 	</table>
 
@@ -27,33 +27,25 @@
 			
 			<div class="modal-header">
 				
-				<button type="button" class="close" id="aceptar" data-ng-click="vistaCtrl.volver()"
+				<button type="button" class="close" id="aceptar" data-ng-click="poiCtrl.volver()"
 					aria-label="Close">
 					&times
 				</button>
-				
-				<div class="view overlay hm-white-slight">
-					 <img src="images/Local.jpg" class="img-fluid" alt=""
-						height="100px;" width="100px;"> 
-				</div>
-				
+									
 				<div class="card-block">
 
 					<h4 class="card-title">
-						<b>{{vistaCtrl.poi.direccion}}</b>
+						<b>{{poiCtrl.poi.direccion.direccionS}}</b>
 					</h4>
-					<h4 class="card-title">{{vistaCtrl.poi.nombre}}</h4>
-					<p class="card-text">{{vistaCtrl.poi.rubro}}</p>
+					<h4 class="card-title">{{poiCtrl.poi.nombre}}</h4>
+					<p class="card-text">{{poiCtrl.poi.rubro.nombre}}</p>
 				</div>
-				<button id="aceptar" class="btn btn-default" autofocus="true"
-					data-ng-click="vistaCtrl.volver()">
-					<i class="fa fa-mail-reply " aria-hidden="true"></i> Volver
-				</button>
-				
+							
 			</div>
 			
 		</div>
 		
+	</div>
 	</div>
 	<script>
 $(document).ready(function(){

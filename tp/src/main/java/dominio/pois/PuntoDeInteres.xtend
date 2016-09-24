@@ -22,6 +22,7 @@ import views.ParParametrico
 import views.BusquedaModel
 import views.BusquedaWindow
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import java.util.ArrayList
 
 @Observable
 @Accessors
@@ -35,7 +36,12 @@ public abstract class PuntoDeInteres implements Validator {
 	Horario horario
 	HashSet<Servicio> servicios
 	String icono
+	ArrayList<Review> reviews
 	var double DISTANCIA_MAXIMA = 0.5
+	
+	def void agregarReview(Review review){
+		reviews.add(review)
+	}
 
 	public def String listaDeTags() {
 		nombre.concat(" ").concat(direccion.listaDeTags())
