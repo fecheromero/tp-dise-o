@@ -1,17 +1,20 @@
 'use strict';
 
 var resultado2;
+var poiCache;
+var usuarioCache;
+var criterios2=[];
 app.controller('buscadorCtrl', function(poisService, $state, $timeout) {
 	/* scope */
 	var self = this;
 
 	this.criterio = "";
 	self.resultado = resultado2;
-	this.criterios = [];
+	this.criterios = criterios2;
 	self.errors = [];
 	self.usuario = usuarioCache;
 	self.$timeout = $timeout;
-	self.unlike = "true";
+	//self.unlike = "true";
 	self.favoritosList = [];
 	this.favoritos = function() {
 		poisService.favoritos(self.usuario, function(response) {
@@ -37,10 +40,14 @@ app.controller('buscadorCtrl', function(poisService, $state, $timeout) {
 	}
 
 	this.buscar = function() {
-		poisService.buscar(_.reduce(self.criterios, function(str1, str2) {
+		var crit=_.reduce(self.criterios, function(str1, str2) {
 			return str1 + "SPC" + str2
-		}), function(response) {
+		});
+		$state.go("busqueda");	
+		$state.reload();
+		poisService.buscar(crit, function(response) {
 			resultado2 = _.map(response.data, transformarAPoi);
+			self.resultado=resultado2;
 			$state.go("busqueda.verResultados");
 
 		}, function() {
@@ -48,36 +55,40 @@ app.controller('buscadorCtrl', function(poisService, $state, $timeout) {
 		});
 	};
 	this.agregar = function() {
-		if (!this.criterios.includes(self.criterio)) {
-			this.criterios.push(this.criterio);
+		if (!criterios2.includes(self.criterio)) {
+			criterios2.push(this.criterio);
+
 		}
 		;
 
 	};
 	this.limpiar = function() {
-		this.criterios = [];
+		criterios2 = [];
+		this.criterios=criterios2;
 		this.criterio = "";
 		resultado2 = [];
-		self.resultado = [];
+		self.resultado = resultado2;
 		$state.go("busqueda");
 	};
 	this.like = function(poi) {
 		poisService.like(self.usuario, poi.id, function() {
-			self.favoritos();
-			$state.reload();
+		
+			self.favoritos();	
+			self.buscar();
 		}, notificarErrorPois);
-		$state.reload();
+			
 	};
 	this.disLike = function(poi) {
 		poisService.disLike(self.usuario, poi.id, function() {
+			
 			self.favoritos();
-			$state.reload();
-		}, notificarErrorPois);
-		$state.reload();
+			self.buscar();
+			}, notificarErrorPois);
+	
+		
 	};
 
 });
-var poiCache;
 app.controller('poiController', function(poisService,$stateParams, $state) {
 	this.usuario=usuarioCache;
 	this.puntaje=0;
@@ -136,8 +147,6 @@ function Usuario(usuario, clave) {
 	};
 }
 
-var usuarios = [ new Usuario("admin", "1234") ];
-var usuarioCache;
 var mensajeDeError2=false;
 app.controller('loginCtrl',function(poisService,$state) {
 		this.usuario;

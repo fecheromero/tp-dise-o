@@ -21,19 +21,6 @@ import dominio.pois.Review
 import org.uqbar.xtrest.api.annotation.Post
 import dominio.pois.PuntoDeInteres
 
-/*
- * class AnotherJSONUtils{
- * 	ObjectMapper mapper = new ObjectMapper().setVisibility(PropertyAccessor.FIELD, Visibility.ANY)
- * 	
- * 	def toJson(Object obj) {
- * 		mapper.writeValueAsString(obj)
- * 	}
- * 	
- * 	def <T> fromJson(String json, Class<T> expectedType) {
- * 		mapper.readValue(json, expectedType)
- * 	}
- * 	
- } */
 @Controller
 class PoiController {
 
@@ -52,6 +39,7 @@ class PoiController {
 		busquedaPois.agregarOrigen(Repositorio.instance)
 
 		repoUsuarios.create(new Consulta("admin", "12345", busquedaPois, new ArrayList()))
+		repoUsuarios.create(new Consulta("pepito","123",busquedaPois,newArrayList()));
 	}
 
 	extension JSONUtils = new JSONUtils
