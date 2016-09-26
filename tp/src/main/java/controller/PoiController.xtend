@@ -18,6 +18,8 @@ import org.uqbar.xtrest.json.JSONUtils
 import usuarios.RepoUsuarios
 import com.eclipsesource.json.Json
 import dominio.pois.Review
+import org.uqbar.xtrest.api.annotation.Post
+import dominio.pois.PuntoDeInteres
 
 /*
  * class AnotherJSONUtils{
@@ -98,11 +100,11 @@ class PoiController {
 			badRequest(e.message)
 		}
 	}
-	@Put('/pois/:usuario/:poiId/:puntaje/:comentario')
+	@Put('/pois/:poiId/:usuario/:puntaje/:comentario')
 	def Result agregarReview(){
 		try {
-			var poi=repo.searchBynd(Integer.parseInt(poiId))
-			var review = new Review(usuario,Integer.parseInt(puntaje),comentario)
+			var PuntoDeInteres poi=repo.searchBynd(Integer.parseInt(poiId))
+			var Review review = new Review(usuario,Integer.parseInt(puntaje),comentario)
 			poi.agregarReview(review)
 			ok('{ "status" : "OK" }')
 			
@@ -111,7 +113,18 @@ class PoiController {
 		}
 		
 	}
-
+	@Put('/:usuario/:pw')
+	def Result verificarUsuario(){
+		try {
+			var PerfilDeUsuario user = repoUsuarios.search(usuario)
+			if(user.contraseña==pw){
+				ok('{ "status" : "OK" }')
+			}else{ok('{ "status" : "ERROR"}')}
+		} catch (Exception e){
+			ok('{ "status" : "ERROR"}')
+		}
+	}
+	
 	def static void main(String[] args) {
 		XTRest.start(PoiController, 8000)
 	}

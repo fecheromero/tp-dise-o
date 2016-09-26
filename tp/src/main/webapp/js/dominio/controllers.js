@@ -78,7 +78,7 @@ app.controller('buscadorCtrl', function(poisService, $state, $timeout) {
 
 });
 var poiCache;
-app.controller('poiController', function($stateParams, $state) {
+app.controller('poiController', function(poisService,$stateParams, $state) {
 	this.usuario=usuarioCache;
 	this.puntaje=0;
 	this.comentario="";
@@ -107,9 +107,11 @@ app.controller('poiController', function($stateParams, $state) {
 	});
 	
 	this.enviar=function(){
-		poisService.agregarReview(self.poi.id,self.puntaje,self.comentario,function(){
+		poisService.agregarReview(self.poi.id,self.usuario,self.puntaje,self.comentario,function(){
 			$state.reload()
-		}, notificarErrorPois);
+		},function() {
+			notificarError(self)
+		});
 	};
 	this.volver = function() {
 		$state.go("busqueda.verResultados")
@@ -136,28 +138,25 @@ function Usuario(usuario, clave) {
 
 var usuarios = [ new Usuario("admin", "1234") ];
 var usuarioCache;
-app.controller('loginCtrl',function($state) {
+var mensajeDeError2=false;
+app.controller('loginCtrl',function(poisService,$state) {
 		this.usuario;
 		this.clave;
+		this.mensajeDeError=mensajeDeError2;
 		var self = this;
 		this.login = function() {
-		var usuarioEncontrado = _.find(usuarios, {
-			usuario : this.usuario
-			});
-			if (usuarioEncontrado) {
-				if (usuarioEncontrado.clave == this.clave) {
+			poisService.verificarUsuario(self.usuario,self.clave,
+				function(response){
+				if(response.data.status=="OK"){
+					mensajeDeError2=false;
 					usuarioCache=self.usuario;
 					$state.go("busqueda");
-				} else {
-					this.clave = "";
-					this.resultadoLogin = "La clave ingresada es incorrecta (intente con 1234).";
-					$state.go("verLoginIncorrecto")
+				}else{
+					mensajeDeError2=true;
+					$state.reload();
 				}
-			} else {
-				this.usuario = "";
-			this.clave = "";
-			this.resultadoLogin = "El usuario ingresado no existe (intente con juanPerez).";
-				$state.go("verLoginIncorrecto")
-			}
+			},function() {
+				notificarError(self)
+				})
 		};
 		});

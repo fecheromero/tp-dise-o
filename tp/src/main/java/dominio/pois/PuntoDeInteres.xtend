@@ -36,7 +36,7 @@ public abstract class PuntoDeInteres implements Validator {
 	Horario horario
 	HashSet<Servicio> servicios
 	String icono
-	ArrayList<Review> reviews
+	HashSet<Review> reviews
 	var double DISTANCIA_MAXIMA = 0.5
 	
 	def void agregarReview(Review review){
