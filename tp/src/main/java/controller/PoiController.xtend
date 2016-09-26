@@ -7,6 +7,8 @@ import dominio.PerfilesDeUsuario.Administrador
 import dominio.PerfilesDeUsuario.Consulta
 import dominio.PerfilesDeUsuario.PerfilDeUsuario
 import dominio.Repositorio
+import dominio.pois.PuntoDeInteres
+import dominio.pois.Review
 import java.util.ArrayList
 import org.uqbar.xtrest.api.Result
 import org.uqbar.xtrest.api.XTRest
@@ -16,26 +18,7 @@ import org.uqbar.xtrest.api.annotation.Put
 import org.uqbar.xtrest.http.ContentType
 import org.uqbar.xtrest.json.JSONUtils
 import usuarios.RepoUsuarios
-import com.eclipsesource.json.Json
-import dominio.pois.Review
-import org.uqbar.xtrest.api.annotation.Post
-import dominio.pois.PuntoDeInteres
-import com.fasterxml.jackson.annotation.PropertyAccessor
-import java.beans.Visibility
 
-/*
- * class AnotherJSONUtils{
- * 	ObjectMapper mapper = new ObjectMapper().setVisibility(PropertyAccessor.FIELD, Visibility.ANY)
- * 	
- * 	def toJson(Object obj) {
- * 		mapper.writeValueAsString(obj)
- * 	}
- * 	
- * 	def <T> fromJson(String json, Class<T> expectedType) {
- * 		mapper.readValue(json, expectedType)
- * 	}
- * 	
- } */
 @Controller
 class PoiController {
 
@@ -44,6 +27,7 @@ class PoiController {
 	var Repositorio repo = Repositorio.instance
 	var Bootstrap unBoots = new Bootstrap
 	var RepoUsuarios repoUsuarios = RepoUsuarios.instance
+	
 
 	new() {
 
@@ -58,15 +42,18 @@ class PoiController {
 		repoUsuarios.create(new Consulta("feche", "feche", busquedaPois, new ArrayList()))
 		repoUsuarios.create(new Consulta("nadia", "nadia", busquedaPois, new ArrayList()))
 		repoUsuarios.create(new Consulta("cande", "cande", busquedaPois, new ArrayList()))
+		repoUsuarios.create(new Consulta("pepito","123",busquedaPois,newArrayList()));
+
 	}
 
 	extension JSONUtils = new JSONUtils
 
 	extension JSONPropertyUtils = new JSONPropertyUtils
 
-	@Get('/pois/busqueda/:crit')
+		@Get('/pois/busqueda/:crit')
 	def Result buscar() {
 		var criterio = crit.split("SPC").fold("", [str1, str2|str1.concat(" ").concat(str2).concat(" ")])
+//		var Point poi=new Point(x,y)
 		response.contentType = ContentType.APPLICATION_JSON
 		ok(busquedaPois.buscar(criterio, admin).toJson)
 	}
@@ -129,6 +116,12 @@ class PoiController {
 			ok('{ "status" : "ERROR"}')
 		}
 	}
+	
+
+
+		
+		
+	
 	
 	def static void main(String[] args) {
 		XTRest.start(PoiController, 8000)
