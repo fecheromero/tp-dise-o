@@ -20,6 +20,7 @@ import com.eclipsesource.json.Json
 import dominio.pois.Review
 import org.uqbar.xtrest.api.annotation.Post
 import dominio.pois.PuntoDeInteres
+import org.uqbar.geodds.Point
 
 @Controller
 class PoiController {
@@ -29,6 +30,7 @@ class PoiController {
 	var Repositorio repo = Repositorio.instance
 	var Bootstrap unBoots = new Bootstrap
 	var RepoUsuarios repoUsuarios = RepoUsuarios.instance
+	
 
 	new() {
 
@@ -46,9 +48,10 @@ class PoiController {
 
 	extension JSONPropertyUtils = new JSONPropertyUtils
 
-	@Get('/pois/busqueda/:crit')
+		@Get('/pois/busqueda/:crit/:x/:y')
 	def Result buscar() {
 		var criterio = crit.split("SPC").fold("", [str1, str2|str1.concat(" ").concat(str2).concat(" ")])
+		var Point poi=new Point(x,y)
 		response.contentType = ContentType.APPLICATION_JSON
 
 		ok(busquedaPois.buscar(criterio, admin).toJson)
@@ -112,6 +115,12 @@ class PoiController {
 			ok('{ "status" : "ERROR"}')
 		}
 	}
+	
+
+
+		
+		
+	
 	
 	def static void main(String[] args) {
 		XTRest.start(PoiController, 8000)

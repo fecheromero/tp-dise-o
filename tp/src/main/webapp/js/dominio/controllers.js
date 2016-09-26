@@ -9,6 +9,7 @@ app.controller('buscadorCtrl', function(poisService, $state, $timeout) {
 	var self = this;
 
 	this.criterio = "";
+	var posicion = new Punto (2,4);
 	self.resultado = resultado2;
 	this.criterios = criterios2;
 	self.errors = [];
@@ -38,14 +39,18 @@ app.controller('buscadorCtrl', function(poisService, $state, $timeout) {
 		notificarError(self, infoError);
 
 	}
-
+	
+	function punto(x,y){
+		
+	}
+	
 	this.buscar = function() {
 		var crit=_.reduce(self.criterios, function(str1, str2) {
 			return str1 + "SPC" + str2
-		});
+		});}
 		$state.go("busqueda");	
 		$state.reload();
-		poisService.buscar(crit, function(response) {
+		poisService.buscar(crit,posicion, function(response) {
 			resultado2 = _.map(response.data, transformarAPoi);
 			self.resultado=resultado2;
 			$state.go("busqueda.verResultados");
