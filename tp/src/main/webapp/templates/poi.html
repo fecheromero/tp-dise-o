@@ -7,17 +7,21 @@
 <div ui-view></div>
 
 <div class="col-md-12">
-	<div class="media" ng-repeat="review in vistaCtrl.reviews">
+	<div class="media" ng-repeat="review in poiCtrl.poi.reviews">
 		<a class="media-left waves-light"> </a>
 		<div class="media-body">
-			<h4 class="media-heading">{{review.usuario}}</h4>
-			
-			<p>{{review.comentario}}</p>
+			<h3 class="media-heading">{{review.comentario}}</h3>
+			<h2 class="media-heading">{{review.puntaje}}</h2>
+			<p>{{review.usuario}}</p>
 		</div>
 	</div>
+	<button id="aceptar" class="btn btn-default" autofocus="true"
+			data-ng-click="poiCtrl.volver()">
+			<i class="fa fa-mail-reply " aria-hidden="true"></i> Volver
+		</button>
 </div>
-<div ng-hide="vistaCtrl.tieneReview()">
-	<div class="form-group">
+<div ng-hide="poiCtrl.tieneReview">
+	<div class="form-group" >
 		<label for="sel1">Elija el puntaje del Poi</label>
 		 <select class="form-control" id="sel1" ng-model="poiCtrl.puntaje">
 			<option>1</option>
@@ -37,9 +41,6 @@
 		<a class="btn btn-default" data-ng-click="poiCtrl.enviar()">Enviar
 			<i class="fa fa-upload" aria-hidden="true"></i>
 		</a>
-		<button id="aceptar" class="btn btn-default" autofocus="true"
-			data-ng-click="poiCtrl.volver()">
-			<i class="fa fa-mail-reply " aria-hidden="true"></i> Volver
-		</button>
+		
 	</div>
 </div>

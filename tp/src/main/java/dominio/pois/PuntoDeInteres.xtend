@@ -1,28 +1,22 @@
 package dominio.pois
 
-import org.eclipse.xtend.lib.annotations.Accessors
-import dominio.tiempo.Horario
-import java.util.HashSet
-import org.uqbar.geodds.Point
-import org.joda.time.DateTime
-import dominio.tiempo.Turno
-import dominio.tiempo.Dia
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.google.common.collect.Sets
 import dependencias.Validable
 import dependencias.Validator
-import org.uqbar.commons.utils.Observable
-import views.MasInfoWindow
-import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
-import org.uqbar.arena.windows.SimpleWindow
-import org.uqbar.arena.windows.WindowOwner
-import org.uqbar.arena.windows.MainWindow
-import org.uqbar.arena.aop.windows.TransactionalDialog
-import java.util.List
-import views.ParParametrico
-import views.BusquedaModel
-import views.BusquedaWindow
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import dominio.tiempo.Dia
+import dominio.tiempo.Horario
+import dominio.tiempo.Turno
 import java.util.ArrayList
+import java.util.HashSet
+import java.util.List
+import org.eclipse.xtend.lib.annotations.Accessors
+import org.joda.time.DateTime
+import org.uqbar.commons.utils.Observable
+import org.uqbar.geodds.Point
+import views.BusquedaWindow
+import views.MasInfoWindow
+import views.ParParametrico
 
 @Observable
 @Accessors
@@ -35,8 +29,8 @@ public abstract class PuntoDeInteres implements Validator {
 	String nombre
 	Horario horario
 	HashSet<Servicio> servicios
-	String icono
-	HashSet<Review> reviews
+//	String icono
+	ArrayList<Review> reviews=new ArrayList<Review>
 	var double DISTANCIA_MAXIMA = 0.5
 	
 	def void agregarReview(Review review){

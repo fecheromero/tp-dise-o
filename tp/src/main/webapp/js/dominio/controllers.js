@@ -1,6 +1,7 @@
 'use strict';
 
 var resultado2;
+var criterios2;
 app.controller('buscadorCtrl', function(poisService, $state, $timeout) {
 	/* scope */
 	var self = this;
@@ -22,8 +23,9 @@ app.controller('buscadorCtrl', function(poisService, $state, $timeout) {
 			notificarError(self)
 		});
 	};
+	
 	this.favoritos();
-
+	criterios2=this.criterios;
 	function transformarAPoi(jsonPoi) {
 
 		var punto = eval(jsonPoi.tipo + ".asPoi(jsonPoi)");
@@ -75,6 +77,9 @@ app.controller('buscadorCtrl', function(poisService, $state, $timeout) {
 		}, notificarErrorPois);
 		$state.reload();
 	};
+	this.salir = function(){
+		$state.go("login");
+	};
 
 });
 var poiCache;
@@ -82,6 +87,7 @@ app.controller('poiController', function(poisService,$stateParams, $state) {
 	this.usuario=usuarioCache;
 	this.puntaje=0;
 	this.comentario="";
+	this.comentarioSplit=[];
 	var self=this;
 	
 	poiCache = _.find(resultado2, {
@@ -107,7 +113,14 @@ app.controller('poiController', function(poisService,$stateParams, $state) {
 	});
 	
 	this.enviar=function(){
-		poisService.agregarReview(self.poi.id,self.usuario,self.puntaje,self.comentario,function(){
+		self.comentarioSplit= self.comentario.split(" ");
+		poisService.agregarReview(self.poi.id,self.usuario,self.puntaje,_.reduce(self.comentarioSplit, function(str1, str2) {
+			return str1 + "SPC" + str2
+		}),function(){
+			self.poi.reviews.push({
+				usuario:self.usuario,
+				puntaje:self.puntaje,
+				comentario:self.comentario});
 			$state.reload()
 		},function() {
 			notificarError(self)
@@ -117,17 +130,6 @@ app.controller('poiController', function(poisService,$stateParams, $state) {
 		$state.go("busqueda.verResultados")
 	};
 });
-/*
-app.controller('vistaController', function($state) {
-	this.poi=poiCache;
-	this.volver = function() {
-		$state.go("busqueda.verResultados")
-	};
-	
-
-});
-*/
-// login
 
 function Usuario(usuario, clave) {
 	return {

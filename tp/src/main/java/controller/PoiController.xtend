@@ -20,6 +20,8 @@ import com.eclipsesource.json.Json
 import dominio.pois.Review
 import org.uqbar.xtrest.api.annotation.Post
 import dominio.pois.PuntoDeInteres
+import com.fasterxml.jackson.annotation.PropertyAccessor
+import java.beans.Visibility
 
 /*
  * class AnotherJSONUtils{
@@ -52,6 +54,10 @@ class PoiController {
 		busquedaPois.agregarOrigen(Repositorio.instance)
 
 		repoUsuarios.create(new Consulta("admin", "12345", busquedaPois, new ArrayList()))
+		repoUsuarios.create(new Consulta("chona", "chona", busquedaPois, new ArrayList()))
+		repoUsuarios.create(new Consulta("feche", "feche", busquedaPois, new ArrayList()))
+		repoUsuarios.create(new Consulta("nadia", "nadia", busquedaPois, new ArrayList()))
+		repoUsuarios.create(new Consulta("cande", "cande", busquedaPois, new ArrayList()))
 	}
 
 	extension JSONUtils = new JSONUtils
@@ -62,7 +68,6 @@ class PoiController {
 	def Result buscar() {
 		var criterio = crit.split("SPC").fold("", [str1, str2|str1.concat(" ").concat(str2).concat(" ")])
 		response.contentType = ContentType.APPLICATION_JSON
-
 		ok(busquedaPois.buscar(criterio, admin).toJson)
 	}
 

@@ -1,5 +1,8 @@
 package dominio.pois
 
+import org.eclipse.xtend.lib.annotations.Accessors
+
+@Accessors
 class Review {
 	int puntaje
 	String comentario
