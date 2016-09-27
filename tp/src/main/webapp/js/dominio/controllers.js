@@ -15,9 +15,8 @@ app.controller('buscadorCtrl', function(poisService, $state, $timeout) {
 	self.errors = [];
 	self.usuario = usuarioCache;
 	self.$timeout = $timeout;
-	//self.unlike = "true";
 	self.favoritosList = [];
-	this.favoritos = function() {
+	self.favoritos = function() {
 		poisService.favoritos(self.usuario, function(response) {
 			self.favoritosList = _.map(response.data, function(JsonNum) {
 				return eval(JsonNum);
@@ -27,7 +26,7 @@ app.controller('buscadorCtrl', function(poisService, $state, $timeout) {
 		});
 	};
 	
-//	this.favoritos();
+	self.favoritos();
 	criterios2=this.criterios;
 	function transformarAPoi(jsonPoi) {
 
@@ -42,16 +41,15 @@ app.controller('buscadorCtrl', function(poisService, $state, $timeout) {
 	}
 	
 	this.buscar = function() {
+		self.favoritos();
 		var crit=_.reduce(self.criterios, function(str1, str2) {
 			return str1 + "SPC" + str2
 		});
-		$state.go("busqueda");	
-		$state.reload();
+		$state.go("busqueda");
 		poisService.buscar(crit, function(response) {
 			resultado2 = _.map(response.data, transformarAPoi);
 			self.resultado=resultado2;
 			$state.go("busqueda.verResultados");
-
 		}, function() {
 			notificarError(self)
 		});
@@ -76,7 +74,8 @@ app.controller('buscadorCtrl', function(poisService, $state, $timeout) {
 		poisService.like(self.usuario, poi.id, function() {
 		
 			self.favoritos();	
-			self.buscar();
+				self.buscar();
+			
 		}, notificarErrorPois);
 			
 	};
@@ -85,11 +84,15 @@ app.controller('buscadorCtrl', function(poisService, $state, $timeout) {
 			
 			self.favoritos();
 			self.buscar();
+			
 			}, notificarErrorPois);
 	
 		
 	};
 	this.salir = function(){
+		self.limpiar();
+		usuarioCache="";
+		self.usuario="";
 		$state.go("login");
 	};
 
