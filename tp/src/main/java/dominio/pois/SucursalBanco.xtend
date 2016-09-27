@@ -14,7 +14,9 @@ import dependencias.Validable
 import dependencias.Identificador
 import views.ParParametrico
 import com.fasterxml.jackson.annotation.JsonProperty
+import org.eclipse.xtend.lib.annotations.Accessors
 
+@Accessors
 class SucursalBanco extends PuntoDeInteres {
 	@Validable
 	HashSet<Servicio> servicios
@@ -24,10 +26,10 @@ class SucursalBanco extends PuntoDeInteres {
 		super.horario=_horario
 		horario=_horario
 	}
-	new(HashSet<Servicio> servicios, Direccion _direccion, String _nombre) {
+	new(HashSet<Servicio> _servicios, Direccion _direccion, String _nombre) {
 		this.nombre = _nombre
 		this.direccion = _direccion
-		this.servicios = servicios
+		this.servicios = _servicios
 		var turnosDisponiblesBanco = new HashSet<Turno>
 		var diasHabilesBanco = new HashSet<Dia>
 		var turnoBanco = new Turno(new LocalTime(10, 0), new LocalTime(15, 0))

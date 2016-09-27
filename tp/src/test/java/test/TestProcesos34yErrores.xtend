@@ -32,11 +32,16 @@ import procesos.ProcesosMultiples
 import java.util.ArrayList
 import observer.Accion
 import java.util.List
+import dominio.pois.SucursalBanco
+import fixtures.SucursalBancoFixture
+import dominio.pois.CGP
 
 class TestProcesos34yErrores {
 	Repositorio repo
 	LocalComercial libreria
 	ParadaDeColectivo _114
+	SucursalBanco banco
+	CGP cgp
 	StubServicioExternoCGP stubServExtCGP
 	AdapterCGP adapterCGP
 	StubServicioExternoBanco stubServExtBanco
@@ -75,6 +80,8 @@ class TestProcesos34yErrores {
 		repo.create(libreria)
 		_114 = new ParadaColectivoFixture().obtenerParadaColectivo
 		repo.create(_114)
+		banco= new SucursalBancoFixture().obtenerBanco
+		cgp= new CGPFixture().obtenerCGPFlores
 		stubServExtCGP = new StubServicioExternoCGP
 		stubServExtCGP.agregarCentroDTO(new CentroDTOFixture().centro1)
 		stubServExtCGP.agregarCentroDTO(new CentroDTOFixture().centro2)
@@ -201,6 +208,10 @@ class TestProcesos34yErrores {
 			verify(mockedMailSender, times(1)).send(any(typeof(Administrador)))
 			Assert.assertTrue(repoProcesos.listaDeResultados.get(0).resultado == "error")
 		
+	}
+	@Test
+	def void testBanco(){
+		System.out.println(banco.servicios)
 	}
 
 }

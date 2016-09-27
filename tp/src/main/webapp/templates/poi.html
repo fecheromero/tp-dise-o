@@ -39,8 +39,9 @@
 
 
 <div class="container" ng-hide="poiCtrl.tieneReview">
+	<div class="row">
 	<div class="form-group" >
-		<label for="sel1">Elija el puntaje del Poi</label>
+		<label for="sel1">Califique el Poi</label>
 		 <select class="form-control" id="sel1" ng-model="poiCtrl.puntaje">
 			<option>1</option>
 			<option>2</option>
@@ -50,15 +51,16 @@
 		</select>
 
 	</div>
-	<div class="md-form">
+	<div class="col-md-6 offset-md-3">
 		<i class="fa fa-comment-o" aria-hidden="true"></i> <input type="text"
 			id="form2" class="form-control" ng-model="poiCtrl.comentario">
 		<label for="form2">comentario...</label>
 	</div>
-	<div class="container">
+	<div class="col-md-4 offset-md-4">
 		<a class="btn btn-default" data-ng-click="poiCtrl.enviar()">Enviar
 			<i class="fa fa-upload" aria-hidden="true"></i>
 		</a>
 		
+	</div>
 	</div>
 </div>

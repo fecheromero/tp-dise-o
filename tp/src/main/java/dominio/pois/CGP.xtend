@@ -19,10 +19,10 @@ import com.fasterxml.jackson.annotation.JsonProperty
 public class CGP extends PuntoDeInteres {
 	@Validable
 	HashSet<Servicio> servicios
-	new(HashSet<Servicio> servicios, Direccion _direccion, String _nombre) {
+	new(HashSet<Servicio> _servicios, Direccion _direccion, String _nombre) {
 		this.nombre = _nombre
 		this.direccion = _direccion
-		this.servicios = servicios
+		this.servicios = _servicios
 		this.horario = horarioDeTodosSusServicios(servicios)
 		this.id=Identificador.getInstance.nextId
 	}
