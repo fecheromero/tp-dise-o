@@ -83,6 +83,8 @@ class Bootstrap {
 
 	def SucursalBanco obtenerBanco(){
 		
+		var almagro = new Comuna("once",new Polygon(#[new Point(0, 0), new Point(0, 5), new Point(5, 5), new Point(5, 0)]))		
+		
 		var diasHabilesRentas = new HashSet<Dia>
 		diasHabilesRentas.addAll(Dia.LUN, Dia.MAR, Dia.MIE, Dia.JUE)
 		var turnoMañana = new Turno(new LocalTime(9, 0), new LocalTime(13, 0))
@@ -90,24 +92,22 @@ class Bootstrap {
 		var turnosDisponiblesRentas = new HashSet<Turno>
 		turnosDisponiblesRentas.addAll(turnoMañana, turnoTarde)
 		var horarioRentas = new Horario(diasHabilesRentas, turnosDisponiblesRentas)
-		var diasHabilesCobranzas = new HashSet<Dia>
-		diasHabilesCobranzas.addAll(Dia.LUN, Dia.MAR, Dia.MIE, Dia.JUE, Dia.MIE)
-		var turnoCobranzas = new Turno(new LocalTime(8, 0), new LocalTime(16, 0))
-		var turnosDisponiblesCobranzas = new HashSet<Turno>
-		turnosDisponiblesCobranzas.add(turnoCobranzas)
-		var horarioCobranzas = new Horario(diasHabilesCobranzas, turnosDisponiblesRentas)
 
-		var almagro = new Comuna("almagro", new Polygon(#[new Point(1, 2), new Point(2, 3)]))
+		var diasHabilesRegistroCivil = new HashSet<Dia>
+		diasHabilesRegistroCivil.addAll(Dia.LUN, Dia.MAR, Dia.MIE, Dia.JUE)
+		var turnoRegistroCivil = new Turno(new LocalTime(7, 0), new LocalTime(12, 30))
+		var turnosDisponiblesRegistroCivil = new HashSet<Turno>
+		turnosDisponiblesRegistroCivil.add(turnoRegistroCivil)
+		var horarioRegistroCivil = new Horario(diasHabilesRegistroCivil, turnosDisponiblesRegistroCivil)
 		
-		var direccionBanco = new Direccion("calle pepe", "3333", #["jorge", "roberto"], new Point(1, 0), "bs as",
-			"Buenos Aires", almagro, "3333", "", "", "")
-
-		var rentas = new Servicio("Rentas", horarioRentas)
-		var cobranzas = new Servicio("Cobranzas", horarioCobranzas)
-		var serviciosBanco = new HashSet<Servicio>
-		serviciosBanco.addAll(rentas, cobranzas)
-
-		var santander = new SucursalBanco(serviciosBanco, direccionBanco, "santander rio 8")
+		var registroCivil = new Servicio("Atencion Al Cliente", horarioRegistroCivil)
+		var rentas = new Servicio("Deposito", horarioRentas)
+		
+		var serviciosCGP = new HashSet<Servicio>
+		serviciosCGP.addAll(rentas, registroCivil)
+		
+		
+		var santander = new SucursalBanco(serviciosCGP, new Direccion("junin", "5978", #["san Martin", "Belgrano"], new Point(4, 6), "bs as","Buenos Aires", almagro, "1881", "", "", ""), "Santander Rio")
 		
 		return santander
 	}

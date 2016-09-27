@@ -96,7 +96,8 @@ class PoiController {
 	def Result agregarReview(){
 		try {
 			var PuntoDeInteres poi=repo.searchBynd(Integer.parseInt(poiId))
-			var Review review = new Review(usuario,Integer.parseInt(puntaje),comentario)
+			var comentarioSplit=comentario.split("SPC").fold("", [str1, str2|str1.concat(" ").concat(str2).concat(" ")])
+			var Review review = new Review(usuario,Integer.parseInt(puntaje),comentarioSplit)
 			poi.agregarReview(review)
 			ok('{ "status" : "OK" }')
 			

@@ -112,9 +112,9 @@ class TestObserver {
 
 		buscador.busquedaObservers.addAll(accionesAbasto)
 
-		terminalAbasto = new Consulta("Abasto", buscador, accionesAbasto)
-		terminalFlorida = new Consulta("Florida", buscador, accionesFlorida)
-		terminalTeatroColon = new Consulta("Teatro Colon", buscador, accionesColon)
+		terminalAbasto = new Consulta("Abasto","absto", buscador, accionesAbasto)
+		terminalFlorida = new Consulta("Florida","florida", buscador, accionesFlorida)
+		terminalTeatroColon = new Consulta("Teatro Colon","colon", buscador, accionesColon)
 
 	}
 

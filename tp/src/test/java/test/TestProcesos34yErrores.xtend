@@ -107,9 +107,9 @@ class TestProcesos34yErrores {
 		var lista = new ArrayList<Accion>(
 			#[observerAlmacenamiento, observerDemora, observerBusqPorFecha, observerResParc, observerResTot])
 
-		terminalAbasto = new Consulta("Abasto", buscador, lista)
-		terminalFlorida = new Consulta("Florida", buscador, lista)
-		terminalTeatroColon = new Consulta("Teatro Colon", buscador, lista)
+		terminalAbasto = new Consulta("Abasto","absto", buscador,lista)
+		terminalFlorida = new Consulta("Florida","florida", buscador, lista)
+		terminalTeatroColon = new Consulta("Teatro Colon","colon", buscador, lista)
 
 		buscador.busquedaObservers.addAll(lista)
 		/*		observerBusqPorFechaAbasto.buscador = buscadorAbasto
