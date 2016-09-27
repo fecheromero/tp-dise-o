@@ -7,8 +7,9 @@ var criterios2=[];
 
 app.controller('buscadorCtrl', function(poisService, $state, $timeout) {
 	/* scope */
+	var posicionx;
+	var posiciony;
 	var self = this;
-
 	this.criterio = "";
 	self.resultado = resultado2;
 	this.criterios = criterios2;
@@ -28,6 +29,8 @@ app.controller('buscadorCtrl', function(poisService, $state, $timeout) {
 	
 	self.favoritos();
 	criterios2=this.criterios;
+	
+	
 	function transformarAPoi(jsonPoi) {
 
 		var punto = eval(jsonPoi.tipo + ".asPoi(jsonPoi)");
@@ -46,7 +49,7 @@ app.controller('buscadorCtrl', function(poisService, $state, $timeout) {
 			return str1 + "SPC" + str2
 		});
 		$state.go("busqueda");
-		poisService.buscar(crit, function(response) {
+		poisService.buscar(crit,posicionx,posiciony, function(response) {
 			resultado2 = _.map(response.data, transformarAPoi);
 			self.resultado=resultado2;
 			$state.go("busqueda.verResultados");
