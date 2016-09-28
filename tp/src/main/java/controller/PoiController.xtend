@@ -18,7 +18,6 @@ import org.uqbar.xtrest.api.annotation.Put
 import org.uqbar.xtrest.http.ContentType
 import org.uqbar.xtrest.json.JSONUtils
 import usuarios.RepoUsuarios
-import org.uqbar.geodds.Point
 
 @Controller
 class PoiController {
@@ -28,7 +27,6 @@ class PoiController {
 	var Repositorio repo = Repositorio.instance
 	var Bootstrap unBoots = new Bootstrap
 	var RepoUsuarios repoUsuarios = RepoUsuarios.instance
-	
 	
 
 	new() {
@@ -52,26 +50,12 @@ class PoiController {
 
 	extension JSONPropertyUtils = new JSONPropertyUtils
 
-		@Get('/pois/busqueda/:crit/:posicionx/:posiciony')
+		@Get('/pois/busqueda/:crit')
 	def Result buscar() {
-		var Point posicion = new Point (Integer.parseInt(posicionx),Integer.parseInt(posiciony))
 		var criterio = crit.split("SPC").fold("", [str1, str2|str1.concat(" ").concat(str2).concat(" ")])
+//		var Point poi=new Point(x,y)
 		response.contentType = ContentType.APPLICATION_JSON
-		var resultados = busquedaPois.buscar(criterio, admin).toJson
-		ok()
-			
-		
-		/*try{
-			var PuntoDeInteres poi=repo.searchBynd(Integer.parseInt(poiId))
-			if(poi.estaCercaDe(posicion)){
-			ok('{"status" : "OK"')
-			}else{
-			ok('("status" : "ERROR"')	
-			}
-		}catch(Exception e){
-			badRequest(e.message)
-			
-		}*/
+		ok(busquedaPois.buscar(criterio, admin).toJson)
 	}
 
 	@Put('/pois/:poiId/like/:usuario')
