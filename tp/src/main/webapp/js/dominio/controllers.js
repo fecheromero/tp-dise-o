@@ -4,12 +4,12 @@ var resultado2;
 var poiCache;
 var usuarioCache;
 var criterios2=[];
+var coordenadasList;
 
 app.controller('buscadorCtrl', function(poisService, $state, $timeout) {
 	/* scope */
-	var posicionx="2";
-	var posiciony="6";
 	var self = this;
+
 	this.criterio = "";
 	self.resultado = resultado2;
 	this.criterios = criterios2;
@@ -29,8 +29,6 @@ app.controller('buscadorCtrl', function(poisService, $state, $timeout) {
 	
 	self.favoritos();
 	criterios2=this.criterios;
-	
-	
 	function transformarAPoi(jsonPoi) {
 
 		var punto = eval(jsonPoi.tipo + ".asPoi(jsonPoi)");
@@ -49,8 +47,14 @@ app.controller('buscadorCtrl', function(poisService, $state, $timeout) {
 			return str1 + "SPC" + str2
 		});
 		$state.go("busqueda");
-		poisService.buscar(crit,posicionx,posiciony, function(response) {
+		poisService.buscar(crit, function(response) {
 			resultado2 = _.map(response.data, transformarAPoi);
+			
+				coordenadasList=_.map(resultado2,function(value){
+				var palabra=value.direccion.coordenadasS;
+				var point=asPoint(palabra);
+				value.direccion.coordenadasS=point;
+			});
 			self.resultado=resultado2;
 			$state.go("busqueda.verResultados");
 		}, function() {
@@ -98,6 +102,9 @@ app.controller('buscadorCtrl', function(poisService, $state, $timeout) {
 		self.usuario="";
 		$state.go("login");
 	};
+	this.estaCerca=function(poi){
+		return poi.estaCerca(puntoActual);
+	}
 
 });
 app.controller('poiController', function(poisService,$stateParams, $state) {
@@ -146,6 +153,7 @@ app.controller('poiController', function(poisService,$stateParams, $state) {
 	this.volver = function() {
 		$state.go("busqueda.verResultados")
 	};
+
 });
 
 function Usuario(usuario, clave) {

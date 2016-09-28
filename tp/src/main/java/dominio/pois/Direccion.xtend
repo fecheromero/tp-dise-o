@@ -1,13 +1,12 @@
 package dominio.pois
 
+import com.fasterxml.jackson.annotation.JsonIgnore
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import dependencias.Tageador
-import org.eclipse.xtend.lib.annotations.Accessors
-import org.uqbar.geodds.Point
 import dependencias.Validable
 import dependencias.Validator
-import org.uqbar.commons.utils.Observable
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
-import com.fasterxml.jackson.annotation.JsonIgnore
+import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.geodds.Point
 
 @Accessors
 
@@ -34,6 +33,7 @@ class Direccion implements Validator {
 	String departamento
 	String unidad
 	String direccionS
+	String coordenadasS
 	@JsonIgnore
 	Tageador tag =Tageador.getInstance
 
@@ -51,6 +51,7 @@ class Direccion implements Validator {
 		this.departamento = departamento
 		this.unidad = unidad
 		direccionS=callePrincipal.concat(" ").concat(numero)
+		coordenadasS=coordenadas.toString
 	}
 
 	def String listaDeTags() {

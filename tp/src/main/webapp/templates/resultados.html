@@ -7,6 +7,7 @@
 			<th>Nombre</th>
 			<th>Direccion</th>
 			<th>Favorito</th>
+			<th>Cerca</th>
 		</thead>
 		<tr ng-repeat="poi in buscadorCtrl.resultado">
 			<td title="'#'">
@@ -32,6 +33,9 @@
            aria-label="unFav">
             <span class="glyphicon glyphicon-user" aria-hidden="hidden"></span> disLike
           </button>
+        </td>
+        <td title="'Cerca'">
+        <i class="fa fa-check" aria-hidden="true" ng-show="buscadorCtrl.estaCerca(poi)"></i>
         </td>
 		</tr>
 	</table>

@@ -1,3 +1,12 @@
+function Poi(){
+	
+	this.estaCerca= function(punto){
+		return this.direccion.coordenadasS.distance(punto) < this.distancia_MAXIMA
+	}
+}
+
+var poi=new Poi();
+
 function LocalComercial(_nombre, _direccion, _rubro) {
 	this.nombre = _nombre;
 	this.direccion = _direccion;
@@ -6,7 +15,7 @@ function LocalComercial(_nombre, _direccion, _rubro) {
 	this.reviews=[];
 	this.icono="images/Local.jpg";
 };
-//LocalComercial.prototype.icono = "images/Local.jpg";
+LocalComercial.prototype=poi;
 
 function SucursalBanco(_nombre, _zona, _direccion, _servicios) {
 	this.nombre = _nombre;
@@ -17,7 +26,7 @@ function SucursalBanco(_nombre, _zona, _direccion, _servicios) {
 	this.reviews=[];
 	this.icono="images/banco.jpg";
 };
-//SucursalBanco.prototype.icono = "images/banco.jpg";
+SucursalBanco.prototype=poi;
 
 function CGP(_nombre, _zona, _direccion, _servicios) {
 	this.nombre = _nombre;
@@ -28,7 +37,7 @@ function CGP(_nombre, _zona, _direccion, _servicios) {
 	this.reviews=[];
 	this.icono="images/cgp.jpg";
 };
-//CGP.prototype.icono = "images/cgp.jpg";
+CGP.prototype=poi;
 
 function Colectivo(_nombre, _direccion) {
 	this.nombre = _nombre;
@@ -37,7 +46,7 @@ function Colectivo(_nombre, _direccion) {
 	this.reviews=[];
 	this.icono="images/icono-colectivo.jpg";
 };
-//Colectivo.prototype.icono = "images/icono-colectivo.jpg";
+Colectivo.prototype=poi;
 
 CGP.asPoi= function(jsonPoi){
 
@@ -56,3 +65,14 @@ SucursalBanco.asPoi= function(jsonPoi){
 
   return angular.extend(new SucursalBanco(), jsonPoi);
 };
+
+function asPoint(palabra){
+	this.cadena= palabra.split(" ");
+	this.y=cadena[3];
+	this.x=sinComa(cadena[1]);
+	return new Point(parseInt(this.x),parseInt(this.y))
+}
+function sinComa(palabra){
+	this.tamaño=(palabra.length)-1;
+	return palabra.substring(0,tamaño)
+}
