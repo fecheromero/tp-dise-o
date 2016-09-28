@@ -5,3 +5,4 @@ target
 generated*
 bin
 xtend-gen
+node_modules*

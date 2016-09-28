@@ -1,0 +1,66 @@
+
+<div class="view overlay hm-white-slight">
+	<img src="{{poiCtrl.poi.icono}}" class="img-fluid" alt=""
+		height="100px;" width="100px;">
+</div>
+
+<div ui-view></div>
+<div class="container">
+<table class="table table-striped table-hover"
+		ng-table="poiCtrl.poi.reviews">
+		<thead class="thead-inverse">
+			<th>Usuario</th>
+			<th>Comentario</th>
+			<th>Puntaje</th>
+			</thead>
+		<tr ng-repeat="review in poiCtrl.poi.reviews">
+			<td title="'Usuario'">
+				      {{review.usuario}}
+				               
+			</td>
+			<td title="'Comentario'">
+			{{review.comentario}}
+			</td>
+			<td title="'Puntaje'">
+			{{review.puntaje}}
+			</td>
+
+        </tr>
+</table>
+	<button id="aceptar" class="btn btn-default" autofocus="true"
+			data-ng-click="poiCtrl.volver()">
+			<i class="fa fa-mail-reply " aria-hidden="true"></i> Volver
+		</button>
+</div>
+
+
+
+
+
+
+<div class="container" ng-hide="poiCtrl.tieneReview">
+	<div class="row">
+	<div class="form-group" >
+		<label for="sel1">Califique el Poi</label>
+		 <select class="form-control" id="sel1" ng-model="poiCtrl.puntaje">
+			<option>1</option>
+			<option>2</option>
+			<option>3</option>
+			<option>4</option>
+			<option>5</option>
+		</select>
+
+	</div>
+	<div class="col-md-6 offset-md-3">
+		<i class="fa fa-comment-o" aria-hidden="true"></i> <input type="text"
+			id="form2" class="form-control" ng-model="poiCtrl.comentario">
+		<label for="form2">comentario...</label>
+	</div>
+	<div class="col-md-4 offset-md-4">
+		<a class="btn btn-default" data-ng-click="poiCtrl.enviar()">Enviar
+			<i class="fa fa-upload" aria-hidden="true"></i>
+		</a>
+		
+	</div>
+	</div>
+</div>

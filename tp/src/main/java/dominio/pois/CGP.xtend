@@ -11,15 +11,18 @@ import dominio.pois.PuntoDeInteres
 import dominio.pois.Direccion
 import dependencias.Validable
 import dependencias.Identificador
+import views.ParParametrico
+import views.MasInfoWindow
+import com.fasterxml.jackson.annotation.JsonProperty
 
 @Accessors
 public class CGP extends PuntoDeInteres {
 	@Validable
 	HashSet<Servicio> servicios
-	new(HashSet<Servicio> servicios, Direccion _direccion, String _nombre) {
+	new(HashSet<Servicio> _servicios, Direccion _direccion, String _nombre) {
 		this.nombre = _nombre
 		this.direccion = _direccion
-		this.servicios = servicios
+		this.servicios = _servicios
 		this.horario = horarioDeTodosSusServicios(servicios)
 		this.id=Identificador.getInstance.nextId
 	}
@@ -50,5 +53,18 @@ public class CGP extends PuntoDeInteres {
 
 		}
 	}
+	
+override parametrosTextBox(){
+	#[new ParParametrico("direccion","direccion.direccionS"),new ParParametrico("zona","direccion.comuna.nombre")]
 
+}
+ override parametrosCombos(){
+ 	#[new ParParametrico("servicios","servicios")]
+}
+@JsonProperty("tipo")
+	
+	def String tipo() {
+		"CGP"
+	
+		}
 }

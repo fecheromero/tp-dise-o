@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,UAAU;EACT,KAAK,EAAC,OAAO;;ACGd,UAAW;EACT,KAAK,EAAE,GAAG;;AAGZ,OAAQ;EACN,WAAW,EAAE,CAAC;EACd,YAAY,EAAE,CAAC;EACf,MAAM,EAAE,IAAI",
+"sources": ["../../../../Tercer%20a%C3%B1o/DDS/Maquetado%20web%20Entrega%205/scss/textWhite.scss","../../../../Tercer%20a%C3%B1o/DDS/Maquetado%20web%20Entrega%205/scss/main.scss"],
+"names": [],
+"file": "main.css"
+}

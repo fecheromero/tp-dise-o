@@ -1,0 +1,49 @@
+<div class="card-block">
+	<h4 class="card-header">Resultados</h4>
+	<table class="table table-striped table-hover"
+		ng-table="buscadorCtrl.resultado">
+		<thead class="thead-inverse">
+			<th>#</th>
+			<th>Nombre</th>
+			<th>Direccion</th>
+			<th>Favorito</th>
+			<th>Esta Cerca</th>
+		</thead>
+		<tr ng-repeat="poi in buscadorCtrl.resultado">
+			<td title="'#'">
+				      {{poi.id}}
+				      <img src="images/estrella.png" alt=""height="10px;" ng-hide="!poi.like" />
+         
+			</td>
+			<td title="'Nombre'">
+			<a ui-sref="busqueda.verInfo({id: poi.id})">{{poi.nombre}}</a>
+			<td title="'Direccion'">{{poi.direccion.callePrincipal + " " + poi.direccion.numero}}</td>
+
+        <td nowrap class="col-xs-2" title="'Favorito'">
+          <button type="button" class="btn btn-success" 
+                  data-ng-click="buscadorCtrl.like(poi);" 
+                  ng-hide="poi.like"
+                  aria-label="favorito">
+                  <img src="images/estrella.png" alt=""height="10px;" />
+            <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Like
+          </button>
+          <button type="button" class="btn btn-danger"
+           data-ng-click="buscadorCtrl.disLike(poi);" 
+           ng-hide="!poi.like" 
+           aria-label="unFav">
+            <span class="glyphicon glyphicon-user" aria-hidden="hidden"></span> disLike
+          </button>
+        </td>
+		<td nowrap class="col-xs-2" title="'Esta Cerca'">
+		<img src="images/estrella.png" alt=""height="10px;" ng-show="poi.estaCerca">
+		</td>
+		
+		</tr>
+	</table>
+
+         <div class="alert alert-danger" ng-repeat="error in buscadorCtrl.errors" >
+  <a href="#"  class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>{{error}}</strong> 
+</div>
+
+</div>

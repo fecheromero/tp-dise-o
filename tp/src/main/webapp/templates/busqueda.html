@@ -1,0 +1,55 @@
+<div>
+<div class="card">
+		<div class="card-block">
+			<div class="container">
+				<h4 class="card-header">Criterio de b&uacute;squeda</h4>
+				<!-- 			</div> -->
+				<!-- 			<div class="container"> -->
+				<div class="row">
+					<div class="col-md-6">
+						<p class="card-text">Nombre del Punto de Interes</p>
+						<input type="text" id="form2" placeholder="escriba su busqueda"
+							class="form-control" ng-model="buscadorCtrl.criterio">
+					</div>
+					<div class="col-md-6" align="center">
+						<button id="agregarCriterio" class="btn btn-primary"
+							data-ng-click="buscadorCtrl.agregar()">
+							<i class="fa fa-pencil" aria-hidden="true"></i> Agregar Criterio
+						</button>
+						<button id="buscarPOIs" class="btn btn-info" autofocus="true"
+							data-ng-click="buscadorCtrl.buscar()" >
+							<i class="fa fa-search" aria-hidden="true"></i> Buscar
+						</button>
+
+						<button id="limpiar" class="btn btn-info" autofocus="true"
+							data-ng-click="buscadorCtrl.limpiar()">
+							<i class="fa fa-magic" aria-hidden="true"></i> Limpiar
+						</button>
+						
+						<button id="salir" class="btn btn-danger" autofocus="true"
+							data-ng-click="buscadorCtrl.salir()">
+						 Salir
+						 	<i class="fa fa-sign-out" aria-hidden="true"></i>
+						</button>
+						
+
+						<table class="table table-striped table-hover"
+							ng-table="buscadorCtrl.criterios">
+							<thead class="thead-inverse">
+								<th>Criterio</th>
+
+
+							</thead>
+							<tr ng-repeat="criterio in buscadorCtrl.criterios">
+								<td title="'criterios'">{{criterio}}</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<div ui-view>
+</div>
+	
+</div>
