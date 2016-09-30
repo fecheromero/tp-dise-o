@@ -27,7 +27,7 @@ app.controller('buscadorCtrl', function(poisService, $state, $timeout) {
 		});
 	};
 	
-	self.favoritos();
+	//self.favoritos();
 	criterios2=this.criterios;
 	function transformarAPoi(jsonPoi) {
 

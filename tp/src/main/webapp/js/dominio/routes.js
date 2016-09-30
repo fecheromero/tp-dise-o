@@ -13,6 +13,17 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		url:"/busqueda",
 		templateUrl:"templates/busqueda.html",
 		controller:"buscadorCtrl as buscadorCtrl"
+		resolve: {
+			favoritosList : function() {
+		poisService.favoritos(self.usuario, function(response) {
+			self.favoritosList = _.map(response.data, function(JsonNum) {
+				return eval(JsonNum);
+			});
+		}, function() {
+			notificarError(self)
+		});
+	};
+		}
 	})
 	.state('busqueda.verResultados', {
 		
