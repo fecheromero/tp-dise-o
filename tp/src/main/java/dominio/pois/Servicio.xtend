@@ -6,14 +6,25 @@ import dominio.tiempo.Horario
 import dependencias.Validable
 import dependencias.Validator
 import org.uqbar.commons.utils.Observable
+import javax.persistence.Entity
+import javax.persistence.Column
+import javax.persistence.Id
+import javax.persistence.GeneratedValue
+import javax.persistence.JoinColumn
+import javax.persistence.ManyToMany
+import javax.persistence.ManyToOne
 
 @Accessors
 @Observable
+@Entity
 class Servicio implements Validator {
+	@Id
 	@Validable
+	@Column(length=100)
 	String nombre
 	@Validable
-	Horario horario
+	@ManyToOne(cascade=ALL)
+  	Horario horario
 
 
 	new(String _nombre,Horario _horario) {

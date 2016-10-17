@@ -14,9 +14,14 @@ import views.BusquedaModel
 import views.BusquedaWindow
 import java.awt.Panel
 import com.fasterxml.jackson.annotation.JsonProperty
+import javax.persistence.Entity
+import javax.persistence.DiscriminatorValue
 
 @Observable
 @Accessors
+
+@Entity
+@DiscriminatorValue("4")
 public class ParadaDeColectivo extends PuntoDeInteres {
 	
 	new(Direccion _direccion, String _nombre) {

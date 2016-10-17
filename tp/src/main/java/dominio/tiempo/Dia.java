@@ -1,7 +1,11 @@
 package dominio.tiempo;
 
-	public enum Dia {
-	    LUN(1),
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+
+public enum Dia {
+		LUN(1),
 	    MAR(2),
 	    MIE(3),
 	    JUE(4),

@@ -15,12 +15,20 @@ import dependencias.Identificador
 import views.ParParametrico
 import com.fasterxml.jackson.annotation.JsonProperty
 import org.eclipse.xtend.lib.annotations.Accessors
+import javax.persistence.DiscriminatorValue
+import javax.persistence.Entity
+import javax.persistence.ManyToMany
+import javax.persistence.ManyToOne
 
 @Accessors
+@Entity
+@DiscriminatorValue("3")
 class SucursalBanco extends PuntoDeInteres {
+	//@Validable
+	//@ManyToMany()
+	//Set<Servicio> servicios
 	@Validable
-	HashSet<Servicio> servicios
-	@Validable
+	@ManyToOne()
 	Horario horario
 	 def void sethorario(Horario _horario){
 		super.horario=_horario

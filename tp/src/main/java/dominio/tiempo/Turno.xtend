@@ -4,12 +4,22 @@ import org.joda.time.LocalTime
 import org.eclipse.xtend.lib.annotations.Accessors
 import dependencias.Validator
 import dependencias.Validable
+import javax.persistence.Entity
+import javax.persistence.Column
+import javax.persistence.GeneratedValue
+import javax.persistence.Id
 
 @Accessors
+@Entity
 class Turno implements Validator {
 	@Validable
+	@Id
+	@GeneratedValue
+	int Id
+	@Column(length=50)
 	LocalTime horaInicio
 	@Validable
+	@Column(length=50)
 	LocalTime horaFin
 	new(LocalTime _horaInicio,LocalTime _horaFin){
 		this.horaInicio=_horaInicio

@@ -7,33 +7,68 @@ import dependencias.Validable
 import dependencias.Validator
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.geodds.Point
+import javax.persistence.Entity
+import javax.persistence.Column
+import javax.persistence.ManyToOne
+import javax.persistence.Id
+import javax.persistence.GeneratedValue
+import javax.persistence.Converter
+import javax.persistence.Convert
+import dependencias.PointConverter
+import javax.persistence.Transient
 
 @Accessors
-
+@Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
 class Direccion implements Validator {
+	@Id
+	@GeneratedValue
+	int Id
+	@Column(length=100)
 	@Validable
 	String callePrincipal
 	@Validable
+	@Column(length=100)
 	String numero
-	@Validable
+	@Validable	
+	@Column(length=100)
 	String[] entre
 	@Validable
 	@JsonIgnore
+	@Column(length=20)
+	@Convert(converter=PointConverter)
 	Point coordenadas
 	@Validable
+	
+	@Column(length=100)
 	String localidad
 	@Validable
+	
+	@Column(length=100)
 	String provincia
 	@Validable
+	
+	@ManyToOne(cascade=ALL)
 	Comuna comuna
 	@Validable
+	@Column(length=100)
 	String codigoPostal
+	
+	@Column(length=100)
 	String piso
+	
+	@Column(length=100)
 	String departamento
+	
+	@Column(length=100)
 	String unidad
+	
+	@Column(length=100)
 	String direccionS
+	
+	@Column(length=100)
 	String coordenadasS
+	@Transient
 	@JsonIgnore
 	Tageador tag =Tageador.getInstance
 

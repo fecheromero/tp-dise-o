@@ -14,16 +14,25 @@ import dependencias.Identificador
 import views.ParParametrico
 import views.MasInfoWindow
 import com.fasterxml.jackson.annotation.JsonProperty
+import javax.persistence.Entity
+import javax.persistence.DiscriminatorValue
+import javax.persistence.ManyToMany
+import javax.persistence.JoinColumn
+import java.util.Set
 
 @Accessors
+@Entity
+@DiscriminatorValue("2")
 public class CGP extends PuntoDeInteres {
 	@Validable
-	HashSet<Servicio> servicios
+	@ManyToMany()
+	@JoinColumn(name="nombre")
+	Set<Servicio> servicios
 	new(HashSet<Servicio> _servicios, Direccion _direccion, String _nombre) {
 		this.nombre = _nombre
 		this.direccion = _direccion
 		this.servicios = _servicios
-		this.horario = horarioDeTodosSusServicios(servicios)
+		this.horario = horarioDeTodosSusServicios(servicios) 
 		this.id=Identificador.getInstance.nextId
 	}
 	

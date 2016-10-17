@@ -17,20 +17,49 @@ import org.uqbar.geodds.Point
 import views.BusquedaWindow
 import views.MasInfoWindow
 import views.ParParametrico
+import javax.persistence.Entity
+import javax.persistence.GeneratedValue
+import javax.persistence.Id
+import javax.persistence.OneToOne
+import javax.persistence.Column
+import javax.persistence.ManyToOne
+import javax.persistence.OneToMany
+import javax.persistence.FetchType
+import javax.persistence.CollectionTable
+import javax.persistence.JoinColumn
+import javax.persistence.ManyToMany
+import java.util.Set
+import org.hibernate.annotations.CascadeType
+import javax.persistence.Inheritance
+import javax.persistence.InheritanceType
+import javax.persistence.DiscriminatorColumn
+import javax.persistence.DiscriminatorType
 
 @Observable
 @Accessors
 @JsonIgnoreProperties(ignoreUnknown = true)
+@Entity
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="tipoPoi", discriminatorType=DiscriminatorType.INTEGER)
 public abstract class PuntoDeInteres implements Validator {
+	@Id
+	@GeneratedValue
 	private int id
 	@Validable
+	@OneToOne(cascade=ALL)
 	Direccion direccion
 	@Validable
+	@Column(length=100)
 	String nombre
+	@ManyToOne(cascade=ALL)
 	Horario horario
-	HashSet<Servicio> servicios
-//	String icono
+	@ManyToMany( cascade=ALL)
+	Set<Servicio> servicios
+	
+	@CollectionTable(name="Reviews", joinColumns=@JoinColumn(name="poi_id"))
+	@Column(name="Reviews")
 	ArrayList<Review> reviews=new ArrayList<Review>
+	@Column(length=20)
 	var double DISTANCIA_MAXIMA = 0.5
 	
 	def void agregarReview(Review review){
@@ -49,16 +78,16 @@ public abstract class PuntoDeInteres implements Validator {
 		return this.horario.esHabilElMomento(unMomento)
 	}
 
-	def Horario horarioDeTodosSusServicios(HashSet<Servicio> servicios) {
+	def Horario horarioDeTodosSusServicios(Set<Servicio> servicios) {
 		return new Horario(juntarDiasDeServicios(servicios), juntarTurnosDeServicios(servicios))
 	}
 
-	def HashSet<Dia> juntarDiasDeServicios(HashSet<Servicio> servicios) {
+	def HashSet<Dia> juntarDiasDeServicios(Set<Servicio> servicios) {
 		// return Sets.newHashSet(Dia.values.filter[dia|servicios.exists[servicio|servicio.horario.diasHabilesPoi.contains(dia)]])
 		return Sets.newHashSet(servicios.map[unServicio|unServicio.horario.diasHabilesPoi].flatten())
 	}
 
-	def HashSet<Turno> juntarTurnosDeServicios(HashSet<Servicio> servicios) {
+	def HashSet<Turno> juntarTurnosDeServicios(Set<Servicio> servicios) {
 		return Sets.newHashSet(servicios.map[unServicio|unServicio.horario.turnosDisponibles].flatten())
 	}
 	

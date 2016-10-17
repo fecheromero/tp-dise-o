@@ -8,12 +8,19 @@ import dependencias.Validable
 import dependencias.Identificador
 import views.ParParametrico
 import com.fasterxml.jackson.annotation.JsonProperty
+import javax.persistence.Entity
+import javax.persistence.DiscriminatorValue
+import javax.persistence.ManyToOne
 
 @Accessors
+@Entity
+@DiscriminatorValue("1")
 public class LocalComercial extends PuntoDeInteres {
+	@ManyToOne()
 	@Validable
 	Rubro rubro
 	@Validable
+	@ManyToOne()
 	Horario horario
 	
 	String otrosTags=""

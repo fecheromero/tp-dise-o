@@ -6,17 +6,39 @@ import java.util.HashSet
 import org.eclipse.xtend.lib.annotations.Accessors
 import dependencias.Validator
 import dependencias.Validable
+import javax.persistence.Entity
+import javax.persistence.ManyToMany
+import javax.persistence.GeneratedValue
+import javax.persistence.Id
+import javax.persistence.CollectionTable
+import org.hibernate.annotations.CollectionType
+import java.util.Set
+import javax.persistence.JoinTable
+import javax.persistence.JoinColumn
+import javax.persistence.Column
+import javax.persistence.Enumerated
+import javax.persistence.EnumType
+import javax.persistence.ElementCollection
 
 //import org.joda.time.Partial
 //import org.joda.time.chrono.ISOChronology
 //import org.joda.time.DateTimeFieldType
 
 @Accessors
+@Entity
 public class Horario implements Validator {
+	@Id
+	@GeneratedValue
+	int Id
 	@Validable
-	HashSet<Dia> diasHabilesPoi
+	@ElementCollection(targetClass=Dia)
+	@CollectionTable(name="Dias",joinColumns=@JoinColumn(name="id"))
+	@JoinTable(name = "Dia", joinColumns = @JoinColumn(name = "Id"))
+	@Column(name ="Dia", nullable = false)
+	Set<Dia> diasHabilesPoi
 	@Validable
-	HashSet<Turno> turnosDisponibles
+	@ManyToMany(cascade=ALL)
+	Set<Turno> turnosDisponibles
 	
 			
 	
