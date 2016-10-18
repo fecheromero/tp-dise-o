@@ -34,6 +34,8 @@ import javax.persistence.Inheritance
 import javax.persistence.InheritanceType
 import javax.persistence.DiscriminatorColumn
 import javax.persistence.DiscriminatorType
+import dominio.Repositorio
+import javax.persistence.ElementCollection
 
 @Observable
 @Accessors
@@ -53,12 +55,14 @@ public abstract class PuntoDeInteres implements Validator {
 	String nombre
 	@ManyToOne(cascade=ALL)
 	Horario horario
-	@ManyToMany()
+	@ManyToMany(fetch = FetchType.EAGER)
 	Set<Servicio> servicios
 	
+	@ElementCollection
 	@CollectionTable(name="Reviews", joinColumns=@JoinColumn(name="poi_id"))
 	@Column(name="Reviews")
-	ArrayList<Review> reviews=new ArrayList<Review>
+	List<Review> reviews=new ArrayList<Review>
+	
 	@Column(length=20)
 	var double DISTANCIA_MAXIMA = 0.5
 	
@@ -98,12 +102,14 @@ public abstract class PuntoDeInteres implements Validator {
 		#[]
 	}
 	
-  def mostrar(BusquedaWindow view){
+   def mostrar(BusquedaWindow view){
 	var ventana=new MasInfoWindow(view,this,this.parametrosTextBox,this.parametrosCombos)
 	view.openDialog(ventana)
 	
 }
-	
+	def void actualizar(PuntoDeInteres yo) {
+		Repositorio.instance.update(yo)
+	}
 
 	/*def void validate() {
 

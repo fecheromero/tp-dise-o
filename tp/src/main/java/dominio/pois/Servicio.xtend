@@ -20,9 +20,12 @@ import org.hibernate.annotations.GenericGenerator
 @Entity
 class Servicio implements Validator {
 	@Id
-	@GeneratedValue(generator = "uuid")
-	@GenericGenerator(name = "uuid", strategy = "uuid2")
-	@Validable
+	@GeneratedValue
+	private int id
+//	@Id
+//	@GeneratedValue(generator = "uuid")
+//	@GenericGenerator(name = "uuid", strategy = "uuid2")
+//	@Validable
 	@Column(length=100)
 	String nombre
 	@Validable

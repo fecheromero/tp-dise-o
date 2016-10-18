@@ -31,13 +31,17 @@ import org.hibernate.annotations.GenericGenerator
 public abstract class PerfilDeUsuario {
 	@Transient
 	Busqueda buscador
+	
 	@Id
 	@Column(length=150)
 	String nombre
+	
 	@Column(length=150)
 	String contraseña
+	
 	@Transient
 	List<Accion> listaDeAcciones = new ArrayList<Accion>
+	
 	@ElementCollection
 	@CollectionTable(name="favoritos", joinColumns=@JoinColumn(name="nombre"))
 	@Column(name="favorito")

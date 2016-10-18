@@ -17,9 +17,12 @@ import org.hibernate.annotations.GenericGenerator
 @Observable
 @Entity
 class Comuna implements Validator {
-	@Id	
-	@GeneratedValue(generator = "uuid")
-	@GenericGenerator(name = "uuid", strategy = "uuid2")
+	@Id
+	@GeneratedValue
+	private int id
+//	@Id	
+//	@GeneratedValue(generator = "uuid")
+//	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	@Column(length=100)
 	@Validable
 	String nombre

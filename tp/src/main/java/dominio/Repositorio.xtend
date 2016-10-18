@@ -65,9 +65,12 @@ class Repositorio extends RepoDefault<PuntoDeInteres> implements OrigenDePois  {
 	
 		
 	def PuntoDeInteres searchBynd(int id){
+		puntos= allInstances
 		puntos.findFirst[punto| punto.id==id]
+
 	}
 	def override List<PuntoDeInteres> buscar(String valor){
+		puntos= allInstances
 		buscador.mostrarPrimeros(valor,puntos,10)
 	}
 	

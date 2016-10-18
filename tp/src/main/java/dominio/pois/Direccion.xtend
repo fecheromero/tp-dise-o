@@ -16,6 +16,7 @@ import javax.persistence.Converter
 import javax.persistence.Convert
 import dependencias.PointConverter
 import javax.persistence.Transient
+import javax.persistence.FetchType
 
 @Accessors
 @Entity
@@ -48,7 +49,7 @@ class Direccion implements Validator {
 	String provincia
 	@Validable
 	
-	@ManyToOne()
+	@ManyToOne(fetch = FetchType.EAGER)
 	Comuna comuna
 	@Validable
 	@Column(length=100)

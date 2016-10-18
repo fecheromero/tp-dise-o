@@ -95,10 +95,11 @@ class PoiController {
 	@Put('/pois/:poiId/:usuario/:puntaje/:comentario')
 	def Result agregarReview(){
 		try {
-			var PuntoDeInteres poi=repo.searchBynd(Integer.parseInt(poiId))
 			var comentarioSplit=comentario.split("SPC").fold("", [str1, str2|str1.concat(" ").concat(str2).concat(" ")])
 			var Review review = new Review(usuario,Integer.parseInt(puntaje),comentarioSplit)
+			var PuntoDeInteres poi=repo.searchBynd(Integer.parseInt(poiId))
 			poi.agregarReview(review)
+			repo.update(poi)
 			ok('{ "status" : "OK" }')
 			
 		} catch (Exception e) {

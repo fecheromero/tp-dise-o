@@ -18,6 +18,7 @@ class RepoUsuarios extends RepoDefault<PerfilDeUsuario>{
 	private new(){
 	}
 	var Set<PerfilDeUsuario> usuarios=new HashSet<PerfilDeUsuario>
+	
 	def public static RepoUsuarios getInstance(){
 		return instance
 	}

@@ -30,12 +30,12 @@ import dominio.tiempo.Turno
 abstract class RepoDefault<T> {
 	
 	protected static final SessionFactory sessionFactory = new Configuration().configure()
+		.addAnnotatedClass(Review)
 		.addAnnotatedClass(PuntoDeInteres)
 		.addAnnotatedClass(ParadaDeColectivo)
 		.addAnnotatedClass(CGP)
 		.addAnnotatedClass(SucursalBanco)
 		.addAnnotatedClass(Direccion)
-		.addAnnotatedClass(Review)
 		.addAnnotatedClass(Servicio)
 		.addAnnotatedClass(Horario)
 		.addAnnotatedClass(Comuna)

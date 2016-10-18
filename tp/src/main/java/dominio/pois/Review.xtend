@@ -11,12 +11,12 @@ import javax.persistence.Column
 class Review {
 	@Id
 	@GeneratedValue
-	int Id
+	private int Id
 	@Column
 	int puntaje
-	@Column
+	@Column(length=200)
 	String comentario
-	@Column
+	@Column(length=100)
 	String usuario
 	
 	new() {

@@ -19,6 +19,7 @@ import javax.persistence.Column
 import javax.persistence.Enumerated
 import javax.persistence.EnumType
 import javax.persistence.ElementCollection
+import javax.persistence.FetchType
 
 //import org.joda.time.Partial
 //import org.joda.time.chrono.ISOChronology
@@ -31,13 +32,13 @@ public class Horario implements Validator {
 	@GeneratedValue
 	int Id
 	@Validable
-	@ElementCollection(targetClass=Dia)
+	@ElementCollection(fetch = FetchType.EAGER,targetClass=Dia)
 	@CollectionTable(name="Dias",joinColumns=@JoinColumn(name="Id"))
 	@JoinTable(name = "Dia", joinColumns = @JoinColumn(name = "Id"))
 	@Column(name ="Dia", nullable = false)
 	Set<Dia> diasHabilesPoi
 	@Validable
-	@ManyToMany(cascade=ALL)
+	@ManyToMany(fetch = FetchType.EAGER,cascade=ALL)
 	Set<Turno> turnosDisponibles
 	
 	new() {
