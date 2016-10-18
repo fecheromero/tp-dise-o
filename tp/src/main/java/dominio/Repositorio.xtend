@@ -35,6 +35,20 @@ class Repositorio extends RepoDefault<PuntoDeInteres> implements OrigenDePois  {
 		unPunto.validate()
 		if(searchBynd(unPunto.id)!=null) throw new NoValidoException("El Punto ya existe")
 		else{
+				val session = sessionFactory.openSession
+				try {
+			session.beginTransaction
+			session.save(unPunto.direccion.comuna)
+			session.save(unPunto.direccion)
+			if(unPunto.servicios.isNullOrEmpty){}
+			else{unPunto.servicios.forEach[servicio| session.save(servicio)]}
+			session.getTransaction.commit
+		} catch (HibernateException e) {
+			session.getTransaction.rollback
+			throw new RuntimeException(e)
+		} finally {
+			session.close
+		}
 			super.create(unPunto) 
 			println("cree A:");
 			println(unPunto.nombre);

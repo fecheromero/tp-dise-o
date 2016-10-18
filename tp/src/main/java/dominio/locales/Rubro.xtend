@@ -7,12 +7,13 @@ import javax.persistence.Entity
 import javax.persistence.Column
 import javax.persistence.Id
 import javax.persistence.GeneratedValue
+import org.hibernate.annotations.GenericGenerator
 
 @Accessors
 @Entity
 class Rubro implements Validator {
 	@Id
-	@GeneratedValue
+	@GeneratedValue()
 	int Id
 	@Validable
 	@Column(length=100)

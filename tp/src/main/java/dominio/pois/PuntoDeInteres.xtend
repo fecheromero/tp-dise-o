@@ -51,7 +51,7 @@ public abstract class PuntoDeInteres implements Validator {
 	@Validable
 	@Column(length=100)
 	String nombre
-	@ManyToOne()
+	@ManyToOne(cascade=ALL)
 	Horario horario
 	@ManyToMany()
 	Set<Servicio> servicios

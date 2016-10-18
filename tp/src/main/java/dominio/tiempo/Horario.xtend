@@ -37,7 +37,7 @@ public class Horario implements Validator {
 	@Column(name ="Dia", nullable = false)
 	Set<Dia> diasHabilesPoi
 	@Validable
-	@ManyToMany()
+	@ManyToMany(cascade=ALL)
 	Set<Turno> turnosDisponibles
 	
 			

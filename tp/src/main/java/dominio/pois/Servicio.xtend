@@ -13,19 +13,20 @@ import javax.persistence.GeneratedValue
 import javax.persistence.JoinColumn
 import javax.persistence.ManyToMany
 import javax.persistence.ManyToOne
+import org.hibernate.annotations.GenericGenerator
 
 @Accessors
 @Observable
 @Entity
 class Servicio implements Validator {
 	@Id
-	@GeneratedValue
-	int Id
+	@GeneratedValue(generator = "uuid")
+	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	@Validable
 	@Column(length=100)
 	String nombre
 	@Validable
-	@ManyToOne(cascade=PERSIST)
+	@ManyToOne(cascade=ALL)
   	Horario horario
 
 

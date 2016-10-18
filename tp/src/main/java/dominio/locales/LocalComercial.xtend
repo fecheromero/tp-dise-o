@@ -17,7 +17,7 @@ import javax.persistence.ManyToOne
 @DiscriminatorValue("1")
 public class LocalComercial extends PuntoDeInteres {
 	@Validable
-	@ManyToOne()
+	@ManyToOne(cascade=ALL)
 	Rubro rubro
 	@Validable
 	@ManyToOne()

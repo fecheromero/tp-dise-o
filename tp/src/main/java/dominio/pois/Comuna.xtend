@@ -11,14 +11,15 @@ import javax.persistence.Column
 import javax.persistence.Id
 import javax.persistence.Transient
 import javax.persistence.GeneratedValue
+import org.hibernate.annotations.GenericGenerator
 
 @Accessors
 @Observable
 @Entity
 class Comuna implements Validator {
-	@Id
-	@GeneratedValue
-	int Id
+	@Id	
+	@GeneratedValue(generator = "uuid")
+	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	@Column(length=100)
 	@Validable
 	String nombre
