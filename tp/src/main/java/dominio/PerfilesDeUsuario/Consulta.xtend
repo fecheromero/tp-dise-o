@@ -7,9 +7,15 @@ import java.util.List
 import observer.Accion
 import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.HashSet
+import javax.persistence.Entity
+import javax.persistence.DiscriminatorValue
+import javax.persistence.Transient
 
 @Accessors
+@Entity
+@DiscriminatorValue("1")
 class Consulta extends PerfilDeUsuario {
+	@Transient
 	List<Accion> listaDeAcciones = new ArrayList<Accion>
 
 	new(String nom,String psw, Busqueda busc, ArrayList<Accion> acciones) {

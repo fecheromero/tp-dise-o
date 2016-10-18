@@ -19,11 +19,13 @@ import javax.persistence.ManyToOne
 @Entity
 class Servicio implements Validator {
 	@Id
+	@GeneratedValue
+	int Id
 	@Validable
 	@Column(length=100)
 	String nombre
 	@Validable
-	@ManyToOne(cascade=ALL)
+	@ManyToOne(cascade=PERSIST)
   	Horario horario
 
 

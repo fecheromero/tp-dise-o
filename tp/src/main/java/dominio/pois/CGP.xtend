@@ -26,7 +26,6 @@ import java.util.Set
 public class CGP extends PuntoDeInteres {
 	@Validable
 	@ManyToMany()
-	@JoinColumn(name="nombre")
 	Set<Servicio> servicios
 	new(HashSet<Servicio> _servicios, Direccion _direccion, String _nombre) {
 		this.nombre = _nombre

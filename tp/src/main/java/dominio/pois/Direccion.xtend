@@ -31,11 +31,11 @@ class Direccion implements Validator {
 	@Column(length=100)
 	String numero
 	@Validable	
-	@Column(length=100)
+	@Column()
 	String[] entre
 	@Validable
 	@JsonIgnore
-	@Column(length=20)
+	@Column()
 	@Convert(converter=PointConverter)
 	Point coordenadas
 	@Validable
@@ -48,7 +48,7 @@ class Direccion implements Validator {
 	String provincia
 	@Validable
 	
-	@ManyToOne(cascade=ALL)
+	@ManyToOne()
 	Comuna comuna
 	@Validable
 	@Column(length=100)

@@ -8,9 +8,15 @@ import procesos.ResultadosPorProceso
 import org.joda.time.LocalDateTime
 import procesos.InterfazProcesoDeError
 import org.eclipse.xtend.lib.annotations.Accessors
+import javax.persistence.Entity
+import javax.persistence.DiscriminatorValue
+import javax.persistence.Transient
 
 @Accessors
+@Entity
+@DiscriminatorValue("2")
 class Administrador extends PerfilDeUsuario {
+	@Transient
 	InterfazProcesoDeError accionDeError
 
 	new(Busqueda busc) {

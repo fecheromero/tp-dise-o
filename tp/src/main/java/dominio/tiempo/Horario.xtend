@@ -32,12 +32,12 @@ public class Horario implements Validator {
 	int Id
 	@Validable
 	@ElementCollection(targetClass=Dia)
-	@CollectionTable(name="Dias",joinColumns=@JoinColumn(name="id"))
+	@CollectionTable(name="Dias",joinColumns=@JoinColumn(name="Id"))
 	@JoinTable(name = "Dia", joinColumns = @JoinColumn(name = "Id"))
 	@Column(name ="Dia", nullable = false)
 	Set<Dia> diasHabilesPoi
 	@Validable
-	@ManyToMany(cascade=ALL)
+	@ManyToMany()
 	Set<Turno> turnosDisponibles
 	
 			

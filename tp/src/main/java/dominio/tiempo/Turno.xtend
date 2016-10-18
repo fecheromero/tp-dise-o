@@ -16,10 +16,10 @@ class Turno implements Validator {
 	@Id
 	@GeneratedValue
 	int Id
-	@Column(length=50)
+	@Column()
 	LocalTime horaInicio
 	@Validable
-	@Column(length=50)
+	@Column()
 	LocalTime horaFin
 	new(LocalTime _horaInicio,LocalTime _horaFin){
 		this.horaInicio=_horaInicio
