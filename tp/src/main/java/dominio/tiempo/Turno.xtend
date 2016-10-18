@@ -21,6 +21,10 @@ class Turno implements Validator {
 	@Validable
 	@Column()
 	LocalTime horaFin
+	
+	new() {
+		
+	}
 	new(LocalTime _horaInicio,LocalTime _horaFin){
 		this.horaInicio=_horaInicio
 		this.horaFin=_horaFin

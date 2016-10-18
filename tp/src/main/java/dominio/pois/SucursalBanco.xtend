@@ -34,6 +34,9 @@ class SucursalBanco extends PuntoDeInteres {
 		super.horario=_horario
 		horario=_horario
 	}
+	new() {
+		
+	}
 	new(HashSet<Servicio> _servicios, Direccion _direccion, String _nombre) {
 		this.nombre = _nombre
 		this.direccion = _direccion

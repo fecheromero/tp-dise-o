@@ -21,6 +21,9 @@ class Rubro implements Validator {
 	@Column()
 	var double DISTANCIA_MAXIMA 
 	
+	new() {
+		
+	}
 	new(String _nombre,Double _distanciamaxima){
 		this.nombre=_nombre
 		DISTANCIA_MAXIMA = _distanciamaxima

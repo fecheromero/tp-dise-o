@@ -18,6 +18,9 @@ class Consulta extends PerfilDeUsuario {
 	@Transient
 	List<Accion> listaDeAcciones = new ArrayList<Accion>
 
+	new() {
+		
+	}
 	new(String nom,String psw, Busqueda busc, ArrayList<Accion> acciones) {
 		buscador = busc
 		nombre = nom

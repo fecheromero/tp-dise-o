@@ -29,7 +29,9 @@ class Servicio implements Validator {
 	@ManyToOne(cascade=ALL)
   	Horario horario
 
-
+	new() {
+		
+	}
 	new(String _nombre,Horario _horario) {
 		this.nombre = _nombre
 		this.horario = _horario

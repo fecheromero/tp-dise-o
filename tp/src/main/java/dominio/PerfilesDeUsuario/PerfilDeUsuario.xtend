@@ -22,31 +22,30 @@ import java.util.Set
 import javax.persistence.CollectionTable
 import javax.persistence.ElementCollection
 import javax.persistence.JoinColumn
+import org.hibernate.annotations.GenericGenerator
 
 @Accessors
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="tipoPoi", discriminatorType=DiscriminatorType.INTEGER)
 public abstract class PerfilDeUsuario {
-	@Id
-	@GeneratedValue
-	int Id
 	@Transient
 	Busqueda buscador
+	@Id
 	@Column(length=150)
 	String nombre
 	@Column(length=150)
 	String contraseña
-	@Transient	
+	@Transient
 	List<Accion> listaDeAcciones = new ArrayList<Accion>
 	@ElementCollection
-	 @CollectionTable(name="favoritos", joinColumns=@JoinColumn(name="nombre"))
-   @Column(name="favorito")
-  
-	Set<Integer> favoritos=new	HashSet<Integer>
-	def List<PuntoDeInteres> buscar(String str){
-		buscador.buscar(str,this)
+	@CollectionTable(name="favoritos", joinColumns=@JoinColumn(name="nombre"))
+	@Column(name="favorito")
+	Set<Integer> favoritos = new HashSet<Integer>
+
+	def List<PuntoDeInteres> buscar(String str) {
+		buscador.buscar(str, this)
 	}
+
 	def boolean estaHabilitadaLaAccion(Accion accion)
 }
-

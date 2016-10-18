@@ -19,6 +19,9 @@ class Administrador extends PerfilDeUsuario {
 	@Transient
 	InterfazProcesoDeError accionDeError
 
+	new() {
+		
+	}
 	new(Busqueda busc) {
 		buscador = busc
 	}

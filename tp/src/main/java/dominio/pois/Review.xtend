@@ -18,6 +18,10 @@ class Review {
 	String comentario
 	@Column
 	String usuario
+	
+	new() {
+		
+	}
 	new(String _usuario,Integer _puntaje, String _comentario) {
 		puntaje = _puntaje
 		comentario = _comentario

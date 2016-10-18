@@ -27,6 +27,9 @@ public class CGP extends PuntoDeInteres {
 	@Validable
 	@ManyToMany()
 	Set<Servicio> servicios
+	new() {
+		
+	}
 	new(HashSet<Servicio> _servicios, Direccion _direccion, String _nombre) {
 		this.nombre = _nombre
 		this.direccion = _direccion

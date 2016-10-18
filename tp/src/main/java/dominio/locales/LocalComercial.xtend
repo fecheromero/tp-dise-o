@@ -32,7 +32,9 @@ public class LocalComercial extends PuntoDeInteres {
 	override String listaDeTags() {
 		super.listaDeTags().concat(" ".concat(rubro.nombre).concat(" ").concat(otrosTags))
 	}
-	
+	new() {
+		
+	}
 	new(String _nombre, Horario _horario, Direccion _direccion, Rubro _rubro){
 		this.nombre = _nombre
 		this.sethorario(_horario)

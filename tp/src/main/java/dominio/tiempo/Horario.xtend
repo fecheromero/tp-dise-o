@@ -40,7 +40,9 @@ public class Horario implements Validator {
 	@ManyToMany(cascade=ALL)
 	Set<Turno> turnosDisponibles
 	
-			
+	new() {
+		
+	}		
 	
 	new(HashSet<Dia> _diashabiles, HashSet<Turno> _turnos) {
 		this.diasHabilesPoi = _diashabiles

@@ -28,6 +28,9 @@ class Comuna implements Validator {
 	@Transient
 	Polygon poligono
 	
+	new() {
+		
+	}
 	new(String nombre, Polygon poligono){
 		this.nombre = nombre
 		this.poligono = poligono
