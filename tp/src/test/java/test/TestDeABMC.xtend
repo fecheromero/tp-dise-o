@@ -46,7 +46,7 @@ class TestDeABMC {
 	def void setUp(){
 		Identificador.getInstance.reset
 		repo=Repositorio.getInstance
-		repo.puntos=new ArrayList<PuntoDeInteres>
+		repo.puntos=new HashSet<PuntoDeInteres>
 		unosTurnos=new HashSet<Turno>
 		unosTurnos.add(new Turno(new LocalTime(0,10),new LocalTime(2,4)))
 		unosDias=new HashSet<Dia>

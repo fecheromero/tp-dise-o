@@ -22,7 +22,7 @@ import usuarios.RepoUsuarios
 @Controller
 class PoiController {
 
-	var Busqueda busquedaPois = new Busqueda
+ 	var Busqueda busquedaPois = new Busqueda
 	var Administrador admin = new Administrador(busquedaPois)
 	var Repositorio repo = Repositorio.instance
 	var Bootstrap unBoots = new Bootstrap
@@ -31,12 +31,12 @@ class PoiController {
 	
 
 	new() {
+		busquedaPois.agregarOrigen(Repositorio.instance)
 
 		repo.create(unBoots.obtenerCGPFlores)
 		repo.create(unBoots.obtenerBanco)
 		repo.create(unBoots.obtenerKiosco)
 		repo.create(unBoots.obtenerParadaColectivo)
-		busquedaPois.agregarOrigen(Repositorio.instance)
 
 		repoUsuarios.create(new Consulta("admin", "12345", busquedaPois, new ArrayList()))
 		repoUsuarios.create(new Consulta("chona", "chona", busquedaPois, new ArrayList()))
@@ -44,6 +44,7 @@ class PoiController {
 		repoUsuarios.create(new Consulta("nadia", "nadia", busquedaPois, new ArrayList()))
 		repoUsuarios.create(new Consulta("cande", "cande", busquedaPois, new ArrayList()))
 		repoUsuarios.create(new Consulta("pepito","123",busquedaPois,newArrayList()));
+
 
 	}
 
@@ -100,7 +101,7 @@ class PoiController {
 			var Review review = new Review(usuario,Integer.parseInt(puntaje),comentarioSplit)
 			var PuntoDeInteres poi=repo.searchBynd(Integer.parseInt(poiId))
 			repoReviews.create(review)
-			poi.agregarReview(review)
+			poi.reviews.add(review)
 			repo.update(poi)
 			ok('{ "status" : "OK" }')
 			

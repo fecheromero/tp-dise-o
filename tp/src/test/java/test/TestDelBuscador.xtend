@@ -18,6 +18,7 @@ import fixtures.LibreriaFixture
 import fixtures.KioscoFixture
 import java.util.List
 import java.util.ArrayList
+import java.util.Set
 
 public class TestDelBuscador {
 	Buscador buscador
@@ -31,7 +32,7 @@ public class TestDelBuscador {
 	ParadaDeColectivo _114
 	LocalComercial unaLibreria
 	LocalComercial unKiosco
-	List<PuntoDeInteres> unSorteaditoDePuntos
+	Set<PuntoDeInteres> unSorteaditoDePuntos
 	CGPFixture cgpFixture
 	ParadaColectivoFixture paradaFixture
 	LibreriaFixture libreriaFixture
@@ -59,7 +60,7 @@ public class TestDelBuscador {
 		
 		unKiosco = kioscoFixture.obtenerKiosco
 		
-		unSorteaditoDePuntos = new ArrayList<PuntoDeInteres>
+		unSorteaditoDePuntos = new HashSet<PuntoDeInteres>
 		unSorteaditoDePuntos.addAll(#[unaLibreria, _114, unCGP, unKiosco])
 		
 		buscador = Buscador.getInstance

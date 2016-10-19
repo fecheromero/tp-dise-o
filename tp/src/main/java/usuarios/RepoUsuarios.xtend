@@ -14,7 +14,9 @@ import excepciones.NoValidoException
 
 @Accessors
 class RepoUsuarios extends RepoDefault<PerfilDeUsuario>{
+	
 	private static RepoUsuarios instance=new RepoUsuarios()
+	
 	private new(){
 	}
 	var Set<PerfilDeUsuario> usuarios=new HashSet<PerfilDeUsuario>
