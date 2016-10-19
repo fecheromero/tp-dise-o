@@ -27,6 +27,7 @@ class PoiController {
 	var Repositorio repo = Repositorio.instance
 	var Bootstrap unBoots = new Bootstrap
 	var RepoUsuarios repoUsuarios = RepoUsuarios.instance
+	var RepoReviews repoReviews=RepoReviews.instance
 	
 
 	new() {
@@ -98,6 +99,7 @@ class PoiController {
 			var comentarioSplit=comentario.split("SPC").fold("", [str1, str2|str1.concat(" ").concat(str2).concat(" ")])
 			var Review review = new Review(usuario,Integer.parseInt(puntaje),comentarioSplit)
 			var PuntoDeInteres poi=repo.searchBynd(Integer.parseInt(poiId))
+			repoReviews.create(review)
 			poi.agregarReview(review)
 			repo.update(poi)
 			ok('{ "status" : "OK" }')

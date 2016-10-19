@@ -11,11 +11,14 @@ import javax.persistence.Column
 class Review {
 	@Id
 	@GeneratedValue
-	private int Id
+	private long id
+	
 	@Column
 	int puntaje
+	
 	@Column(length=200)
 	String comentario
+	
 	@Column(length=100)
 	String usuario
 	
@@ -23,8 +26,8 @@ class Review {
 		
 	}
 	new(String _usuario,Integer _puntaje, String _comentario) {
-		puntaje = _puntaje
-		comentario = _comentario
-		usuario=_usuario
+		this.puntaje = _puntaje
+		this.comentario = _comentario
+		this.usuario=_usuario
 	}
 }

@@ -52,12 +52,12 @@ public class Buscador {
 	def Collection<PuntoDeInteres> ordenarPuntosSegunSemejanzaA(String str1,HashSet<PuntoDeInteres> puntos){
 		puntos.filter[this.separarPalabras(it.listaDeTags()).exists[this.sonParecidas(str1,it)]].sort[p1,p2|if(yo.puntajeTotalDelPunto(p1,str1)>yo.puntajeTotalDelPunto(p2,str1)) 1 else -1]
 	}
-	def PuntoDeInteres[] mostrarPrimeros(String str1,List<PuntoDeInteres> puntos, int cant){
+	def PuntoDeInteres[] mostrarPrimeros(String str1,Set<PuntoDeInteres> puntos, int cant){
 		this.ordenarPuntosSegunSemejanzaA(str1, puntos).take(cant)
 	}
 	
 
-	def Collection<PuntoDeInteres> ordenarPuntosSegunSemejanzaA(String str1, List<PuntoDeInteres> puntos){
+	def Collection<PuntoDeInteres> ordenarPuntosSegunSemejanzaA(String str1, Set<PuntoDeInteres> puntos){
 		puntos.filter[this.separarPalabras(it.listaDeTags()).exists[this.sonParecidas(str1,it)]].sort[p1,p2|if(yo.puntajeTotalDelPunto(p1,str1)>yo.puntajeTotalDelPunto(p2,str1)) 1 else -1]
 	}
 	

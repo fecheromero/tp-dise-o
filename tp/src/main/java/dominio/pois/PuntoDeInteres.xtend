@@ -61,13 +61,14 @@ public abstract class PuntoDeInteres implements Validator {
 	@ElementCollection
 	@CollectionTable(name="Reviews", joinColumns=@JoinColumn(name="poi_id"))
 	@Column(name="Reviews")
+//	@OneToMany(fetch=FetchType.EAGER, cascade=ALL)
 	List<Review> reviews=new ArrayList<Review>
 	
 	@Column(length=20)
 	var double DISTANCIA_MAXIMA = 0.5
 	
 	def void agregarReview(Review review){
-		reviews.add(review)
+		this.reviews.add(review)
 	}
 
 	public def String listaDeTags() {
@@ -107,9 +108,7 @@ public abstract class PuntoDeInteres implements Validator {
 	view.openDialog(ventana)
 	
 }
-	def void actualizar(PuntoDeInteres yo) {
-		Repositorio.instance.update(yo)
-	}
+
 
 	/*def void validate() {
 

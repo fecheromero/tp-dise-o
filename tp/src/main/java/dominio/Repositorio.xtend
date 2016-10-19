@@ -12,11 +12,12 @@ import org.hibernate.Criteria
 import org.hibernate.criterion.Restrictions
 import org.hibernate.FetchMode
 import org.hibernate.HibernateException
+import java.util.Set
 
 @Accessors
 class Repositorio extends RepoDefault<PuntoDeInteres> implements OrigenDePois  {
 	InterfazCGP servicioExtCGP
-	List<PuntoDeInteres> puntos=new ArrayList<PuntoDeInteres>
+	Set<PuntoDeInteres> puntos=new HashSet<PuntoDeInteres>
 	Buscador buscador=Buscador.getInstance
 	private static Repositorio uno=new Repositorio()
 		private new( ){}
@@ -65,12 +66,13 @@ class Repositorio extends RepoDefault<PuntoDeInteres> implements OrigenDePois  {
 	
 		
 	def PuntoDeInteres searchBynd(int id){
-		puntos= allInstances
+		puntos= allInstances.toSet
+		puntos.forEach[punto|System.out.println(punto.nombre)]
 		puntos.findFirst[punto| punto.id==id]
 
 	}
 	def override List<PuntoDeInteres> buscar(String valor){
-		puntos= allInstances
+		puntos= allInstances.toSet
 		buscador.mostrarPrimeros(valor,puntos,10)
 	}
 	

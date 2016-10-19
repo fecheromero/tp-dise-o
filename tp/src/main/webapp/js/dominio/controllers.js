@@ -119,17 +119,17 @@ app.controller('poiController', function(poisService,$stateParams, $state) {
 	});
 	this.poi = poiCache;
 
-	if (poiCache instanceof LocalComercial) {
+	if (poiCache.tipo == "LocalComercial") {
 		$state.go("busqueda.verInfo.LocalComercial");
 
 	}
-	if (poiCache instanceof Colectivo) {
+	if (poiCache.tipo == "Colectivo") {
 		$state.go("busqueda.verInfo.Colectivo");
 	}
-	if (poiCache instanceof CGP) {
+	if (poiCache.tipo == "CGP") {
 		$state.go("busqueda.verInfo.CGP");
 	}
-	if (poiCache instanceof SucursalBanco) {
+	if (poiCache.tipo == "SucursalBanco") {
 		$state.go("busqueda.verInfo.SucursalBanco");
 	};
 	this.tieneReview=_.some(self.poi.reviews,{

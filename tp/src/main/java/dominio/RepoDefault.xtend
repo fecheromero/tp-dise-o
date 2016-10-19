@@ -94,6 +94,7 @@ abstract class RepoDefault<T> {
 		try {
 			session.beginTransaction
 			session.update(t)
+			session.flush()
 			session.getTransaction.commit
 		} catch (HibernateException e) {
 			session.getTransaction.rollback

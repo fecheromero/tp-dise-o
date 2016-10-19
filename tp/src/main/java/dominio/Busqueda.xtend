@@ -18,7 +18,7 @@ class Busqueda {
 	def List<PuntoDeInteres> buscar(String str, PerfilDeUsuario user) {
 		
 		var tiempoInicio = System.currentTimeMillis()
-		val lista = Buscador.getInstance.mostrarPrimeros(str, origenes.map[origen|origen.buscar(str)].flatten.toList,
+		val lista = Buscador.getInstance.mostrarPrimeros(str, origenes.map[origen|origen.buscar(str)].flatten.toSet,
 			10)
 		var tiempoFin = System.currentTimeMillis()
 		val tiempo = tiempoFin - tiempoInicio
