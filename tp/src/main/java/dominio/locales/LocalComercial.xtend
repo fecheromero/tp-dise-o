@@ -6,6 +6,8 @@ import dominio.pois.PuntoDeInteres
 import dominio.pois.Direccion
 import dependencias.Validable
 import dependencias.Identificador
+import views.ParParametrico
+import com.fasterxml.jackson.annotation.JsonProperty
 
 @Accessors
 public class LocalComercial extends PuntoDeInteres {
@@ -33,6 +35,15 @@ public class LocalComercial extends PuntoDeInteres {
 		
 	}
 	
+	override parametrosTextBox(){
+		#[new ParParametrico("direccion","direccion.direccionS"),new ParParametrico("nombre","nombre"),new ParParametrico("rubro","rubro.nombre")]
+	}
+	@JsonProperty("tipo")
+	
+	def String tipo() {
+		"LocalComercial"
+	
+		}
 	/*override validate() {
 
 		if (PuntoDeInteres.declaredFields.filter[field|field.name!="servicios"].exists [ field |

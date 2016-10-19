@@ -1,0 +1,26 @@
+	<div >
+		<div class="card-block">
+
+			<h4 class="card-title">
+				<b>Direccion: {{poiCtrl.poi.direccion.direccionS}}</b>
+			</h4>
+			<h3 class="card-text">Barrio: {{poiCtrl.poi.direccion.comuna.nombre}}</h3>
+
+			<table class="table table-striped table-hover"
+				ng-table="poiCtrl.poi.servicios">
+				<thead class="thead-inverse">
+					<th>Servicios</th>
+
+
+				</thead>
+				<tr ng-repeat="servicio in poiCtrl.poi.servicios">
+
+
+					<th>{{servicio.nombre}}</th>
+
+
+				</tr>
+			</table>
+		</div>
+
+	</div>
